@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0297768bbded4fc5a03c160d8332f420" Name="Diagram1" >
+        <EntityTypeShape EntityType="RssAggregatorModel.DataSources" Width="1.5" PointX="2.375" PointY="3.75" />
+        <EntityTypeShape EntityType="RssAggregatorModel.News" Width="1.5" PointX="4.375" PointY="3.75" />
+        <AssociationConnector Association="RssAggregatorModel.NewsDataSources" />
+        <EntityTypeShape EntityType="RssAggregatorModel.User" Width="1.875" PointX="6.375" PointY="3.625" />
+        <AssociationConnector Association="RssAggregatorModel.NewsUsers" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Template" Width="1.5" PointX="8.75" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="RssAggregatorModel.UsersTemplates" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Comments" Width="1.5" PointX="5.25" PointY="8.875" />
+        <AssociationConnector Association="RssAggregatorModel.NewsComments" />
+        <AssociationConnector Association="RssAggregatorModel.UsersComments" />
+        <EntityTypeShape EntityType="RssAggregatorModel.UsersImage" Width="1.5" PointX="7.875" PointY="8.25" />
+        <AssociationConnector Association="RssAggregatorModel.UserImage" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Icons" Width="1.5" PointX="10.625" PointY="3.625" />
+        <AssociationConnector Association="RssAggregatorModel.NewsUsersImage" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Log" Width="1.5" PointX="12.5" PointY="3.25" />
+        <EntityTypeShape EntityType="RssAggregatorModel.NewDataSourceRequest" Width="2.125" PointX="11.75" PointY="5.625" />
+        <AssociationConnector Association="RssAggregatorModel.UserNewDataSourceRequest" />
+        <EntityTypeShape EntityType="RssAggregatorModel.UserFeedback" Width="1.5" PointX="9.75" PointY="6.375" />
+        <AssociationConnector Association="RssAggregatorModel.UserUserFeedback" />
+        <EntityTypeShape EntityType="RssAggregatorModel.UserMessages" Width="1.5" PointX="6.625" PointY="0.5" />
+        <AssociationConnector Association="RssAggregatorModel.UserMessagesUser" ></AssociationConnector>
+        <AssociationConnector Association="RssAggregatorModel.UserMessagesUser1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,832 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RssAggregatorModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="RssAggregatorModelStoreContainer">
+    <EntitySet Name="DataSourcesSet" EntityType="RssAggregatorModel.Store.DataSourcesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NewsSet" EntityType="RssAggregatorModel.Store.NewsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserSet" EntityType="RssAggregatorModel.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TemplateSet" EntityType="RssAggregatorModel.Store.TemplateSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CommentsSet" EntityType="RssAggregatorModel.Store.CommentsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsersImageSet" EntityType="RssAggregatorModel.Store.UsersImageSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IconsSet" EntityType="RssAggregatorModel.Store.IconsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LogSet" EntityType="RssAggregatorModel.Store.LogSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NewDataSourceRequestSet" EntityType="RssAggregatorModel.Store.NewDataSourceRequestSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserFeedbackSet" EntityType="RssAggregatorModel.Store.UserFeedbackSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserMessagesSet" EntityType="RssAggregatorModel.Store.UserMessagesSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="NewsDataSources" Association="RssAggregatorModel.Store.NewsDataSources">
+      <End Role="News" EntitySet="NewsSet" />
+      <End Role="DataSources" EntitySet="DataSourcesSet" />
+    </AssociationSet>
+    <AssociationSet Name="NewsUsers" Association="RssAggregatorModel.Store.NewsUsers">
+      <End Role="News" EntitySet="NewsSet" />
+      <End Role="Users" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="UsersTemplates" Association="RssAggregatorModel.Store.UsersTemplates">
+      <End Role="Users" EntitySet="UserSet" />
+      <End Role="Templates" EntitySet="TemplateSet" />
+    </AssociationSet>
+    <AssociationSet Name="NewsComments" Association="RssAggregatorModel.Store.NewsComments">
+      <End Role="News" EntitySet="NewsSet" />
+      <End Role="Comments" EntitySet="CommentsSet" />
+    </AssociationSet>
+    <AssociationSet Name="UsersComments" Association="RssAggregatorModel.Store.UsersComments">
+      <End Role="Users" EntitySet="UserSet" />
+      <End Role="Comments" EntitySet="CommentsSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserImage" Association="RssAggregatorModel.Store.UserImage">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Image" EntitySet="UsersImageSet" />
+    </AssociationSet>
+    <AssociationSet Name="NewsUsersImage" Association="RssAggregatorModel.Store.NewsUsersImage">
+      <End Role="News" EntitySet="NewsSet" />
+      <End Role="UsersImage" EntitySet="UsersImageSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserNewDataSourceRequest" Association="RssAggregatorModel.Store.UserNewDataSourceRequest">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="NewDataSourceRequest" EntitySet="NewDataSourceRequestSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserUserFeedback" Association="RssAggregatorModel.Store.UserUserFeedback">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="UserFeedback" EntitySet="UserFeedbackSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserMessagesUser" Association="RssAggregatorModel.Store.UserMessagesUser">
+      <End Role="UserMessages" EntitySet="UserMessagesSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserMessagesUser1" Association="RssAggregatorModel.Store.UserMessagesUser1">
+      <End Role="UserMessages" EntitySet="UserMessagesSet" />
+      <End Role="User" EntitySet="UserSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DataSourcesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="XMLGuide" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BaseUri" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NewsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AuthorName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AuthorId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AuthorLink" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PostLikes" Type="int" Nullable="false" />
+    <Property Name="PostName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PostLink" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PostContent" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostTags" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="External" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="AdultContent" Type="bit" Nullable="false" />
+    <Property Name="DataSource_Id" Type="int" Nullable="true" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="tinyint" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TemplateSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="View" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Version" Type="int" Nullable="true" />
+    <Property Name="Type" Type="tinyint" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommentsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="RespondTo" Type="int" Nullable="true" />
+    <Property Name="News_Id" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsersImageSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="News_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IconsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LogSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StackTrace" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Source" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="Type" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NewDataSourceRequestSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Seen" Type="bit" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserFeedbackSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Header" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="UserMessagesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Topic" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SendDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Read" Type="bit" Nullable="false" />
+    <Property Name="FromUser_Id" Type="int" Nullable="false" />
+    <Property Name="ToUser_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="NewsDataSources">
+    <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="*" />
+    <End Role="DataSources" Type="RssAggregatorModel.Store.DataSourcesSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DataSources">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="DataSource_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="NewsUsers">
+    <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="*" />
+    <End Role="Users" Type="RssAggregatorModel.Store.UserSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersTemplates">
+    <End Role="Users" Type="RssAggregatorModel.Store.UserSet" Multiplicity="1" />
+    <End Role="Templates" Type="RssAggregatorModel.Store.TemplateSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Templates">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="NewsComments">
+    <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="1" />
+    <End Role="Comments" Type="RssAggregatorModel.Store.CommentsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="News">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="News_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersComments">
+    <End Role="Users" Type="RssAggregatorModel.Store.UserSet" Multiplicity="1" />
+    <End Role="Comments" Type="RssAggregatorModel.Store.CommentsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserImage">
+    <End Role="User" Type="RssAggregatorModel.Store.UserSet" Multiplicity="1" />
+    <End Role="Image" Type="RssAggregatorModel.Store.UsersImageSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="NewsUsersImage">
+    <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="1" />
+    <End Role="UsersImage" Type="RssAggregatorModel.Store.UsersImageSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="News">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersImage">
+        <PropertyRef Name="News_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserNewDataSourceRequest">
+    <End Role="User" Type="RssAggregatorModel.Store.UserSet" Multiplicity="1" />
+    <End Role="NewDataSourceRequest" Type="RssAggregatorModel.Store.NewDataSourceRequestSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NewDataSourceRequest">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserUserFeedback">
+    <End Role="User" Type="RssAggregatorModel.Store.UserSet" Multiplicity="0..1" />
+    <End Role="UserFeedback" Type="RssAggregatorModel.Store.UserFeedbackSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserFeedback">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserMessagesUser">
+    <End Role="UserMessages" Type="RssAggregatorModel.Store.UserMessagesSet" Multiplicity="*" />
+    <End Role="User" Type="RssAggregatorModel.Store.UserSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserMessages">
+        <PropertyRef Name="FromUser_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserMessagesUser1">
+    <End Role="UserMessages" Type="RssAggregatorModel.Store.UserMessagesSet" Multiplicity="*" />
+    <End Role="User" Type="RssAggregatorModel.Store.UserSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserMessages">
+        <PropertyRef Name="ToUser_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="RssAggregatorModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="RssAggregatorModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DataSourcesSet" EntityType="RssAggregatorModel.DataSources" />
+          <EntitySet Name="NewsSet" EntityType="RssAggregatorModel.News" />
+          <AssociationSet Name="NewsDataSources" Association="RssAggregatorModel.NewsDataSources">
+            <End Role="News" EntitySet="NewsSet" />
+            <End Role="DataSources" EntitySet="DataSourcesSet" />
+          </AssociationSet>
+          <EntitySet Name="UserSet" EntityType="RssAggregatorModel.User" />
+          <AssociationSet Name="NewsUsers" Association="RssAggregatorModel.NewsUsers">
+            <End Role="News" EntitySet="NewsSet" />
+            <End Role="Users" EntitySet="UserSet" />
+          </AssociationSet>
+          <EntitySet Name="TemplateSet" EntityType="RssAggregatorModel.Template" />
+          <AssociationSet Name="UsersTemplates" Association="RssAggregatorModel.UsersTemplates">
+            <End Role="Users" EntitySet="UserSet" />
+            <End Role="Templates" EntitySet="TemplateSet" />
+          </AssociationSet>
+          <EntitySet Name="CommentsSet" EntityType="RssAggregatorModel.Comments" />
+          <AssociationSet Name="NewsComments" Association="RssAggregatorModel.NewsComments">
+            <End Role="News" EntitySet="NewsSet" />
+            <End Role="Comments" EntitySet="CommentsSet" />
+          </AssociationSet>
+          <AssociationSet Name="UsersComments" Association="RssAggregatorModel.UsersComments">
+            <End Role="Users" EntitySet="UserSet" />
+            <End Role="Comments" EntitySet="CommentsSet" />
+          </AssociationSet>
+          <EntitySet Name="UsersImageSet" EntityType="RssAggregatorModel.UsersImage" />
+          <AssociationSet Name="UserImage" Association="RssAggregatorModel.UserImage">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Image" EntitySet="UsersImageSet" />
+          </AssociationSet>
+          <EntitySet Name="IconsSet" EntityType="RssAggregatorModel.Icons" />
+          <AssociationSet Name="NewsUsersImage" Association="RssAggregatorModel.NewsUsersImage">
+            <End Role="News" EntitySet="NewsSet" />
+            <End Role="UsersImage" EntitySet="UsersImageSet" />
+          </AssociationSet>
+          <EntitySet Name="LogSet" EntityType="RssAggregatorModel.Log" />
+          <EntitySet Name="NewDataSourceRequestSet" EntityType="RssAggregatorModel.NewDataSourceRequest" />
+          <AssociationSet Name="UserNewDataSourceRequest" Association="RssAggregatorModel.UserNewDataSourceRequest">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="NewDataSourceRequest" EntitySet="NewDataSourceRequestSet" />
+          </AssociationSet>
+          <EntitySet Name="UserFeedbackSet" EntityType="RssAggregatorModel.UserFeedback" />
+          <AssociationSet Name="UserUserFeedback" Association="RssAggregatorModel.UserUserFeedback">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="UserFeedback" EntitySet="UserFeedbackSet" />
+          </AssociationSet>
+          <EntitySet Name="UserMessagesSet" EntityType="RssAggregatorModel.UserMessages" />
+          <AssociationSet Name="UserMessagesUser" Association="RssAggregatorModel.UserMessagesUser">
+            <End Role="UserMessages" EntitySet="UserMessagesSet" />
+            <End Role="User" EntitySet="UserSet" />
+          </AssociationSet>
+          <AssociationSet Name="UserMessagesUser1" Association="RssAggregatorModel.UserMessagesUser1">
+            <End Role="UserMessages" EntitySet="UserMessagesSet" />
+            <End Role="User" EntitySet="UserSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DataSources">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Uri" Nullable="false" />
+          <Property Type="RssAggregatorModel.DataSourceEnum" Name="Type" Nullable="false" />
+          <NavigationProperty Name="News" Relationship="RssAggregatorModel.NewsDataSources" FromRole="DataSources" ToRole="News" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="String" Name="XMLGuide" Nullable="false" />
+          <Property Type="String" Name="BaseUri" Nullable="false" />
+        </EntityType>
+        <EnumType Name="DataSourceEnum">
+          <Member Name="VK" />
+          <Member Name="Pikabu" />
+          <Member Name="Mainfun" />
+          <Member Name="Joyreactor" />
+        </EnumType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PostId" Nullable="false" />
+          <Property Type="String" Name="AuthorName" Nullable="false" />
+          <Property Type="String" Name="AuthorId" Nullable="false" />
+          <Property Type="String" Name="AuthorLink" Nullable="true" />
+          <Property Type="Int32" Name="PostLikes" Nullable="false" />
+          <Property Type="String" Name="PostName" Nullable="true" />
+          <Property Type="String" Name="PostLink" Nullable="true" />
+          <Property Type="String" Name="PostContent" Nullable="false" />
+          <Property Type="String" Name="PostTags" Nullable="false" />
+          <NavigationProperty Name="DataSource" Relationship="RssAggregatorModel.NewsDataSources" FromRole="News" ToRole="DataSources" />
+          <Property Type="Boolean" Name="External" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="RssAggregatorModel.NewsUsers" FromRole="News" ToRole="Users" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="Boolean" Name="AdultContent" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="RssAggregatorModel.NewsComments" FromRole="News" ToRole="Comments" />
+          <NavigationProperty Name="UsersImage" Relationship="RssAggregatorModel.NewsUsersImage" FromRole="News" ToRole="UsersImage" />
+        </EntityType>
+        <Association Name="NewsDataSources">
+          <End Type="RssAggregatorModel.News" Role="News" Multiplicity="*" />
+          <End Type="RssAggregatorModel.DataSources" Role="DataSources" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" />
+          <Property Type="RssAggregatorModel.UserTypeEnum" Name="Type" Nullable="false" />
+          <NavigationProperty Name="News" Relationship="RssAggregatorModel.NewsUsers" FromRole="Users" ToRole="News" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <NavigationProperty Name="Template" Relationship="RssAggregatorModel.UsersTemplates" FromRole="Users" ToRole="Templates" />
+          <NavigationProperty Name="Comments" Relationship="RssAggregatorModel.UsersComments" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="Image" Relationship="RssAggregatorModel.UserImage" FromRole="User" ToRole="Image" />
+          <NavigationProperty Name="NewDataSourceRequest" Relationship="RssAggregatorModel.UserNewDataSourceRequest" FromRole="User" ToRole="NewDataSourceRequest" />
+          <NavigationProperty Name="UserFeedback" Relationship="RssAggregatorModel.UserUserFeedback" FromRole="User" ToRole="UserFeedback" />
+          <NavigationProperty Name="UserMessagesSend" Relationship="RssAggregatorModel.UserMessagesUser" FromRole="User" ToRole="UserMessages" />
+          <NavigationProperty Name="UserMessagesRecived" Relationship="RssAggregatorModel.UserMessagesUser1" FromRole="User" ToRole="UserMessages" />
+        </EntityType>
+        <EnumType Name="UserTypeEnum" UnderlyingType="Byte">
+          <Member Name="System" />
+          <Member Name="Admin" />
+          <Member Name="Moderator" />
+          <Member Name="User" />
+          <Member Name="Anonymous" />
+        </EnumType>
+        <Association Name="NewsUsers">
+          <End Type="RssAggregatorModel.News" Role="News" Multiplicity="*" />
+          <End Type="RssAggregatorModel.User" Role="Users" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="String" Name="View" Nullable="false" />
+          <Property Type="Int32" Name="Version" Nullable="true" />
+          <NavigationProperty Name="User" Relationship="RssAggregatorModel.UsersTemplates" FromRole="Templates" ToRole="Users" />
+          <Property Type="RssAggregatorModel.TemplateTypeEnum" Name="Type" Nullable="false" />
+        </EntityType>
+        <Association Name="UsersTemplates">
+          <End Type="RssAggregatorModel.User" Role="Users" Multiplicity="1" />
+          <End Type="RssAggregatorModel.Template" Role="Templates" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Comment" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <NavigationProperty Name="News" Relationship="RssAggregatorModel.NewsComments" FromRole="Comments" ToRole="News" />
+          <NavigationProperty Name="User" Relationship="RssAggregatorModel.UsersComments" FromRole="Comments" ToRole="Users" />
+          <Property Type="Int32" Name="RespondTo" Nullable="true" />
+          </EntityType>
+        <Association Name="NewsComments">
+          <End Type="RssAggregatorModel.News" Role="News" Multiplicity="1" />
+          <End Type="RssAggregatorModel.Comments" Role="Comments" Multiplicity="*" />
+        </Association>
+        <Association Name="UsersComments">
+          <End Type="RssAggregatorModel.User" Role="Users" Multiplicity="1" />
+          <End Type="RssAggregatorModel.Comments" Role="Comments" Multiplicity="*" />
+        </Association>
+        <EntityType Name="UsersImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Uri" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="RssAggregatorModel.UserImage" FromRole="Image" ToRole="User" />
+          <NavigationProperty Name="News" Relationship="RssAggregatorModel.NewsUsersImage" FromRole="UsersImage" ToRole="News" />
+        </EntityType>
+        <Association Name="UserImage">
+          <End Type="RssAggregatorModel.User" Role="User" Multiplicity="1" />
+          <End Type="RssAggregatorModel.UsersImage" Role="Image" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Icons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Uri" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <Association Name="NewsUsersImage">
+          <End Type="RssAggregatorModel.News" Role="News" Multiplicity="1" />
+          <End Type="RssAggregatorModel.UsersImage" Role="UsersImage" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Message" Nullable="false" />
+          <Property Type="String" Name="StackTrace" Nullable="false" />
+          <Property Type="String" Name="Source" Nullable="false" />
+          <Property Type="DateTime" Name="DateTime" Nullable="false" />
+          <Property Type="RssAggregatorModel.LogTypeEnum" Name="Type" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NewDataSourceRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Uri" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="RssAggregatorModel.UserNewDataSourceRequest" FromRole="NewDataSourceRequest" ToRole="User" />
+          <Property Type="Boolean" Name="Seen" Nullable="false" />
+        </EntityType>
+        <Association Name="UserNewDataSourceRequest">
+          <End Type="RssAggregatorModel.User" Role="User" Multiplicity="1" />
+          <End Type="RssAggregatorModel.NewDataSourceRequest" Role="NewDataSourceRequest" Multiplicity="*" />
+        </Association>
+        <EntityType Name="UserFeedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Comment" Nullable="false" />
+          <Property Type="String" Name="Header" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="RssAggregatorModel.UserUserFeedback" FromRole="UserFeedback" ToRole="User" />
+        </EntityType>
+        <Association Name="UserUserFeedback">
+          <End Type="RssAggregatorModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="RssAggregatorModel.UserFeedback" Role="UserFeedback" Multiplicity="*" />
+        </Association>
+        <EntityType Name="UserMessages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Topic" Nullable="false" />
+          <Property Type="String" Name="Message" Nullable="false" />
+          <Property Type="DateTime" Name="SendDateTime" Nullable="false" />
+          <NavigationProperty Name="FromUser" Relationship="RssAggregatorModel.UserMessagesUser" FromRole="UserMessages" ToRole="User" />
+          <NavigationProperty Name="ToUser" Relationship="RssAggregatorModel.UserMessagesUser1" FromRole="UserMessages" ToRole="User" />
+          <Property Type="Boolean" Name="Read" Nullable="false" />
+        </EntityType>
+        <Association Name="UserMessagesUser">
+          <End Type="RssAggregatorModel.UserMessages" Role="UserMessages" Multiplicity="*" />
+          <End Type="RssAggregatorModel.User" Role="User" Multiplicity="1" />
+        </Association>
+        <Association Name="UserMessagesUser1">
+          <End Type="RssAggregatorModel.UserMessages" Role="UserMessages" Multiplicity="*" />
+          <End Type="RssAggregatorModel.User" Role="User" Multiplicity="1" />
+        </Association>
+        <EnumType Name="TemplateTypeEnum" UnderlyingType="Byte">
+          <Member Name="System" />
+          <Member Name="Post" />
+          <Member Name="Header" />
+        </EnumType>
+        <EnumType Name="LogTypeEnum" UnderlyingType="Byte">
+          <Member Name="BAL" />
+          <Member Name="DAL" />
+          <Member Name="WEB" />
+          <Member Name="CORE" />
+        </EnumType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RssAggregatorModelStoreContainer" CdmEntityContainer="RssAggregatorModelContainer">
+    <EntitySetMapping Name="DataSourcesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.DataSources)">
+        <MappingFragment StoreEntitySet="DataSourcesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="XMLGuide" ColumnName="XMLGuide" />
+          <ScalarProperty Name="BaseUri" ColumnName="BaseUri" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.News)">
+        <MappingFragment StoreEntitySet="NewsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
+          <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+          <ScalarProperty Name="AuthorLink" ColumnName="AuthorLink" />
+          <ScalarProperty Name="PostLikes" ColumnName="PostLikes" />
+          <ScalarProperty Name="PostName" ColumnName="PostName" />
+          <ScalarProperty Name="PostLink" ColumnName="PostLink" />
+          <ScalarProperty Name="PostContent" ColumnName="PostContent" />
+          <ScalarProperty Name="PostTags" ColumnName="PostTags" />
+          <ScalarProperty Name="External" ColumnName="External" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AdultContent" ColumnName="AdultContent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TemplateSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.Template)">
+        <MappingFragment StoreEntitySet="TemplateSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="View" ColumnName="View" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommentsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.Comments)">
+        <MappingFragment StoreEntitySet="CommentsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="RespondTo" ColumnName="RespondTo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersImageSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.UsersImage)">
+        <MappingFragment StoreEntitySet="UsersImageSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IconsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.Icons)">
+        <MappingFragment StoreEntitySet="IconsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.Log)">
+        <MappingFragment StoreEntitySet="LogSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewDataSourceRequestSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.NewDataSourceRequest)">
+        <MappingFragment StoreEntitySet="NewDataSourceRequestSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Seen" ColumnName="Seen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserFeedbackSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.UserFeedback)">
+        <MappingFragment StoreEntitySet="UserFeedbackSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Header" ColumnName="Header" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMessagesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.UserMessages)">
+        <MappingFragment StoreEntitySet="UserMessagesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Topic" ColumnName="Topic" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="SendDateTime" ColumnName="SendDateTime" />
+          <ScalarProperty Name="Read" ColumnName="Read" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="NewsDataSources" TypeName="RssAggregatorModel.NewsDataSources" StoreEntitySet="NewsSet">
+      <EndProperty Name="DataSources">
+        <ScalarProperty Name="Id" ColumnName="DataSource_Id" />
+      </EndProperty>
+      <EndProperty Name="News">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="DataSource_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="NewsUsers" TypeName="RssAggregatorModel.NewsUsers" StoreEntitySet="NewsSet">
+      <EndProperty Name="Users">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="News">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsersTemplates" TypeName="RssAggregatorModel.UsersTemplates" StoreEntitySet="TemplateSet">
+      <EndProperty Name="Users">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Templates">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="NewsComments" TypeName="RssAggregatorModel.NewsComments" StoreEntitySet="CommentsSet">
+      <EndProperty Name="News">
+        <ScalarProperty Name="Id" ColumnName="News_Id" />
+      </EndProperty>
+      <EndProperty Name="Comments">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsersComments" TypeName="RssAggregatorModel.UsersComments" StoreEntitySet="CommentsSet">
+      <EndProperty Name="Users">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Comments">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserImage" TypeName="RssAggregatorModel.UserImage" StoreEntitySet="UsersImageSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Image">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="NewsUsersImage" TypeName="RssAggregatorModel.NewsUsersImage" StoreEntitySet="UsersImageSet">
+      <EndProperty Name="News">
+        <ScalarProperty Name="Id" ColumnName="News_Id" />
+      </EndProperty>
+      <EndProperty Name="UsersImage">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserNewDataSourceRequest" TypeName="RssAggregatorModel.UserNewDataSourceRequest" StoreEntitySet="NewDataSourceRequestSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="NewDataSourceRequest">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserUserFeedback" TypeName="RssAggregatorModel.UserUserFeedback" StoreEntitySet="UserFeedbackSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="UserFeedback">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="User_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserMessagesUser" TypeName="RssAggregatorModel.UserMessagesUser" StoreEntitySet="UserMessagesSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="FromUser_Id" />
+      </EndProperty>
+      <EndProperty Name="UserMessages">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserMessagesUser1" TypeName="RssAggregatorModel.UserMessagesUser1" StoreEntitySet="UserMessagesSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="ToUser_Id" />
+      </EndProperty>
+      <EndProperty Name="UserMessages">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

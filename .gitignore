@@ -45,3 +45,21 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/RssAgregator.BAL/bin
+/RssAgregator.BAL/obj
+/RssAgregator.BAL.Interfaces/bin
+/RssAgregator.BAL.Interfaces/obj
+/RssAgregator.CORE/bin
+/RssAgregator.CORE/obj
+/RssAgregator.DAL/bin
+/RssAgregator.DAL/obj
+/RssAgregator.DAL.Interfaces/bin
+/RssAgregator.DAL.Interfaces/obj
+/RssAgregator.Models/bin
+/RssAgregator.Models/obj
+/RssAgregator.TestApp/bin
+/RssAgregator.TestApp/obj
+/RssAgregator.WEB/bin
+/RssAgregator.WEB/obj
+/RssAgregator.WEB.Tests/bin
+/RssAgregator.WEB.Tests/obj

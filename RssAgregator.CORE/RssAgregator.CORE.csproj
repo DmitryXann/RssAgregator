@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1E622AAB-A9E7-4859-A468-B75ADE1DA694}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RssAgregator.CORE</RootNamespace>
+    <AssemblyName>RssAgregator.CORE</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataSourceProcessing.cs" />
+    <Compile Include="Interfaces\Models\PostModel\PostContentModel\IPostContentModel.cs" />
+    <Compile Include="Interfaces\Parcers\IResourceParcer.cs" />
+    <Compile Include="Interfaces\Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\IXMLGuidePostModelParcer.cs" />
+    <Compile Include="Models\Enums\PostContentTypeEnum.cs" />
+    <Compile Include="Models\Enums\XMLGuidePostModelParcersEnum.cs" />
+    <Compile Include="Models\PostModel\PostContentModel\AudioPostContentModel.cs" />
+    <Compile Include="Models\PostModel\PostContentModel\BasePostContentModel.cs" />
+    <Compile Include="Models\PostModel\PostContentModel\ImgPostContentModel.cs" />
+    <Compile Include="Models\PostModel\PostContentModel\PostContentContainerModel\AudioPostContentContainerModel.cs" />
+    <Compile Include="Models\PostModel\PostContentModel\PostContentContainerModel\VideoPostContentContainerModel.cs" />
+    <Compile Include="Models\PostModel\PostContentModel\PostContentModelFactory.cs" />
+    <Compile Include="Models\PostModel\PostContentModel\TextPostContentModel.cs" />
+    <Compile Include="Models\PostModel\PostContentModel\VideoPostContentModel.cs" />
+    <Compile Include="Models\PostModel\PostModel.cs" />
+    <Compile Include="Parcers\DOMObjectModel\DOMElement.cs" />
+    <Compile Include="Helpers\StringBuilderExtension.cs" />
+    <Compile Include="Interfaces\Parcers\DOMObjectModel\IDOMElement.cs" />
+    <Compile Include="Interfaces\Parcers\IParcerFactoryProvider.cs" />
+    <Compile Include="Models\Enums\DOMEleementTypeEnum.cs" />
+    <Compile Include="Models\Enums\HttpMethodEnum.cs" />
+    <Compile Include="Parcers\MainfunResourceParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\AudioContentXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\AuthorLinkXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\AuthorNameXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\BaseXMLGuideAnalyzer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\AuthorIdXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuideParcerCreator.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\ImgContentXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\PostLinkXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\PostNameXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\TextContentXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\PostIdXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\PostLikesXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\XMLPostModelParcerFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Parcers\ResourceSerializer.cs" />
+    <Compile Include="Parcers\ParcerProviderFactory.cs" />
+    <Compile Include="Parcers\PikabuResourceParcer.cs" />
+    <Compile Include="Parcers\VKResourceParcer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RssAgregator.BAL.Interfaces\RssAgregator.BAL.Interfaces.csproj">
+      <Project>{ab9d4a56-f639-4be2-88f1-9ad51746e921}</Project>
+      <Name>RssAgregator.BAL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RssAgregator.DAL\RssAgregator.DAL.csproj">
+      <Project>{d29860a1-79b4-4554-b511-425c8e208cff}</Project>
+      <Name>RssAgregator.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RssAgregator.Models\RssAgregator.Models.csproj">
+      <Project>{3355b910-39ad-4404-94fc-4768a1957554}</Project>
+      <Name>RssAgregator.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Parcers\XMLGuides\mainfun.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Parcers\XMLGuides\pikabu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Parcers\XMLGuides\VK.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

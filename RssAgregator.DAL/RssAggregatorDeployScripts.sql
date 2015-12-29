@@ -1,0 +1,688 @@
+﻿USE RssAggregator
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Uri nvarchar(max)
+	   ,@Type int
+	   ,@IsActive bit
+	   ,@XMLGuide nvarchar(max)
+	   ,@BaseUri nvarchar(max)
+
+SELECT @Name		= N'MDK'
+	   ,@Uri		= N'https://vk.com/wall-10639516'
+	   ,@Type		= 0
+	   ,@IsActive	= 1
+	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
+<PostModelXMLGuide>
+  <PostRootNode>
+    <name>div</name>
+    <id>post-</id>
+    <class strictEqual="true">post all own</class>
+    <onmouseover>wall.postOver</onmouseover>
+    <onmouseout>wall.postOut</onmouseout>
+    <onclick>wall.postClick</onclick>
+  </PostRootNode>
+  <AuthorId>
+    <SearchCriterea>
+      <name>div</name>
+      <id>post-</id>
+      <class strictEqual="true">post all own</class>
+      <onmouseover>wall.postOver</onmouseover>
+      <onmouseout>wall.postOut</onmouseout>
+      <onclick>wall.postClick</onclick>
+    </SearchCriterea>
+    <GetCriterea>
+      <id><![CDATA[-([0-9]*)_]]></id>
+    </GetCriterea>
+    <TrimCriterea>
+      <![CDATA[-_]]>
+    </TrimCriterea>
+  </AuthorId>
+  <PostId>
+    <SearchCriterea>
+      <name>div</name>
+      <id>post-</id>
+      <class strictEqual="true">post all own</class>
+      <onmouseover>wall.postOver</onmouseover>
+      <onmouseout>wall.postOut</onmouseout>
+      <onclick>wall.postClick</onclick>
+    </SearchCriterea>
+    <GetCriterea>
+      <id><![CDATA[_([0-9]*)]]></id>
+    </GetCriterea>
+    <TrimCriterea>
+      <![CDATA[_]]>
+    </TrimCriterea>
+  </PostId>
+  <PostLikes>
+    <SearchCriterea>
+      <name>span</name>
+      <id>like_count-{AuthorId}_{PostId}</id>
+    </SearchCriterea>
+    <GetCriterea>
+      <values></values>
+    </GetCriterea>
+  </PostLikes>
+  <AuthorName>
+    <SearchCriterea>
+      <name>a</name>
+      <data-post-id>-{AuthorId}_{PostId}</data-post-id>
+    </SearchCriterea>
+    <GetCriterea>
+      <values></values>
+    </GetCriterea>
+  </AuthorName>
+  <AuthorLink>
+    <SearchCriterea>
+      <name>a</name>
+      <data-post-id>-{AuthorId}_{PostId}</data-post-id>
+    </SearchCriterea>
+    <GetCriterea>
+      <href><![CDATA[/([\w]*)]]></href>
+    </GetCriterea>
+  </AuthorLink>
+  <TextContent>
+    <SearchCriterea>
+      <name>div</name>
+      <class>wall_post_text</class>
+    </SearchCriterea>
+    <GetCriterea>
+      <childs></childs>
+    </GetCriterea>
+  </TextContent>
+  <ImgContent>
+    <SearchCriterea>
+      <name>div</name>
+      <class>page_post_sized_thumbs</class>
+    </SearchCriterea>
+    <SubSearchCriterea>
+      <name>a</name>
+      <onclick>return showPhoto(''-{AuthorId}</onclick>
+    </SubSearchCriterea>
+    <GetCriterea>
+      <onclick><![CDATA[((http|https):([\w]*.*)\/&quot;)|(&quot;x_&quot;:\[&quot;([\w]*\/*[\w]*)&quot;)]]></onclick>
+    </GetCriterea>
+    <TrimCriterea stringTrim="true">
+      <![CDATA[&quot;x_&quot;:[&quot; &quot;]]>
+    </TrimCriterea>
+    <ImgExt>jpg</ImgExt>
+  </ImgContent>
+  <AudioContent>
+    <SearchCriterea>
+      <name>div</name>
+      <class>post_media clear_fix wall_audio</class>
+    </SearchCriterea>
+    <SubSearchCritereaSongLink>
+      <name>input</name>
+      <type>hidden</type>
+      <id>-{AuthorId}_{PostId}</id>
+    </SubSearchCritereaSongLink>
+    <SubSearchCritereaSongAuthor>
+      <name>a</name>
+      <onclick>return nav.go(this, event);</onclick>
+    </SubSearchCritereaSongAuthor>
+    <SubSearchCritereaSongName>
+      <name>span</name>
+      <class>title</class>
+      <id>-{AuthorId}_{PostId}</id>
+    </SubSearchCritereaSongName>
+    <GetCritereaSongLink>
+      <value><![CDATA[^([\w]*.*)\?]]></value>
+    </GetCritereaSongLink>
+    <GetCritereaSongAuthor>
+      <values></values>
+    </GetCritereaSongAuthor>
+    <GetCritereaSongName>
+      <values></values>
+    </GetCritereaSongName>
+    <TrimCritereaSongLink>
+      <![CDATA[\?]]>
+    </TrimCritereaSongLink>
+  </AudioContent>
+</PostModelXMLGuide>'
+	   ,@BaseUri	= N'https://vk.com/'
+
+IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[DataSourcesSet]
+	SET
+		 [Name]		= @Name
+		,[Uri]		= @Uri
+		,[Type]		= @Type
+		,[IsActive]	= @IsActive
+		,[XMLGuide]	= @XMLGuide
+		,[BaseUri]	= @BaseUri
+	WHERE [Name]	= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[DataSourcesSet]
+		([Name]
+		,[Uri]
+		,[Type]
+		,[IsActive]
+		,[XMLGuide]
+		,[BaseUri])
+	VALUES
+		(@Name
+		,@Uri
+		,@Type
+		,@IsActive
+		,@XMLGuide
+		,@BaseUri)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Uri nvarchar(max)
+	   ,@Type int
+	   ,@IsActive bit
+	   ,@XMLGuide nvarchar(max)
+	   ,@BaseUri nvarchar(max)
+
+SELECT @Name		= N'pikabu'
+	   ,@Uri		= N'http://pikabu.ru/'
+	   ,@Type		= 1
+	   ,@IsActive	= 0
+	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
+<PostModelXMLGuide>
+  <PostRootNode>
+    <name>div</name>
+    <id>stories_container</id>
+  </PostRootNode>
+  <!--<AuthorId>
+    <SearchCriterea>
+      <name>div</name>
+      <id>post-</id>
+      <class strictEqual="true">post all own</class>
+      <onmouseover>wall.postOver</onmouseover>
+      <onmouseout>wall.postOut</onmouseout>
+      <onclick>wall.postClick</onclick>
+    </SearchCriterea>
+    <GetCriterea>
+      <id><![CDATA[-([0-9]*)_]]></id>
+    </GetCriterea>
+    <TrimCriterea>
+      <![CDATA[-_]]>
+    </TrimCriterea>
+  </AuthorId>-->
+  <PostId>
+    <SearchCriterea>
+      <name>table</name>
+      <id>inner_wrap_</id>
+    </SearchCriterea>
+    <GetCriterea>
+      <data-story-id><![CDATA[([0-9]*)]]></data-story-id>
+    </GetCriterea>
+  </PostId>
+  <PostLikes>
+    <SearchCriterea>
+      <name>li</name>
+      <id>num_digs{PostId}</id>
+    </SearchCriterea>
+    <GetCriterea>
+      <values></values>
+    </GetCriterea>
+  </PostLikes>
+  <PostName>
+    <SearchCriterea>
+      <name>a</name>
+      <id>num_dig3{PostId}</id>
+    </SearchCriterea>
+    <GetCriterea>
+      <values></values>
+    </GetCriterea>
+  </PostName>
+  <PostLink>
+    <SearchCriterea>
+      <name>a</name>
+      <id>num_dig3{PostId}</id>
+    </SearchCriterea>
+    <GetCriterea>
+      <href><![CDATA[[\w]*[\W]*]]></href>
+    </GetCriterea>
+  </PostLink>
+  
+  <!--<AuthorName>
+    <SearchCriterea>
+      <name>a</name>
+      <data-post-id>-{AuthorId}_{PostId}</data-post-id>
+    </SearchCriterea>
+    <GetCriterea>
+      <values></values>
+    </GetCriterea>
+  </AuthorName>
+  <AuthorLink>
+    <SearchCriterea>
+      <name>a</name>
+      <data-post-id>-{AuthorId}_{PostId}</data-post-id>
+    </SearchCriterea>
+    <GetCriterea>
+      <href><![CDATA[/([\w]*)]]></href>
+    </GetCriterea>
+  </AuthorLink>
+  <TextContent>
+    <SearchCriterea>
+      <name>div</name>
+      <class>wall_post_text</class>
+    </SearchCriterea>
+    <GetCriterea>
+      <childs></childs>
+    </GetCriterea>
+  </TextContent>
+  <ImgContent>
+    <SearchCriterea>
+      <name>div</name>
+      <class>page_post_sized_thumbs</class>
+    </SearchCriterea>
+    <SubSearchCriterea>
+      <name>a</name>
+      <onclick>return showPhoto(''-{AuthorId}</onclick>
+    </SubSearchCriterea>
+    <GetCriterea>
+      <onclick><![CDATA[(http:([\w]*.*)\/&quot;)|(&quot;x_&quot;:\[&quot;([\w]*\/*[\w]*)&quot;)]]></onclick>
+    </GetCriterea>
+    <TrimCriterea stringTrim="true">
+      <![CDATA[&quot;x_&quot;:[&quot; &quot;]]>
+    </TrimCriterea>
+    <ImgExt>jpg</ImgExt>
+  </ImgContent>-->
+</PostModelXMLGuide>'
+	   ,@BaseUri	= N'http://pikabu.ru/'
+IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[DataSourcesSet]
+	SET
+		 [Name]		= @Name
+		,[Uri]		= @Uri
+		,[Type]		= @Type
+		,[IsActive]	= @IsActive
+		,[XMLGuide]	= @XMLGuide
+		,[BaseUri]	= @BaseUri
+	WHERE [Name]	= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[DataSourcesSet]
+		([Name]
+		,[Uri]
+		,[Type]
+		,[IsActive]
+		,[XMLGuide]
+		,[BaseUri])
+	VALUES
+		(@Name
+		,@Uri
+		,@Type
+		,@IsActive
+		,@XMLGuide
+		,@BaseUri)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Uri nvarchar(max)
+	   ,@Type int
+	   ,@IsActive bit
+	   ,@XMLGuide nvarchar(max)
+	   ,@BaseUri nvarchar(max)
+
+SELECT @Name		= N'mainfun'
+	   ,@Uri		= N'http://mainfun.ru/'
+	   ,@Type		= 2
+	   ,@IsActive	= 0
+	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
+<PostModelXMLGuide>
+</PostModelXMLGuide>'
+	   ,@BaseUri	= N'http://mainfun.ru/'
+IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[DataSourcesSet]
+	SET
+		 [Name]		= @Name
+		,[Uri]		= @Uri
+		,[Type]		= @Type
+		,[IsActive]	= @IsActive
+		,[XMLGuide]	= @XMLGuide
+		,[BaseUri]	= @BaseUri
+	WHERE [Name]	= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[DataSourcesSet]
+		([Name]
+		,[Uri]
+		,[Type]
+		,[IsActive]
+		,[XMLGuide]
+		,[BaseUri])
+	VALUES
+		(@Name
+		,@Uri
+		,@Type
+		,@IsActive
+		,@XMLGuide
+		,@BaseUri)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Uri nvarchar(max)
+	   ,@Type int
+	   ,@IsActive bit
+	   ,@XMLGuide nvarchar(max)
+	   ,@BaseUri nvarchar(max)
+
+SELECT @Name		= N'joyreactor'
+	   ,@Uri		= N'http://joyreactor.cc/'
+	   ,@Type		= 3
+	   ,@IsActive	= 0
+	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
+<PostModelXMLGuide>
+</PostModelXMLGuide>'
+	   ,@BaseUri	= N'http://joyreactor.cc/'
+IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[DataSourcesSet]
+	SET
+		 [Name]		= @Name
+		,[Uri]		= @Uri
+		,[Type]		= @Type
+		,[IsActive]	= @IsActive
+		,[XMLGuide]	= @XMLGuide
+		,[BaseUri]	= @BaseUri
+	WHERE [Name]	= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[DataSourcesSet]
+		([Name]
+		,[Uri]
+		,[Type]
+		,[IsActive]
+		,[XMLGuide]
+		,[BaseUri])
+	VALUES
+		(@Name
+		,@Uri
+		,@Type
+		,@IsActive
+		,@XMLGuide
+		,@BaseUri)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Email nvarchar(max)
+	   ,@Password nvarchar(max)
+	   ,@Type tinyint
+	   ,@IsActive bit
+
+SELECT @Name		= N'SYSTEM'
+	   ,@Email		= N''
+	   ,@Password	= N''
+	   ,@Type		= 0
+	   ,@IsActive	= 1
+
+IF EXISTS(SELECT * FROM [dbo].[UserSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[UserSet]
+	SET
+		 [Name]		= @Name
+		,[Email]	= @Email
+		,[Password]	= @Password
+		,[Type]		= @Type
+		,[IsActive]	= @IsActive
+	WHERE [Name]	= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[UserSet]
+		([Name]
+		,[Email]
+		,[Password]
+		,[Type]
+		,[IsActive])
+	VALUES
+		(@Name
+		,@Email
+		,@Password
+		,@Type
+		,@IsActive)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Description nvarchar(max)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'ImgContainer'
+	   ,@Description	= N'Image Container'
+	   ,@View			= N'<img-container link="{ContainerValue}"></img-container>'
+	   ,@Version		= NULL
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Description nvarchar(max)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'AudioContainer'
+	   ,@Description	= N'Audio Container'
+	   ,@View			= N'<audio-container link="{ContainerValue}" author="{MediaAuthor}" name="{MediaName}"></audio-container>'
+	   ,@Version		= NULL
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Description nvarchar(max)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'VideoContainer'
+	   ,@Description	= N'Video Container'
+	   ,@View			= N'<video-container link="{ContainerValue}" preview="{MediaPreview}" name="{MediaName}"></video-container>'
+	   ,@Version		= NULl
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Description nvarchar(max)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'TextContainer'
+	   ,@Description	= N'Text Container'
+	   ,@View			= N'<div>{ContainerValue}</div>'
+	   ,@Version		= NULl
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Description nvarchar(max)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'PostContainer'
+	   ,@Description	= N'Post Container'
+	   ,@View			= N'<div>{ContainerValue}</div>'
+	   ,@Version		= NULL
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D29860A1-79B4-4554-B511-425C8E208CFF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RssAgregator.DAL</RootNamespace>
+    <AssemblyName>RssAgregator.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Comments.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DALProcessing\EntityProcessing\GenericEntityProcessing.cs" />
+    <Compile Include="DALProcessing\Entity\Comments.cs" />
+    <Compile Include="DALProcessing\Entity\News.cs" />
+    <Compile Include="DALProcessing\Entity\Template.cs" />
+    <Compile Include="DALProcessing\RssAggregatorModelContainer.cs" />
+    <Compile Include="DataSourceEnum.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSources.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Icons.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Log.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Logger.cs" />
+    <Compile Include="LogTypeEnum.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewDataSourceRequest.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="News.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssAggregatorModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RssAggregatorModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RssAggregatorModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RssAggregatorModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RssAggregatorModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Template.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateTypeEnum.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserFeedback.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMessages.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsersImage.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserTypeEnum.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <EntityDeploy Include="RssAggregatorModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RssAggregatorModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="RssAggregatorModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RssAggregatorModel.edmx</DependentUpon>
+      <LastGenOutput>RssAggregatorModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="RssAggregatorModel.edmx.diagram">
+      <DependentUpon>RssAggregatorModel.edmx</DependentUpon>
+    </None>
+    <None Include="RssAggregatorModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RssAggregatorModel.edmx</DependentUpon>
+      <LastGenOutput>RssAggregatorModel.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBScriptTemplates\DataSourcesSetInsertUpdate.sql" />
+    <Content Include="DBScriptTemplates\TemplateSetInsertUpdate.sql" />
+    <Content Include="DBScriptTemplates\UserSetInsertUpdate.sql" />
+    <Content Include="RssAggregatorDeployScripts.sql" />
+    <Content Include="RssAggregatorModel.edmx.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RssAgregator.Models\RssAgregator.Models.csproj">
+      <Project>{3355b910-39ad-4404-94fc-4768a1957554}</Project>
+      <Name>RssAgregator.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
