@@ -44,7 +44,7 @@ namespace RssAgregator.CORE.Parcers
 
             IEnumerable<PostModel> result = null;
 
-            var denormalizedData = await GetResourceData(new Uri(expectedUri.AbsoluteUri.TrimEnd(new [] {'/'}) + (expectedPage > 1 ? string.Format("index/page{0}", expectedPage) : "/")), HttpMethodEnum.GET, new FormUrlEncodedContent(_mainFunGetData));
+            var denormalizedData = await GetResourceData(new Uri(expectedUri.AbsoluteUri.TrimEnd(new [] {'/'}) + (expectedPage > 1 ? string.Format("index/page{0}", expectedPage) : "/")), HttpMethodEnum.GET, _mainFunGetData);
 
             var serializedData = Serialize(denormalizedData);
             if (serializedData.Any())
@@ -59,6 +59,15 @@ namespace RssAgregator.CORE.Parcers
             return result;
         }
 
+        public void AddSearchCriteria(string queston)
+        {
+        }
+
+        public void SetPageNumber(int currentPage)
+        {
+            //_pageOffsetMultiplier = currentPage;
+            //_pikabuGetData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier)).ToString();
+        }
         public void ResetPageCounter()
         {
             _pageOffsetMultiplier = 0;

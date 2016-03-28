@@ -39,9 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\ResultCodeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\GenericResult.cs" />
     <Compile Include="Services\NewsModel.cs" />
-    <Compile Include="Services\ProstoPleerSearchModel.cs" />
+    <Compile Include="Services\OnlineRadio\OnlineRadioServiceSearchModel.cs" />
+    <Compile Include="Services\OnlineRadio\OnlineRadioServiceSongModel.cs" />
+    <Compile Include="Services\OnlineRadio\OnlineRadioServiceSongUrlJsonModel.cs" />
+    <Compile Include="Services\OnlineRadio\OnlineRadioTypeAhedJsonContentModel.cs" />
+    <Compile Include="Services\OnlineRadio\OnlineRadioTypeAhedJsonModel.cs" />
     <Compile Include="Services\TemplateModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

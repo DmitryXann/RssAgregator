@@ -10,6 +10,10 @@ namespace RssAgregator.WEB
         {
             bundles.Add(new ScriptBundle("~/bundles/app").IncludeDirectory("~/app/", "*.js", true));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquerry").Include("~/Scripts/jquerry-2.2.2/jquery-2.2.2.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/toastr").Include("~/Scripts/toastr/toastr.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular-1.4.8/angular-loader.js",
                         "~/Scripts/angular-1.4.8/angular.js",
@@ -24,6 +28,7 @@ namespace RssAgregator.WEB
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/main.css"));
 
             bundles.Add(new StyleBundle("~/Content/cssLibs").Include(
+                        "~/Content/libs/toastr/toastr.css",
                         "~/Content/libs/angular-1.4.8/angular-csp.css",
                         "~/Content/libs/bootstrap-3.3.6/bootstrap-theme.css",
                         "~/Content/libs/bootstrap-3.3.6/bootstrap.css"));

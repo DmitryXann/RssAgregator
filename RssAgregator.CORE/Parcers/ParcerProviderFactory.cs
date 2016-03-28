@@ -29,13 +29,16 @@ namespace RssAgregator.CORE.Parcers
                             {
                                 case DataSourceEnum.VK:
                                     AddFactory(dataSource.Type, typeof(VKResourceParcer), new[] { xmlGuide });
-                                    break;
+                                break;
                                 case DataSourceEnum.Pikabu:
                                     AddFactory(dataSource.Type, typeof(PikabuResourceParcer), new[] { xmlGuide });
-                                    break;
+                                break;
                                 case DataSourceEnum.Mainfun:
                                     AddFactory(dataSource.Type, typeof(MainfunResourceParcer), new[] { xmlGuide });
-                                    break;
+                                break;
+                                case DataSourceEnum.Zaycev:
+                                    AddFactory(dataSource.Type, typeof(ZaycevResourceParcer), new[] { xmlGuide });
+                                break;
                             }
                         }
                         catch(Exception ex)

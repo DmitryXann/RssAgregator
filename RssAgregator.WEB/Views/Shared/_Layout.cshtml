@@ -10,9 +10,12 @@
     <body ng-app="app" ng-cloak>
         @RenderBody()
 
+        @Scripts.Render("~/bundles/jquerry")
+        @Scripts.Render("~/bundles/toastr")
         @Scripts.Render("~/bundles/angular")
         @Scripts.Render("~/bundles/soundmanager2")
         @Scripts.Render("~/bundles/app")
+        
         @*@RenderSection("scripts", required: false)*@
     </body>
 </html>

@@ -7,8 +7,14 @@ namespace RssAgregator.CORE.Interfaces.Parcers
 {
     public interface IResourceParcer
     {
-        Task<IEnumerable<PostModel>> GetContent(Uri expectedUri);
-        void ResetPageCounter();
         int DefaultPageCount { get; }
+
+        Task<IEnumerable<PostModel>> GetContent(Uri expectedUri);
+
+        void AddSearchCriteria(string queston);
+
+        void SetPageNumber(int currentPage);
+
+        void ResetPageCounter();
     }
 }

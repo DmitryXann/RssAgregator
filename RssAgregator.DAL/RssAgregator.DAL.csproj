@@ -105,6 +105,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RssAggregatorModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Template.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
@@ -153,6 +156,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBScriptTemplates\DataSourcesSetInsertUpdate.sql" />
+    <Content Include="DBScriptTemplates\SettingsInserUpdate.sql">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+    </Content>
     <Content Include="DBScriptTemplates\TemplateSetInsertUpdate.sql" />
     <Content Include="DBScriptTemplates\UserSetInsertUpdate.sql" />
     <Content Include="RssAggregatorDeployScripts.sql" />

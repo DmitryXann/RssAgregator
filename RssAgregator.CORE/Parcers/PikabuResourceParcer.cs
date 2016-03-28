@@ -56,7 +56,7 @@ namespace RssAgregator.CORE.Parcers
                 _pageOffsetMultiplier = 0;
 
                 var firstTimeEnterParams = new Dictionary<string, string> { { ACCEPT_ENCODING_HEADER_NAME, ACCEPT_ENCODING_HEADER_PARAMS } };
-                var denormalizedFirstEnterData = await GetResourceData(expectedUri, HttpMethodEnum.GET, new FormUrlEncodedContent(firstTimeEnterParams));
+                var denormalizedFirstEnterData = await GetResourceData(expectedUri, HttpMethodEnum.GET, firstTimeEnterParams);
 
                 var sessionIdStartIndex = denormalizedFirstEnterData.FirstIndexOf("sessionID");
                 if (sessionIdStartIndex > 0)
@@ -75,12 +75,22 @@ namespace RssAgregator.CORE.Parcers
             {
                 _pikabuGetData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
 
-                var denormalizedData = await GetResourceData(expectedUri, HttpMethodEnum.GET, new FormUrlEncodedContent(_pikabuGetData));
+                var denormalizedData = await GetResourceData(expectedUri, HttpMethodEnum.GET, _pikabuGetData);
 
                 result.AddRange(SerializeContent(denormalizedData, false));
             }
             
             return result;
+        }
+
+        public void AddSearchCriteria(string queston)
+        {
+        }
+
+        public void SetPageNumber(int currentPage)
+        {
+            _pageOffsetMultiplier = currentPage;
+            _pikabuGetData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier)).ToString();
         }
 
         public void ResetPageCounter()

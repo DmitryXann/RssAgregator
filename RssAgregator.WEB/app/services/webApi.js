@@ -9,8 +9,8 @@
         return apiFactory.create('News');
     }]);
 
-    angular.module('app').service('prostoPleerService', ['apiFactory', function (apiFactory) {
-        return apiFactory.create('ProstoPleer');
+    angular.module('app').service('onlineRadioService', ['apiFactory', function (apiFactory) {
+        return apiFactory.create('OnlineRadio');
     }]);
 
 })(angular);

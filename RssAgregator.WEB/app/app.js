@@ -1,6 +1,6 @@
-﻿/*global angular*/
-; (function (angular) {
+﻿; (function (angular) {
     'use strict';
+
     angular.module('app', [
         'ngAnimate',
         'ngRoute',

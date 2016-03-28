@@ -17,6 +17,7 @@
     <EntitySet Name="NewDataSourceRequestSet" EntityType="RssAggregatorModel.Store.NewDataSourceRequestSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserFeedbackSet" EntityType="RssAggregatorModel.Store.UserFeedbackSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserMessagesSet" EntityType="RssAggregatorModel.Store.UserMessagesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SettingsSet" EntityType="RssAggregatorModel.Store.SettingsSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="NewsDataSources" Association="RssAggregatorModel.Store.NewsDataSources">
       <End Role="News" EntitySet="NewsSet" />
       <End Role="DataSources" EntitySet="DataSourcesSet" />
@@ -187,6 +188,14 @@
     <Property Name="Read" Type="bit" Nullable="false" />
     <Property Name="FromUser_Id" Type="int" Nullable="false" />
     <Property Name="ToUser_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SettingsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="NewsDataSources">
     <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="*" />
@@ -380,6 +389,7 @@
             <End Role="UserMessages" EntitySet="UserMessagesSet" />
             <End Role="User" EntitySet="UserSet" />
           </AssociationSet>
+          <EntitySet Name="SettingsSet" EntityType="RssAggregatorModel.Settings" />
         </EntityContainer>
         <EntityType Name="DataSources">
           <Key>
@@ -399,6 +409,7 @@
           <Member Name="Pikabu" />
           <Member Name="Mainfun" />
           <Member Name="Joyreactor" />
+          <Member Name="Zaycev" />
         </EnumType>
         <EntityType Name="News">
           <Key>
@@ -586,6 +597,14 @@
           <Member Name="WEB" />
           <Member Name="CORE" />
         </EnumType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Key" Type="String" Nullable="false" MaxLength="255" />
+          <Property Name="Value" Type="String" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -718,6 +737,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SettingsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.Settings)">
+        <MappingFragment StoreEntitySet="SettingsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="NewsDataSources" TypeName="RssAggregatorModel.NewsDataSources" StoreEntitySet="NewsSet">
       <EndProperty Name="DataSources">
         <ScalarProperty Name="Id" ColumnName="DataSource_Id" />
@@ -823,6 +851,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

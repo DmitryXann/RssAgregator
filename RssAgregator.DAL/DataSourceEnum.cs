@@ -16,6 +16,7 @@ namespace RssAgregator.DAL
         VK = 0,
         Pikabu = 1,
         Mainfun = 2,
-        Joyreactor = 3
+        Joyreactor = 3,
+        Zaycev = 4
     }
 }

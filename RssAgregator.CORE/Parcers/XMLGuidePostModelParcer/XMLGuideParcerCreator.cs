@@ -37,9 +37,9 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
             if (parcerRulepostRoot != null)
             {
                 var searchCriterea = parcerRulepostRoot.Elements();
-                var searchedNodes = serializedDomModel.Where(el => searchCriterea.All(elem => 
-                                                                el.ElementMatch(elem.Name.ToString(), elem.Value, elem.Attributes().Any(attr => 
-                                                                                                                                        attr.Name.ToString().ToLower() == USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))));
+                var searchedNodes = SearchForNodes(serializedDomModel, el => searchCriterea.All(elem =>
+                                                                            el.ElementMatch(elem.Name.ToString(), elem.Value, elem.Attributes().Any(attr =>
+                                                                                                                                                attr.Name.ToString().ToLower() == USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))));
                 if (searchedNodes.Any())
                 {
                     foreach (var domElement in searchedNodes)
@@ -74,8 +74,6 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                                 elementsInRootSorted = elementsInRoot;
                             }
 
-                            var postContentCounter = 0;
-
                             foreach (var ruleNode in parcerRuleRootNode.Elements())
                             {
                                 XMLGuidePostModelParcersEnum expectedparcerType;
@@ -83,32 +81,32 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                                 {
                                     var expectedFactory = XMLPostModelParcerFactory.GetFactory(expectedparcerType);
                                     switch (expectedparcerType)
-                                    { 
+                                    {
                                         case XMLGuidePostModelParcersEnum.AuthorId:
                                             post.AuthorId = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                        break;
+                                            break;
                                         case XMLGuidePostModelParcersEnum.PostId:
                                             post.PostId = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                        break;
+                                            break;
                                         case XMLGuidePostModelParcersEnum.PostLikes:
                                             int postLikes;
                                             if (int.TryParse((string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post), out postLikes))
                                             {
                                                 post.PostLikes = postLikes;
                                             }
-                                        break;
+                                            break;
                                         case XMLGuidePostModelParcersEnum.AuthorName:
                                             post.AuthorName = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                        break;
+                                            break;
                                         case XMLGuidePostModelParcersEnum.AuthorLink:
                                             post.AuthorLink = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                        break;
+                                            break;
                                         case XMLGuidePostModelParcersEnum.PostName:
                                             post.PostName = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                        break;
+                                            break;
                                         case XMLGuidePostModelParcersEnum.PostLink:
                                             post.PostLink = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                        break;
+                                            break;
                                         case XMLGuidePostModelParcersEnum.TextContent:
                                         case XMLGuidePostModelParcersEnum.ImgContent:
                                         case XMLGuidePostModelParcersEnum.AudioContent:
@@ -117,7 +115,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                                             {
                                                 post.PostContent.Add(content);
                                             }
-                                        break;
+                                            break;
                                     }
                                 }
                             }
@@ -127,8 +125,25 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                     }
                 }
             }
-            
+
             return result;
         }
+
+        private IEnumerable<IDOMElement> SearchForNodes(IEnumerable<IDOMElement> serializedDomModel, Func<IDOMElement, bool> searchCriterea)
+        {
+            var result = new List<IDOMElement>();
+
+            foreach (var el in serializedDomModel)
+            {
+                var firstChildInSubThree = el.GetFirstChildInSubThree(searchCriterea);
+                if (firstChildInSubThree != null)
+                {
+                    result.Add(firstChildInSubThree);
+                }
+            }
+
+            return result;
+        }
+
     }
 }

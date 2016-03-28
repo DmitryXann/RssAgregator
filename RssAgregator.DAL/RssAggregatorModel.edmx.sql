@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/25/2015 03:48:37
--- Generated from EDMX file: C:\Users\Admin\Documents\Visual Studio 2012\Projects\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
+-- Date Created: 03/23/2016 01:59:39
+-- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -87,6 +87,9 @@ IF OBJECT_ID(N'[dbo].[UserFeedbackSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[UserMessagesSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserMessagesSet];
+GO
+IF OBJECT_ID(N'[dbo].[SettingsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SettingsSet];
 GO
 
 -- --------------------------------------------------
@@ -219,6 +222,14 @@ CREATE TABLE [dbo].[UserMessagesSet] (
 );
 GO
 
+-- Creating table 'SettingsSet'
+CREATE TABLE [dbo].[SettingsSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Key] nvarchar(255)  NOT NULL,
+    [Value] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -289,6 +300,12 @@ ADD CONSTRAINT [PK_UserMessagesSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'SettingsSet'
+ALTER TABLE [dbo].[SettingsSet]
+ADD CONSTRAINT [PK_SettingsSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
@@ -300,6 +317,7 @@ ADD CONSTRAINT [FK_NewsDataSources]
     REFERENCES [dbo].[DataSourcesSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_NewsDataSources'
 CREATE INDEX [IX_FK_NewsDataSources]
@@ -314,6 +332,7 @@ ADD CONSTRAINT [FK_NewsUsers]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_NewsUsers'
 CREATE INDEX [IX_FK_NewsUsers]
@@ -328,6 +347,7 @@ ADD CONSTRAINT [FK_UsersTemplates]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UsersTemplates'
 CREATE INDEX [IX_FK_UsersTemplates]
@@ -342,6 +362,7 @@ ADD CONSTRAINT [FK_NewsComments]
     REFERENCES [dbo].[NewsSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_NewsComments'
 CREATE INDEX [IX_FK_NewsComments]
@@ -356,6 +377,7 @@ ADD CONSTRAINT [FK_UsersComments]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UsersComments'
 CREATE INDEX [IX_FK_UsersComments]
@@ -370,6 +392,7 @@ ADD CONSTRAINT [FK_UserImage]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserImage'
 CREATE INDEX [IX_FK_UserImage]
@@ -384,6 +407,7 @@ ADD CONSTRAINT [FK_NewsUsersImage]
     REFERENCES [dbo].[NewsSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_NewsUsersImage'
 CREATE INDEX [IX_FK_NewsUsersImage]
@@ -398,6 +422,7 @@ ADD CONSTRAINT [FK_UserNewDataSourceRequest]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserNewDataSourceRequest'
 CREATE INDEX [IX_FK_UserNewDataSourceRequest]
@@ -412,6 +437,7 @@ ADD CONSTRAINT [FK_UserUserFeedback]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserUserFeedback'
 CREATE INDEX [IX_FK_UserUserFeedback]
@@ -426,6 +452,7 @@ ADD CONSTRAINT [FK_UserMessagesUser]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserMessagesUser'
 CREATE INDEX [IX_FK_UserMessagesUser]
@@ -440,6 +467,7 @@ ADD CONSTRAINT [FK_UserMessagesUser1]
     REFERENCES [dbo].[UserSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserMessagesUser1'
 CREATE INDEX [IX_FK_UserMessagesUser1]

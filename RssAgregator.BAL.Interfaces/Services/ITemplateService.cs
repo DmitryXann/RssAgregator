@@ -1,11 +1,12 @@
-﻿using RssAgregator.Models.Services;
+﻿using RssAgregator.Models.Results;
+using RssAgregator.Models.Services;
 using System.Collections.Generic;
 
 namespace RssAgregator.BAL.Interfaces.Services
 {
     public interface ITemplateService
     {
-        IEnumerable<TemplateModel> GetAllUserTemplates();
-        TemplateModel GetUserTemplate(string templateType, int userId);
+        GenericResult<IEnumerable<TemplateModel>> GetAllUserTemplates();
+        GenericResult<TemplateModel> GetUserTemplate(string templateType, int userId);
     }
 }

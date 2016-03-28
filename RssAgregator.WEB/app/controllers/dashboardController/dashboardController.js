@@ -34,13 +34,21 @@
 
                 function init() {
                     templateService.get('GetTemplate', { id: templateType.Header }).then(function (serverResult) {
-                        $scope.headerView = serverResult.Data.View;
+                        if (serverResult.sucessResult) {
+                            $scope.headerView = serverResult.DataResult.View;
+                        } else {
+                            serverResult.showInfoMessage();
+                        }
                     });
 
                     newsService.get('NewsSearch', { PageSize: $scope.pageSize, PageNumber: $scope.currentPage, HideAdult: $scope.hideAdultContent }).then(function (serverResult) {
-                        angular.forEach(serverResult.Data, function (value) {
-                            $scope.postList.push(value);
-                        });
+                        if (serverResult.sucessResult) {
+                            angular.forEach(serverResult.DataResult, function (value) {
+                                $scope.postList.push(value);
+                            });
+                        } else {
+                            serverResult.showInfoMessage();
+                        }
                     });
                 }
 

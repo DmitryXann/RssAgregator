@@ -18,6 +18,7 @@ namespace RssAgregator.DAL
         private const string NEWS_DATA_SOURCE_REQUEST_TYPE_NAME = "NewDataSourceRequest";
         private const string USER_FEEDBACK_TYPE_NAME = "UserFeedback";
         private const string USER_MASSAGES_TYPE_NAME = "UserMessages";
+        private const string SETTINGS_TYPE_NAME = "Settings";
 
         private User _systemUser;
         public User GetSystemUser
@@ -73,6 +74,8 @@ namespace RssAgregator.DAL
                     return UserFeedbackSet as DbSet<T>;
                 case USER_MASSAGES_TYPE_NAME:
                     return UserMessagesSet as DbSet<T>;
+                case SETTINGS_TYPE_NAME:
+                    return SettingsSet as DbSet<T>;
                 default:
                     throw new NotSupportedException(string.Format("Handling for {0} type not support", typeof(T).Name));
 

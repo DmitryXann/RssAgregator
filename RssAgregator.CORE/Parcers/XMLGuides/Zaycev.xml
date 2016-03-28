@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PostModelXMLGuide>
+  <PostRootNode>
+    <name>div</name>
+    <class strictEqual="true">musicset-track-list__items</class>
+  </PostRootNode>
+  <AudioContent>
+    <SearchCriterea>
+      <name>div</name>
+      <class>musicset-track</class>
+    </SearchCriterea>
+
+    <SubSearchCritereaSongLink>
+      <name>div</name>
+      <class>musicset-track</class>
+    </SubSearchCritereaSongLink>
+    <SubSearchCritereaSongAuthor>
+      <name>div</name>
+      <class>musicset-track__artist</class>
+    </SubSearchCritereaSongAuthor>
+    <SubSearchCritereaSongName>
+      <name>div</name>
+      <class>musicset-track__track-name</class>
+    </SubSearchCritereaSongName>
+
+    <GetCritereaSongLink>
+      <data-url><![CDATA[((\/([\w]+))+).json]]></data-url>
+    </GetCritereaSongLink>
+    <GetCritereaSongAuthor>
+      <childs></childs>
+    </GetCritereaSongAuthor>
+    <GetCritereaSongName>
+      <childs></childs>
+    </GetCritereaSongName>
+
+    <TrimCritereaSongAuthor regExpTrim="true">
+      <![CDATA[>[\s]?[A-Za-zА-Яа-я0-9 _\-\+\=\*\(\)\[\]\{\}\t]+[\s]?<]]>
+    </TrimCritereaSongAuthor>
+    <TrimCritereaSongName regExpTrim="true">
+      <![CDATA[>[\s]?[A-Za-zА-Яа-я0-9 _\-\+\=\*\(\)\[\]\{\}\t]+[\s]?<]]>
+    </TrimCritereaSongName>
+
+    <AdditionalTrimCritereaSongAuthor>
+      <![CDATA[><]]>
+    </AdditionalTrimCritereaSongAuthor>
+    <AdditionalTrimCritereaSongName>
+      <![CDATA[><]]>
+    </AdditionalTrimCritereaSongName>
+  </AudioContent>
+</PostModelXMLGuide>

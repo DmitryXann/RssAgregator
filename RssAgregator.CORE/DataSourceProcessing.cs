@@ -88,7 +88,7 @@ namespace RssAgregator.CORE
                                         foreach (var el in ((BasePostContentModel<AudioPostContentContainerModel>)postContent).PostSpecificContent)
                                         {
                                             postStringContetnt.Add(audioPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el.Link)
-                                                                                           .Replace(CONTENT_MEDIA_AUTHOR_PLACEHOLDER, el.Signer)
+                                                                                           .Replace(CONTENT_MEDIA_AUTHOR_PLACEHOLDER, el.Artist)
                                                                                            .Replace(CONTENT_MEDIA_NAME_PLACEHOLDER, el.Name));
                                         }
                                         break;

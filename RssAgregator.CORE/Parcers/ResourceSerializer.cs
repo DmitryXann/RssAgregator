@@ -36,25 +36,38 @@ namespace RssAgregator.CORE.Parcers
             XMLGuidePostModeCreator = new XMLGuidePostModelCreator(xmlParceRules);
         }
 
-        protected virtual async Task<StringBuilder> GetResourceData(Uri resourceUrl, HttpMethodEnum requestType, HttpContent requestContent = null)
+        protected virtual async Task<StringBuilder> GetResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
         {
             StringBuilder result = null;
 
             using (var webClient = new HttpClient(HttpClientHandler))
             {
                 Task<HttpResponseMessage> serverResponceTask = null;
-
+                
                 switch (requestType)
                 { 
                     case HttpMethodEnum.GET:
-                        serverResponceTask = webClient.GetAsync(resourceUrl);
-                        break;
+                        var getParams = string.Empty;
+
+                        if (requestContent != null && requestContent.Any())
+                        {
+                            var firstElement = requestContent.First();
+                            getParams += string.Format("?{0}={1}", firstElement.Key, firstElement.Value);
+
+                            foreach (var el in requestContent.Skip(1))
+                            {
+                                getParams += string.Format("&{0}={1}", el.Key, el.Value);
+                            }
+                        }
+
+                        serverResponceTask = webClient.GetAsync(resourceUrl + getParams);
+                    break;
                     case HttpMethodEnum.PUT:
-                        serverResponceTask = webClient.PutAsync(resourceUrl, requestContent);
-                        break;
+                        serverResponceTask = webClient.PutAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
+                    break;
                     case HttpMethodEnum.POST:
-                        serverResponceTask = webClient.PostAsync(resourceUrl, requestContent);
-                        break;
+                        serverResponceTask = webClient.PostAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
+                    break;
                 }
 
                 if (serverResponceTask != null)

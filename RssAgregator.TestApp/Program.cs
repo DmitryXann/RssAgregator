@@ -8,6 +8,7 @@ using System.IO;
 using RssAgregator.CORE.Parcers.DOMObjectModel;
 using RssAgregator.CORE.Models.Enums;
 using RssAgregator.DAL;
+using RssAgregator.BAL.Services;
 
 namespace RssAgregator.TestApp
 {
@@ -15,6 +16,11 @@ namespace RssAgregator.TestApp
     {
         static void Main(string[] args)
         {
+            //var radio = new OnlineRadioService();
+            //var result = radio.Search(new Models.Services.OnlineRadio.OnlineRadioServiceSearchModel { Question = "rammstein", PageNumber = 1 });
+            //result.Wait();
+
+            //var result1 = 1;
             //var eleemtn = new StringBuilder("<table id=\"inner_wrap_3843015\"\n\t\t\t\t\tclass=\"b-story inner_wrap\"\n\t\t\t\t\tcellspacing=\"0\" cellpadding=\"0\"\n\t\t\t\t\t scrolled=\"0\"\n\t\t\t\t\tattr=\"3843015\" data-story-id=\"3843015\">");
 
             //var domEl = new DOMElement(null, eleemtn);
@@ -23,8 +29,8 @@ namespace RssAgregator.TestApp
             //var o3 = domEl.TagName;
             //var o4 = domEl.BadTag;
 
-            var olol = new RssAgregator.CORE.DataSourceProcessing();
-            olol.ProcessAllActiveDataSources();
+            //var olol = new RssAgregator.CORE.DataSourceProcessing();
+            //olol.ProcessAllActiveDataSources();
 
             //var vk = ParcerProviderFactory.GetFactory(DataSourceEnum.VK);
 
@@ -39,6 +45,11 @@ namespace RssAgregator.TestApp
             //var mainfun = ParcerProviderFactory.GetFactory(ParcerTypeEnum.Mainfun);
             //var resutl = mainfun.GetContent(new Uri("http://mainfun.ru/"));
             //resutl.Wait();
+
+            //var zaycev = ParcerProviderFactory.GetFactory(DataSourceEnum.Zaycev);
+            //zaycev.AddSearchCriteria("rammstein");
+            //var resutl4 = zaycev.GetContent(new Uri("http://zaycev.net/search.html"));
+            //resutl4.Wait();
         }
     }
 }

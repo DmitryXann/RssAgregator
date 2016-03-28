@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RssAgregator.BAL\RssAgregator.BAL.csproj">
+      <Project>{0051523e-6086-448f-8f7a-6470009e1fe0}</Project>
+      <Name>RssAgregator.BAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RssAgregator.CORE\RssAgregator.CORE.csproj">
       <Project>{1e622aab-a9e7-4859-a468-b75ade1da694}</Project>
       <Name>RssAgregator.CORE</Name>
@@ -81,6 +85,10 @@
     <ProjectReference Include="..\RssAgregator.DAL\RssAgregator.DAL.csproj">
       <Project>{d29860a1-79b4-4554-b511-425c8e208cff}</Project>
       <Name>RssAgregator.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RssAgregator.Models\RssAgregator.Models.csproj">
+      <Project>{3355b910-39ad-4404-94fc-4768a1957554}</Project>
+      <Name>RssAgregator.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,13 +4,13 @@ namespace RssAgregator.CORE.Models.PostModel.PostContentModel.PostContentContain
 {
     public class AudioPostContentContainerModel
     {
-        public string Signer { get; set; }
+        public string Artist { get; set; }
         public string Name { get; set; }
         public string Link { get; set; }
 
-        public AudioPostContentContainerModel(string signer, string name, string link)
+        public AudioPostContentContainerModel(string artist, string name, string link)
         {
-            Signer = signer;
+            Artist = artist;
             Name = string.IsNullOrEmpty(name) ? Path.GetFileName(link) : name;
             Link = link;
         }

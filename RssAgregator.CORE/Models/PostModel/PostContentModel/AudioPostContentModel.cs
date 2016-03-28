@@ -12,7 +12,7 @@ namespace RssAgregator.CORE.Models.PostModel.PostContentModel
 
         public override IEnumerable<string> PostContent
         {
-            get { return PostSpecificContent.Select(el => string.Format("{0} - {1} : {2}", el.Signer, el.Name, el.Link)); }
+            get { return PostSpecificContent.Select(el => string.Format("{0} - {1} : {2}", el.Artist, el.Name, el.Link)); }
         }
 
         public AudioPostContentModel(int order, params AudioPostContentContainerModel[] content) :

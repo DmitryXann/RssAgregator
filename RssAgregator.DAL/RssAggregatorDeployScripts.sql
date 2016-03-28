@@ -686,3 +686,124 @@ BEGIN
 END
 GO
 --========================================================
+--========================================================
+DECLARE @Key nvarchar(255)
+	   ,@Value nvarchar(max)
+
+SELECT @Key		= N'ExceptionOccured'
+	   ,@Value	= N'An error has occurred in the system, and the administrator of the application has been notified.'
+
+IF EXISTS(SELECT * FROM [dbo].[SettingsSet] WHERE [Key] like @Key)
+BEGIN
+	UPDATE [dbo].[SettingsSet]
+	SET
+		 [Key]		= @Key
+		,[Value]	= @Value
+	WHERE [Key]	= @Key
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[SettingsSet]
+		([Key]
+		,[Value])
+	VALUES
+		(@Key
+		,@Value)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Uri nvarchar(max)
+	   ,@Type int
+	   ,@IsActive bit
+	   ,@XMLGuide nvarchar(max)
+	   ,@BaseUri nvarchar(max)
+
+SELECT @Name		= N'ZaycevNet'
+	   ,@Uri		= N'http://zaycev.net/search.html'
+	   ,@Type		= 4
+	   ,@IsActive	= 1
+	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
+<PostModelXMLGuide>
+  <PostRootNode>
+    <name>div</name>
+    <class strictEqual="true">musicset-track-list__items</class>
+  </PostRootNode>
+  <AudioContent>
+    <SearchCriterea>
+      <name>div</name>
+      <class>musicset-track</class>
+    </SearchCriterea>
+
+    <SubSearchCritereaSongLink>
+      <name>div</name>
+      <class>musicset-track</class>
+    </SubSearchCritereaSongLink>
+    <SubSearchCritereaSongAuthor>
+      <name>div</name>
+      <class>musicset-track__artist</class>
+    </SubSearchCritereaSongAuthor>
+    <SubSearchCritereaSongName>
+      <name>div</name>
+      <class>musicset-track__track-name</class>
+    </SubSearchCritereaSongName>
+
+    <GetCritereaSongLink>
+      <data-url><![CDATA[((\/([\w]+))+).json]]></data-url>
+    </GetCritereaSongLink>
+    <GetCritereaSongAuthor>
+      <childs></childs>
+    </GetCritereaSongAuthor>
+    <GetCritereaSongName>
+      <childs></childs>
+    </GetCritereaSongName>
+
+    <TrimCritereaSongAuthor regExpTrim="true">
+      <![CDATA[>[\s]?[A-Za-zА-Яа-я0-9 _\-\+\=\*\(\)\[\]\{\}\t]+[\s]?<]]>
+    </TrimCritereaSongAuthor>
+    <TrimCritereaSongName regExpTrim="true">
+      <![CDATA[>[\s]?[A-Za-zА-Яа-я0-9 _\-\+\=\*\(\)\[\]\{\}\t]+[\s]?<]]>
+    </TrimCritereaSongName>
+
+    <AdditionalTrimCritereaSongAuthor>
+      <![CDATA[><]]>
+    </AdditionalTrimCritereaSongAuthor>
+    <AdditionalTrimCritereaSongName>
+      <![CDATA[><]]>
+    </AdditionalTrimCritereaSongName>
+  </AudioContent>
+</PostModelXMLGuide>'
+	   ,@BaseUri	= N'http://zaycev.net/'
+
+IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[DataSourcesSet]
+	SET
+		 [Name]		= @Name
+		,[Uri]		= @Uri
+		,[Type]		= @Type
+		,[IsActive]	= @IsActive
+		,[XMLGuide]	= @XMLGuide
+		,[BaseUri]	= @BaseUri
+	WHERE [Name]	= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[DataSourcesSet]
+		([Name]
+		,[Uri]
+		,[Type]
+		,[IsActive]
+		,[XMLGuide]
+		,[BaseUri])
+	VALUES
+		(@Name
+		,@Uri
+		,@Type
+		,@IsActive
+		,@XMLGuide
+		,@BaseUri)
+END
+GO
+--========================================================

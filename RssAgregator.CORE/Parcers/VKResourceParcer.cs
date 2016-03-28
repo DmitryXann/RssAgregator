@@ -46,7 +46,7 @@ namespace RssAgregator.CORE.Parcers
 
             IEnumerable<PostModel> result = null;
 
-            var denormalizedData = await GetResourceData(expectedUri, HttpMethodEnum.POST, new FormUrlEncodedContent(_vkPostData));
+            var denormalizedData = await GetResourceData(expectedUri, HttpMethodEnum.POST, _vkPostData);
 
             var serializedData = Serialize(denormalizedData);
             if (serializedData.Any())
@@ -59,6 +59,16 @@ namespace RssAgregator.CORE.Parcers
 #endif
 
             return result;
+        }
+
+        public void AddSearchCriteria(string queston)
+        {
+        }
+
+        public void SetPageNumber(int currentPage)
+        {
+            _pageOffsetMultiplier = currentPage;
+            _vkPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier)).ToString();
         }
 
         public void ResetPageCounter()
