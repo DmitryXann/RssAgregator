@@ -81,7 +81,7 @@ namespace RssAgregator.BAL.Services
                     {
                         Task.WaitAll(allSongTasks.ToArray());
 
-                        return allSongTasks.Select(el => el.Result).Where(el => el != null).AsParallel();
+                        return allSongTasks.AsParallel().Select(el => el.Result).Where(el => el != null);
                     }));
                 }
                 else
