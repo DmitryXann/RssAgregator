@@ -12,9 +12,9 @@ using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
-    public class ZaycevResourceParcer : ResourceSerializer, IResourceParcer
+    public class ZaycevResourceParcer : AbstractResourceSerializer, IResourceParcer
     {
-        private const int DEFAULT_PAGE_COUNT = 1;
+        private const int DEFAULT_PAGE_COUNT = 0;
         private const string PAGE_COUNT_KEY = "page";
         private const string SEARCH_CRITEREA_KEY = "query_search";
 
@@ -22,6 +22,7 @@ namespace RssAgregator.CORE.Parcers
 
         private int _pageOffsetCount;
         private int _pageOffsetMultiplier;
+        private bool _pageAlredySetted;
 
         public int DefaultPageCount
         {
@@ -39,8 +40,11 @@ namespace RssAgregator.CORE.Parcers
 
         public async Task<IEnumerable<PostModel>> GetContent(Uri expectedUri)
         {
-            _vzaycevPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
-
+            if (!_pageAlredySetted)
+            {
+                _vzaycevPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
+            }
+            
             IEnumerable<PostModel> result = null;
 
             var denormalizedData = await GetResourceData(expectedUri, HttpMethodEnum.GET, _vzaycevPostData);
@@ -52,7 +56,7 @@ namespace RssAgregator.CORE.Parcers
             }
 
 #if DEBUG
-            File.WriteAllText("C:\\zaicev.html", denormalizedData.ToString());
+            //File.WriteAllText("C:\\zaicev.html", denormalizedData.ToString());
 #endif
 
             return result;
@@ -67,6 +71,7 @@ namespace RssAgregator.CORE.Parcers
         {
             _pageOffsetMultiplier = currentPage;
             _vzaycevPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier)).ToString();
+            _pageAlredySetted = true;
         }
 
         public void ResetPageCounter()

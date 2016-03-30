@@ -70,8 +70,8 @@
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -184,6 +184,7 @@
     <Content Include="app\directives\audioPlayer.js" />
     <Content Include="app\directives\bindHtmlCompile.js" />
     <Content Include="app\directives\imgContainer.js" />
+    <Content Include="app\directives\ngEnter.js" />
     <Content Include="app\directives\postContainer.js" />
     <Content Include="app\directives\videoContainer.js" />
     <Content Include="app\factories\apiFactory.js" />
@@ -216,8 +217,11 @@
     <Content Include="Scripts\soundmanagerv2\soundmanager2-nodebug-jsmin.js" />
     <Content Include="Scripts\soundmanagerv2\soundmanager2.swf" />
     <Content Include="Scripts\toastr\toastr.min.js" />
+    <Content Include="Scripts\ui-bootstrap-1.2.5\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="Unity.Mvc4.README.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

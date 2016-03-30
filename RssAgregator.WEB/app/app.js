@@ -6,7 +6,8 @@
         'ngRoute',
         'ngResource',
         'ngSanitize',
-        'ngTouch'
+        'ngTouch',
+        'ui.bootstrap'
     ]).run(['$rootScope', function ($rootScope) {
         // Global error handler
         //window.onerror = function (msg, url, line) {

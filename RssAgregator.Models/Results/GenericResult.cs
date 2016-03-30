@@ -45,10 +45,18 @@ namespace RssAgregator.Models.Results
             InfoResult.ResultMessage = message;
         }
 
-        public void SetErrorResultCode<GT>(GenericResult<GT> previousResult, string message = null)
+        public void SetErrorResultCode<GT>(GenericResult<GT> previousResult, string message = null, bool getMessageFromPreviousResult = true)
         {
             InfoResult.ResultCode = ResultCodeEnum.Error;
-            InfoResult.ResultMessage = string.IsNullOrEmpty(message) ? previousResult.InfoResult.ResultMessage : message;
+
+            if (getMessageFromPreviousResult && previousResult.InfoResult.ResultCode == ResultCodeEnum.Success && typeof(GT) == typeof(string))
+            {
+                InfoResult.ResultMessage = previousResult.DataResult as string;
+            }
+            else
+            {
+                InfoResult.ResultMessage = string.IsNullOrEmpty(message) ? previousResult.InfoResult.ResultMessage : message;
+            } 
         }
 
 
@@ -58,10 +66,18 @@ namespace RssAgregator.Models.Results
             InfoResult.ResultMessage = message;
         }
 
-        public void SetWarningResultCode<GT>(GenericResult<GT> previousResult, string message = null)
+        public void SetWarningResultCode<GT>(GenericResult<GT> previousResult, string message = null, bool getMessageFromPreviousResult = true)
         {
             InfoResult.ResultCode = ResultCodeEnum.Warning;
-            InfoResult.ResultMessage = string.IsNullOrEmpty(message) ? previousResult.InfoResult.ResultMessage : message;
+
+            if (getMessageFromPreviousResult && previousResult.InfoResult.ResultCode == ResultCodeEnum.Success && typeof(GT) == typeof(string))
+            {
+                InfoResult.ResultMessage = previousResult.DataResult as string;
+            }
+            else
+            {
+                InfoResult.ResultMessage = string.IsNullOrEmpty(message) ? previousResult.InfoResult.ResultMessage : message;
+            }
         }
     }
 }

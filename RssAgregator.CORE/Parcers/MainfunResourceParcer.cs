@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
-    public class MainfunResourceParcer : ResourceSerializer, IResourceParcer
+    public class MainfunResourceParcer : AbstractResourceSerializer, IResourceParcer
     {
         private const int DEFAULT_PAGE_COUNT = 1;
 
@@ -20,6 +20,7 @@ namespace RssAgregator.CORE.Parcers
 
         private int _pageOffsetCount;
         private int _pageOffsetMultiplier;
+        private bool _pageAlredySetted;
 
         public int DefaultPageCount
         {
@@ -67,6 +68,7 @@ namespace RssAgregator.CORE.Parcers
         {
             //_pageOffsetMultiplier = currentPage;
             //_pikabuGetData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier)).ToString();
+            //_pageAlredySetted = true;
         }
         public void ResetPageCounter()
         {

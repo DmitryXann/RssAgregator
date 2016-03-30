@@ -22,5 +22,14 @@ namespace RssAgregator.WEB.Controllers.Api
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
+        public async Task<JsonResult> GetTypeAhedResult([FromUri] OnlineRadioServiceSearchModel id)
+        {
+            return new JsonResult
+            {
+                Data = await OnlineRadioService.TypeAheadSearch(id.Question),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
     }
 }

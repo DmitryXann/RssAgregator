@@ -14,14 +14,16 @@ using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
-    public abstract class ResourceSerializer : IDisposable
+    public abstract class AbstractResourceSerializer : IDisposable
     {
         protected CookieContainer CookieSharedContainer { get; set; }
         protected HttpClientHandler HttpClientHandler { get; set; }
 
+        protected HttpClient WebClient { get; set; }
+
         protected XMLGuidePostModelCreator XMLGuidePostModeCreator { get; set; }
 
-        protected ResourceSerializer(bool useCookie, XDocument xmlParceRules)
+        protected AbstractResourceSerializer(bool useCookie, XDocument xmlParceRules)
         {
             if (useCookie)
             {
@@ -33,6 +35,7 @@ namespace RssAgregator.CORE.Parcers
                 HttpClientHandler = new HttpClientHandler();
             }
 
+            WebClient = new HttpClient(HttpClientHandler);
             XMLGuidePostModeCreator = new XMLGuidePostModelCreator(xmlParceRules);
         }
 
@@ -40,42 +43,38 @@ namespace RssAgregator.CORE.Parcers
         {
             StringBuilder result = null;
 
-            using (var webClient = new HttpClient(HttpClientHandler))
+            Task<HttpResponseMessage> serverResponceTask = null;
+
+            switch (requestType)
             {
-                Task<HttpResponseMessage> serverResponceTask = null;
-                
-                switch (requestType)
-                { 
-                    case HttpMethodEnum.GET:
-                        var getParams = string.Empty;
+                case HttpMethodEnum.GET:
+                    var getParams = string.Empty;
 
-                        if (requestContent != null && requestContent.Any())
+                    if (requestContent != null && requestContent.Any())
+                    {
+                        var firstElement = requestContent.First();
+                        getParams += string.Format("?{0}={1}", firstElement.Key, firstElement.Value);
+
+                        foreach (var el in requestContent.Skip(1))
                         {
-                            var firstElement = requestContent.First();
-                            getParams += string.Format("?{0}={1}", firstElement.Key, firstElement.Value);
-
-                            foreach (var el in requestContent.Skip(1))
-                            {
-                                getParams += string.Format("&{0}={1}", el.Key, el.Value);
-                            }
+                            getParams += string.Format("&{0}={1}", el.Key, el.Value);
                         }
+                    }
 
-                        serverResponceTask = webClient.GetAsync(resourceUrl + getParams);
+                    serverResponceTask = WebClient.GetAsync(resourceUrl + getParams);
                     break;
-                    case HttpMethodEnum.PUT:
-                        serverResponceTask = webClient.PutAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
+                case HttpMethodEnum.PUT:
+                    serverResponceTask = WebClient.PutAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
                     break;
-                    case HttpMethodEnum.POST:
-                        serverResponceTask = webClient.PostAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
+                case HttpMethodEnum.POST:
+                    serverResponceTask = WebClient.PostAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
                     break;
-                }
+            }
 
-                if (serverResponceTask != null)
-                {
-                    var serverDataResult = await (await serverResponceTask).Content.ReadAsStringAsync();
-                    result = new StringBuilder(serverDataResult);
-                }
-
+            if (serverResponceTask != null)
+            {
+                var serverDataResult = await (await serverResponceTask).Content.ReadAsStringAsync();
+                result = new StringBuilder(serverDataResult);
             }
 
             return result;
@@ -150,6 +149,11 @@ namespace RssAgregator.CORE.Parcers
 
         public void Dispose()
         {
+            if (WebClient != null)
+            {
+                WebClient.Dispose();
+            }
+
             if (HttpClientHandler != null)
             {
                 HttpClientHandler.Dispose();

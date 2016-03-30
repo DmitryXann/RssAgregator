@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
-    public class VKResourceParcer : ResourceSerializer, IResourceParcer
+    public class VKResourceParcer : AbstractResourceSerializer, IResourceParcer
     {
         private const int DEFAULT_PAGE_COUNT = 8;
         private const string PAGE_COUNT_KEY = "offset";
@@ -20,6 +20,7 @@ namespace RssAgregator.CORE.Parcers
 
         private int _pageOffsetCount;
         private int _pageOffsetMultiplier;
+        private bool _pageAlredySetted;
 
         public int DefaultPageCount
         {
@@ -42,7 +43,10 @@ namespace RssAgregator.CORE.Parcers
 
         public async Task<IEnumerable<PostModel>> GetContent(Uri expectedUri)
         {
-            _vkPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
+            if (!_pageAlredySetted)
+            {
+                _vkPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
+            }
 
             IEnumerable<PostModel> result = null;
 
@@ -69,6 +73,7 @@ namespace RssAgregator.CORE.Parcers
         {
             _pageOffsetMultiplier = currentPage;
             _vkPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier)).ToString();
+            _pageAlredySetted = true;
         }
 
         public void ResetPageCounter()

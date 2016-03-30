@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
-    public class PikabuResourceParcer : ResourceSerializer, IResourceParcer
+    public class PikabuResourceParcer : AbstractResourceSerializer, IResourceParcer
     {
         private const int DEFAULT_PAGE_COUNT = 2;
         private const string PAGE_COUNT_KEY = "page";
@@ -26,6 +26,7 @@ namespace RssAgregator.CORE.Parcers
 
         private int _pageOffsetCount;
         private int _pageOffsetMultiplier;
+        private bool _pageAlredySetted;
 
         private bool _sessionIsActive;
 
@@ -73,8 +74,11 @@ namespace RssAgregator.CORE.Parcers
             }
             else
             {
-                _pikabuGetData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
-
+                if (!_pageAlredySetted)
+                {
+                    _pikabuGetData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
+                }
+                
                 var denormalizedData = await GetResourceData(expectedUri, HttpMethodEnum.GET, _pikabuGetData);
 
                 result.AddRange(SerializeContent(denormalizedData, false));
@@ -91,6 +95,7 @@ namespace RssAgregator.CORE.Parcers
         {
             _pageOffsetMultiplier = currentPage;
             _pikabuGetData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier)).ToString();
+            _pageAlredySetted = true;
         }
 
         public void ResetPageCounter()

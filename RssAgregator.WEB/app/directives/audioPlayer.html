@@ -1,9 +1,9 @@
 ﻿<div>
     <div>
         <div class="audio-player">
-            <div>Previous</div>
+            <div ng-click="playPrevious()">Previous</div>
             <div ng-click="payPause()">Play\Pause</div>
-            <div>Next</div>
+            <div ng-click="playNext()">Next</div>
         </div>
         <div class="song-name" ng-bind="getCurrentSongName()">
         </div>
@@ -12,48 +12,44 @@
             <div ng-click="shuffle()">Shuffle</div>
         </div>
         <div>
-            <input placeholder="Введите название группы или песни..." ng-model="searchQuestion" ng-enter="search()"></input>
-            <button type="button" class="btn btn-default" ng-click="search()" ng-disabled="!searchQuestion">Поиск музыки</button>
+            <input type="text" ng-model="searchQuestion" placeholder="Enter song or artist" uib-typeahead="songs for songs in typeAheadSearchResult($viewValue)" typeahead-loading="typeAheadLoading" typeahead-no-results="typeAheadNoResults" class="form-control" ng-enter="search()">
+            <i ng-show="typeAheadLoading" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="typeAheadNoResults">
+                <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+            <button type="button" class="btn btn-default" ng-click="search()" ng-disabled="!searchQuestion">Search</button>
         </div>
     </div>
     <div class="audio-pay-list">
         <div>
-            <uib-tabset>
-                <uib-tab heading="Play List" active="playListTabOpened">
+            <uib-tabset active="activceTabIndex">
+                <uib-tab heading="Play List">
                     <table>
                         <tr>
                             <th></th>
-                            <th>Исполнитель</th>
-                            <th>Название трека</th>
-                            <th>Битрейт</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
                         <tr ng-repeat="el in playList">
-                            <td><button type="button" class="btn btn-default" ng-click="play(el)">Играть</button></td>
+                            <td><button type="button" class="btn btn-default" ng-click="play(el)">Play</button></td>
                             <td ng-bind="::el.artist"></td>
-                            <td ng-bind="::el.track"></td>
-                            <td ng-bind="::el.bitrate"></td>
-                            <td><button type="button" class="btn btn-default" ng-click="addToPlayList(el)" ng-disabled="el.alreadyInPlayList">Удалить</button></td>
-                            <td><button type="button" class="btn btn-default" ng-click="download(el)">Скачать</button></td>
+                            <td ng-bind="::el.name"></td>
+                            <td><button type="button" class="btn btn-default" ng-click="deleteFromPlayList(el)">Delete</button></td>
                         </tr>
                     </table>
                 </uib-tab>
-                <uib-tab heading="Search Result" active="searchListTabOpened">
+                <uib-tab heading="Search Result">
                     <table>
                         <tr>
-                            <th>Исполнитель</th>
-                            <th>Название трека</th>
-                            <th>Битрейт</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
                         <tr ng-repeat="el in searchResult">
                             <td ng-bind="::el.artist"></td>
-                            <td ng-bind="::el.track"></td>
-                            <td ng-bind="::el.bitrate"></td>
-                            <td><button type="button" class="btn btn-default" ng-click="addToPlayList(el)" ng-disabled="el.alreadyInPlayList">Добавить в плей лист</button></td>
-                            <td><button type="button" class="btn btn-default" ng-click="download(el)">Скачать</button></td>
+                            <td ng-bind="::el.name"></td>
+                            <td><button type="button" class="btn btn-default" ng-click="addToPlayList(el)">Add to playlist</button></td>
                         </tr>
                     </table>
                 </uib-tab>

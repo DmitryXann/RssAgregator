@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RssAgregator.CORE.Interfaces.Parcers
 {
-    public interface IResourceParcer
+    public interface IResourceParcer : IDisposable
     {
         int DefaultPageCount { get; }
 

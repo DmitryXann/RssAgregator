@@ -29,19 +29,19 @@ namespace RssAgregator.CORE.Parcers
                             {
                                 case DataSourceEnum.VK:
                                     AddFactory(dataSource.Type, typeof(VKResourceParcer), new[] { xmlGuide });
-                                break;
+                                    break;
                                 case DataSourceEnum.Pikabu:
                                     AddFactory(dataSource.Type, typeof(PikabuResourceParcer), new[] { xmlGuide });
-                                break;
+                                    break;
                                 case DataSourceEnum.Mainfun:
                                     AddFactory(dataSource.Type, typeof(MainfunResourceParcer), new[] { xmlGuide });
-                                break;
+                                    break;
                                 case DataSourceEnum.Zaycev:
                                     AddFactory(dataSource.Type, typeof(ZaycevResourceParcer), new[] { xmlGuide });
-                                break;
+                                    break;
                             }
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             Logger.LogException(ex, LogTypeEnum.CORE);
                         }
@@ -60,9 +60,9 @@ namespace RssAgregator.CORE.Parcers
 
         private static void AddFactory(DataSourceEnum factoryType, Type typeOfFactoryEntity, object[] parameters = null)
         {
-            if (typeOfFactoryEntity.GetInterfaces().Any(el => el ==  typeof(IResourceParcer)))
+            if (typeOfFactoryEntity.GetInterfaces().Any(el => el == typeof(IResourceParcer)))
             {
-                var typeConstructor = typeOfFactoryEntity.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new [] { typeof(XDocument) }, null);
+                var typeConstructor = typeOfFactoryEntity.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(XDocument) }, null);
                 var typeInstance = typeConstructor.Invoke(parameters) as IResourceParcer;
 
                 if (typeInstance != null && !_factoties.ContainsKey(factoryType))
@@ -74,7 +74,7 @@ namespace RssAgregator.CORE.Parcers
             {
                 throw new ArgumentException(string.Format("Invalid type, expected IResourceParcer, found: {0}", typeOfFactoryEntity));
             }
-            
+
         }
 
         //public static void RemoveFactory(DataSourceEnum factoryType)
@@ -88,6 +88,16 @@ namespace RssAgregator.CORE.Parcers
         public static IResourceParcer GetFactory(DataSourceEnum factoryType)
         {
             return _factoties[factoryType];
+        }
+
+        public static void DisposeAllFactories()
+        {
+            foreach (var factory in _factoties)
+            {
+                factory.Value.Dispose();
+            }
+
+            _factoties.Clear();
         }
     }
 }

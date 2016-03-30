@@ -760,10 +760,10 @@ SELECT @Name		= N'ZaycevNet'
     </GetCritereaSongName>
 
     <TrimCritereaSongAuthor regExpTrim="true">
-      <![CDATA[>[\s]?[A-Za-zА-Яа-я0-9 _\-\+\=\*\(\)\[\]\{\}\t]+[\s]?<]]>
+      <![CDATA[>[\s]?(.)+[\s]?<]]>
     </TrimCritereaSongAuthor>
     <TrimCritereaSongName regExpTrim="true">
-      <![CDATA[>[\s]?[A-Za-zА-Яа-я0-9 _\-\+\=\*\(\)\[\]\{\}\t]+[\s]?<]]>
+      <![CDATA[>[\s]?(.)+[\s]?<]]>
     </TrimCritereaSongName>
 
     <AdditionalTrimCritereaSongAuthor>
