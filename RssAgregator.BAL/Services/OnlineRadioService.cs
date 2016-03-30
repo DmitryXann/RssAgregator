@@ -70,7 +70,7 @@ namespace RssAgregator.BAL.Services
 
                                                 return null;
                                             }
-                                        }));                                        
+                                        }));
                                     }
                                 }
                             }
@@ -83,6 +83,10 @@ namespace RssAgregator.BAL.Services
 
                         return allSongTasks.Select(el => el.Result).Where(el => el != null).AsParallel();
                     }));
+                }
+                else
+                {
+                    result.SetDataResult(Enumerable.Empty<OnlineRadioServiceSongModel>());
                 }
             }
             catch (Exception ex)
