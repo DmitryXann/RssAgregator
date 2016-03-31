@@ -1,6 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
 using RssAgregator.BAL.Interfaces.Services;
-using RssAgregator.Models.Services;
 using RssAgregator.Models.Services.OnlineRadio;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -14,20 +13,21 @@ namespace RssAgregator.WEB.Controllers.Api
         public IOnlineRadioService OnlineRadioService { get; set; }
 
         [System.Web.Http.HttpGet]
-        public async Task<JsonResult> GetSongs([FromUri] OnlineRadioServiceSearchModel id)
+        public async Task<JsonResult> GetSongs([FromUri] OnlineRadioServiceSearchModel inputParams)
         {
             return new JsonResult
             {
-                Data = await OnlineRadioService.Search(id),
+                Data = await OnlineRadioService.Search(inputParams),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
-        public async Task<JsonResult> GetTypeAhedResult([FromUri] OnlineRadioServiceSearchModel id)
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> GetTypeAhedResult([FromUri] OnlineRadioServiceSearchModel inputParams)
         {
             return new JsonResult
             {
-                Data = await OnlineRadioService.TypeAheadSearch(id.Question),
+                Data = await OnlineRadioService.TypeAheadSearch(inputParams.Question),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

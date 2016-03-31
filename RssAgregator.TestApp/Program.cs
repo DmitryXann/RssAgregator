@@ -29,8 +29,8 @@ namespace RssAgregator.TestApp
             //var o3 = domEl.TagName;
             //var o4 = domEl.BadTag;
 
-            //var olol = new RssAgregator.CORE.DataSourceProcessing();
-            //olol.ProcessAllActiveDataSources();
+           var olol = new RssAgregator.CORE.DataSourceProcessing();
+           olol.ProcessAllActiveDataSources();
 
             //var vk = ParcerProviderFactory.GetFactory(DataSourceEnum.VK);
 

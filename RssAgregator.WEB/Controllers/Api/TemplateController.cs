@@ -11,12 +11,12 @@ namespace RssAgregator.WEB.Controllers.Api
         public ITemplateService TemplateService { get; set; }
 
         [System.Web.Http.HttpGet]
-        public JsonResult GetTemplate(string id)
+        public JsonResult GetTemplate(string inputParams)
         {
             var userId = 1;
             return new JsonResult
             {
-                Data = TemplateService.GetUserTemplate(id, userId),
+                Data = TemplateService.GetUserTemplate(inputParams, userId),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

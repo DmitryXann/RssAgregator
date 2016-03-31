@@ -723,7 +723,7 @@ DECLARE @Name nvarchar(max)
 SELECT @Name		= N'ZaycevNet'
 	   ,@Uri		= N'http://zaycev.net/search.html'
 	   ,@Type		= 4
-	   ,@IsActive	= 1
+	   ,@IsActive	= 0
 	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
 <PostModelXMLGuide>
   <PostRootNode>

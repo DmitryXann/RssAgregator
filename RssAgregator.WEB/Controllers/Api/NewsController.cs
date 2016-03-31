@@ -17,11 +17,11 @@ namespace RssAgregator.WEB.Controllers.Api
         public INewsService NewsService { get; set; }
 
         [System.Web.Http.HttpGet]
-        public JsonResult NewsSearch([FromUri] NewsSearchModel id)
+        public JsonResult NewsSearch([FromUri] NewsSearchModel inputParams)
         {
             return new JsonResult
             {
-                Data = NewsService.GetNews(id.PageSize, id.PageNumber, id.HideAdult),
+                Data = NewsService.GetNews(inputParams.PageSize, inputParams.PageNumber, inputParams.HideAdult),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

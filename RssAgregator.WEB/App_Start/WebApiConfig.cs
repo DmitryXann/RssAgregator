@@ -11,8 +11,8 @@ namespace RssAgregator.WEB
         {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{action}/{inputParams}",
+                defaults: new { inputParams = RouteParameter.Optional }
             );
         }
     }

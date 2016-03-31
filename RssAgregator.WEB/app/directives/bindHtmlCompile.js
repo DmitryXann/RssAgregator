@@ -11,8 +11,10 @@
 		        },
 		        link: function (scope, element, attrs) {
 		            scope.$watch('sourceHtml', function (html) {
-		                element.html(html);
-		                $compile(element.contents())(scope.$parent);
+		                if (html) {
+		                    element.html(html);
+		                    $compile(element.contents())(scope.$parent);
+		                }
 		            });
 		        }
 		    };

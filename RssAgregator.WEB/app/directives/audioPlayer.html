@@ -5,8 +5,7 @@
             <div ng-click="payPause()">Play\Pause</div>
             <div ng-click="playNext()">Next</div>
         </div>
-        <div class="song-name" ng-bind="getCurrentSongName()">
-        </div>
+        <uib-progressbar max="getMaxSongDuration()" value="getCurrentSongProgress()"><span class="song-name" ng-bind="getCurrentSongName()"></span> <span class="song-duraion" ng-bind="getCurrentSongUserFriendlyProgress()"></span></uib-progressbar>
         <div>
             <div ng-click="repeatAll()">Repeat</div>
             <div ng-click="shuffle()">Shuffle</div>
@@ -30,11 +29,13 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                         <tr ng-repeat="el in playList">
                             <td><button type="button" class="btn btn-default" ng-click="play(el)">Play</button></td>
                             <td ng-bind="::el.artist"></td>
                             <td ng-bind="::el.name"></td>
+                            <td ng-bind="el.userFriendlyEstimateDuration"></td>
                             <td><button type="button" class="btn btn-default" ng-click="deleteFromPlayList(el)">Delete</button></td>
                         </tr>
                     </table>

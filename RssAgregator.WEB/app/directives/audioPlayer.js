@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter',
-		function (onlineRadioService, $window, $filter) {
+		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout',
+		function (onlineRadioService, $window, $filter, $timeout) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: 'app/directives/audioPlayer.html',
@@ -36,7 +36,34 @@
 		                    id: Math.floor(Math.random() * 100000).toString(),
 		                    url: elToAdd.link,
 		                    autoPlay: false,
-		                    onfinish: scope.playNext
+		                    onfinish: scope.playNext,
+		                    whileplaying: function () {
+		                        var that = this;
+
+		                        var minutes = Math.floor(that.position / 60000);
+		                        var seconds = ((that.position % 60000) / 1000).toFixed(0);
+		                        var expectedTime = (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+
+		                        if (elToAdd.progress !== expectedTime) {
+		                            $timeout(function () {
+		                                elToAdd.progress = that.position;
+		                                elToAdd.userFriendlyProgress = expectedTime;
+		                            });
+		                        }
+		                        
+		                       // $(".progBar").css('width', ((this.position / this.duration) * 100) + '%');
+		                    },
+		                    onload: function () {
+		                        var that = this;
+
+		                        $timeout(function () {
+		                            var minutes = Math.floor(that.duration / 60000);
+		                            var seconds = ((that.duration % 60000) / 1000).toFixed(0);
+
+		                            elToAdd.estimatedDuration = that.duration;
+		                            elToAdd.userFriendlyEstimateDuration = (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+		                        });
+		                    }
 		                });
 
 		                scope.playList.push(elToAdd);
@@ -66,7 +93,7 @@
 		            };
 
 		            scope.playNext = function () {
-		                if (scope.playList.length > 1) {
+		                if (scope.playList && scope.playList.length > 1) {
 		                    var ignoreSongChange = false;
 		                    var expectedIndex = 0;
 
@@ -95,7 +122,7 @@
 		            };
 
 		            scope.playPrevious = function () {
-		                if (scope.playList.length > 1) {
+		                if (scope.playList && scope.playList.length > 1) {
 		                    var ignoreSongChange = false;
 		                    var expectedIndex = 0;
 
@@ -125,19 +152,23 @@
 		            };
 
 		            scope.payPause = function () {
-		                if (scope.playList && scope.playList.length) {
-		                    if (!scope.currentPlayingSong) {
-		                        scope.currentPlayingSong = scope.playList[0];
-		                    }
-		                    if (scope.currentPlayingSong.audioObject.playState === 0) {
-		                        scope.currentPlayingSong.audioObject.play();
+		                if (!scope.currentPlayingSong && scope.playList && scope.playList.length) {
+		                    scope.currentPlayingSong = scope.playList[0];
+		                }
+		                if (scope.currentPlayingSong.audioObject.playState === 0) {
+		                    scope.currentPlayingSong.audioObject.play();
+		                } else {
+		                    if (scope.currentPlayingSong.audioObject.paused) {
+		                        scope.currentPlayingSong.audioObject.resume();
 		                    } else {
-		                        if (scope.currentPlayingSong.audioObject.paused) {
-		                            scope.currentPlayingSong.audioObject.resume();
-		                        } else {
-		                            scope.currentPlayingSong.audioObject.pause();
-		                        }
+		                        scope.currentPlayingSong.audioObject.pause();
 		                    }
+		                }
+		            };
+
+		            scope.seek = function (milliseconds) {
+		                if (scope.currentPlayingSong) {
+		                    scope.currentPlayingSong.audioObject.setPosition(milliseconds);
 		                }
 		            };
 
@@ -151,6 +182,18 @@
 
 		            scope.getCurrentSongName = function () {
 		                return scope.currentPlayingSong ? scope.currentPlayingSong.artist + ' - ' + scope.currentPlayingSong.name : '';
+		            };
+
+		            scope.getCurrentSongUserFriendlyProgress = function () {
+		                return scope.currentPlayingSong ? scope.currentPlayingSong.userFriendlyProgress : "00:00";
+		            };
+
+		            scope.getMaxSongDuration = function () {
+		                return scope.currentPlayingSong ? scope.currentPlayingSong.estimatedDuration : 100;
+		            };
+
+		            scope.getCurrentSongProgress = function () {
+		                return scope.currentPlayingSong ? scope.currentPlayingSong.progress : 0;
 		            };
 
 		            scope.search = function () {

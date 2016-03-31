@@ -14,6 +14,7 @@ namespace RssAgregator.WEB.Controllers
             {
                 return View();
             }
+
             return Redirect(Request.RawUrl + "/");
         }
     }

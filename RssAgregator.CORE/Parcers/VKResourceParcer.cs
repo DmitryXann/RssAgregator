@@ -59,7 +59,7 @@ namespace RssAgregator.CORE.Parcers
             }
             
 #if DEBUG
-            File.WriteAllText("C:\\vk.html", denormalizedData.ToString());
+            //File.WriteAllText("C:\\vk.html", denormalizedData.ToString());
 #endif
 
             return result;
