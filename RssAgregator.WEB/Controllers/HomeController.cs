@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Microsoft.Practices.Unity;
+using RssAgregator.BAL.Interfaces.Services;
 using System.Web.Mvc;
 
 namespace RssAgregator.WEB.Controllers
 {
     public class HomeController : Controller
     {
+        [Dependency]
+        public ISettingService SettingService { get; set; }
+
         public ActionResult Index()
         {
             if (Request.RawUrl.EndsWith("/"))
             {
-                return View();
+                return View(SettingService.GetAllUISettings());
             }
 
             return Redirect(Request.RawUrl + "/");

@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout',
-		function (onlineRadioService, $window, $filter, $timeout) {
+		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings',
+		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/audioPlayer.html',
+		        templateUrl: 'app/directives/audioPlayer/audioPlayer.html',
 		        scope: {
 		        },
 		        link: function (scope, element, attrs) {
@@ -16,7 +16,7 @@
 		            scope.activceTabIndex = 0;
 		            
 		            scope.searchQuestion = null;
-		            scope.pageNumber = 2;
+		            scope.pageNumber = 1;
 
 		            scope.player = soundManager;
 
@@ -28,46 +28,6 @@
 
 		            scope.repeatAllPlayList = false;
 		            scope.shufflePlayList = false;
-
-		            scope.addToPlayList = function (listEl) {
-		                var elToAdd = angular.copy(listEl);
-
-		                elToAdd.audioObject = soundManager.createSound({
-		                    id: Math.floor(Math.random() * 100000).toString(),
-		                    url: elToAdd.link,
-		                    autoPlay: false,
-		                    onfinish: scope.playNext,
-		                    whileplaying: function () {
-		                        var that = this;
-
-		                        var minutes = Math.floor(that.position / 60000);
-		                        var seconds = ((that.position % 60000) / 1000).toFixed(0);
-		                        var expectedTime = (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-
-		                        if (elToAdd.progress !== expectedTime) {
-		                            $timeout(function () {
-		                                elToAdd.progress = that.position;
-		                                elToAdd.userFriendlyProgress = expectedTime;
-		                            });
-		                        }
-		                        
-		                       // $(".progBar").css('width', ((this.position / this.duration) * 100) + '%');
-		                    },
-		                    onload: function () {
-		                        var that = this;
-
-		                        $timeout(function () {
-		                            var minutes = Math.floor(that.duration / 60000);
-		                            var seconds = ((that.duration % 60000) / 1000).toFixed(0);
-
-		                            elToAdd.estimatedDuration = that.duration;
-		                            elToAdd.userFriendlyEstimateDuration = (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-		                        });
-		                    }
-		                });
-
-		                scope.playList.push(elToAdd);
-		            };
 
 		            //scope.download = function (listEl) {
 		            //    var expectedElement = angular.element('#DownloadFrame');
@@ -90,6 +50,21 @@
 		                scope.currentIndex = scope.playList.indexOf(listEl);
 		                scope.currentPlayingSong = listEl;
 		                listEl.audioObject.play();
+		            };
+
+		            scope.payPause = function () {
+		                if (!scope.currentPlayingSong && scope.playList && scope.playList.length) {
+		                    scope.currentPlayingSong = scope.playList[0];
+		                }
+		                if (scope.currentPlayingSong.audioObject.playState === 0) {
+		                    scope.currentPlayingSong.audioObject.play();
+		                } else {
+		                    if (scope.currentPlayingSong.audioObject.paused) {
+		                        scope.currentPlayingSong.audioObject.resume();
+		                    } else {
+		                        scope.currentPlayingSong.audioObject.pause();
+		                    }
+		                }
 		            };
 
 		            scope.playNext = function () {
@@ -151,21 +126,6 @@
 		                }
 		            };
 
-		            scope.payPause = function () {
-		                if (!scope.currentPlayingSong && scope.playList && scope.playList.length) {
-		                    scope.currentPlayingSong = scope.playList[0];
-		                }
-		                if (scope.currentPlayingSong.audioObject.playState === 0) {
-		                    scope.currentPlayingSong.audioObject.play();
-		                } else {
-		                    if (scope.currentPlayingSong.audioObject.paused) {
-		                        scope.currentPlayingSong.audioObject.resume();
-		                    } else {
-		                        scope.currentPlayingSong.audioObject.pause();
-		                    }
-		                }
-		            };
-
 		            scope.seek = function (milliseconds) {
 		                if (scope.currentPlayingSong) {
 		                    scope.currentPlayingSong.audioObject.setPosition(milliseconds);
@@ -180,22 +140,7 @@
 		                scope.repeatAllPlayList = !scope.repeatAllPlayList;
 		            };
 
-		            scope.getCurrentSongName = function () {
-		                return scope.currentPlayingSong ? scope.currentPlayingSong.artist + ' - ' + scope.currentPlayingSong.name : '';
-		            };
-
-		            scope.getCurrentSongUserFriendlyProgress = function () {
-		                return scope.currentPlayingSong ? scope.currentPlayingSong.userFriendlyProgress : "00:00";
-		            };
-
-		            scope.getMaxSongDuration = function () {
-		                return scope.currentPlayingSong ? scope.currentPlayingSong.estimatedDuration : 100;
-		            };
-
-		            scope.getCurrentSongProgress = function () {
-		                return scope.currentPlayingSong ? scope.currentPlayingSong.progress : 0;
-		            };
-
+		            
 		            scope.search = function () {
 		                onlineRadioService.get('GetSongs', { Question: scope.searchQuestion, PageNumber: scope.pageNumber }).then(function (serverResult) {
 		                    if (serverResult.sucessResult) {
@@ -216,12 +161,53 @@
 		                });
 		            };
 
+		            scope.addToPlayList = function (listEl) {
+		                var elToAdd = angular.copy(listEl);
+
+		                elToAdd.audioObject = soundManager.createSound({
+		                    id: Math.floor(Math.random() * 100000).toString(),
+		                    url: elToAdd.link,
+		                    autoPlay: false,
+		                    onfinish: scope.playNext,
+		                    whileplaying: function () {
+		                        var that = this;
+
+		                        var minutes = Math.floor(that.position / 60000);
+		                        var seconds = ((that.position % 60000) / 1000).toFixed(0);
+		                        var expectedTime = (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+
+		                        if (elToAdd.progress !== expectedTime) {
+		                            $timeout(function () {
+		                                elToAdd.progress = that.position;
+		                                elToAdd.userFriendlyProgress = expectedTime;
+		                            });
+		                        }
+		                    },
+		                    onload: function (success) {
+		                        if (success) {
+		                            var that = this;
+
+		                            $timeout(function () {
+		                                var minutes = Math.floor(that.duration / 60000);
+		                                var seconds = ((that.duration % 60000) / 1000).toFixed(0);
+
+		                                elToAdd.estimatedDuration = that.duration;
+		                                elToAdd.userFriendlyEstimateDuration = (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+		                            });
+		                        } else {
+		                            notificationService.warning(uiSettings.CantPlaySong);
+		                        }
+		                    }
+		                });
+
+		                scope.playList.push(elToAdd);
+		            };
+
 		            scope.deleteFromPlayList = function (listEl) {
 		                var index = scope.playList.indexOf(listEl);
 		                scope.playList.splice(index, 1);
 		            };
                     
-
 		            scope.typeAheadSearchResult = function (searchQuestion) {
 		                return onlineRadioService.get('GetTypeAhedResult', { Question: searchQuestion }).then(function (serverResult) {
 		                    if (serverResult.sucessResult) {
@@ -241,12 +227,9 @@
 
 		            function init() {
 		                scope.player.setup({
-		                    url: '/Scripts/soundmanager2/',
+		                    url: '/Scripts/soundmanagerv2/',
 		                    flashVersion: 9,
-		                    preferFlash: false,
-		                    onready: function () {
-		                        //scope.search('Rammstein');
-		                    }
+		                    preferFlash: false
 		                });
 		            }
 

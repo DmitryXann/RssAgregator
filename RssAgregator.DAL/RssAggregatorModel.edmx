@@ -196,6 +196,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Key" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ForUI" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="NewsDataSources">
     <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="*" />
@@ -604,6 +605,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Key" Type="String" Nullable="false" MaxLength="255" />
           <Property Name="Value" Type="String" Nullable="false" />
+          <Property Name="ForUI" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -743,6 +745,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Key" ColumnName="Key" />
           <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ForUI" ColumnName="ForUI" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

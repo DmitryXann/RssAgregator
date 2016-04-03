@@ -6,17 +6,15 @@
         <title>@ViewBag.Title</title>
         @Styles.Render("~/Content/cssLibs")
         @Styles.Render("~/Content/css")
-    </head>
-    <body ng-app="app" ng-cloak>
-        @RenderBody()
 
         @Scripts.Render("~/bundles/jquerry")
         @Scripts.Render("~/bundles/toastr")
         @Scripts.Render("~/bundles/angular")
         @Scripts.Render("~/bundles/ui-bootstrap")
-        @Scripts.Render("~/bundles/soundmanager2")
+        @Scripts.Render("~/bundles/soundmanagerv2")
         @Scripts.Render("~/bundles/app")
-        
-        @*@RenderSection("scripts", required: false)*@
+    </head>
+    <body ng-app="app" ng-cloak>
+        @RenderBody()
     </body>
 </html>

@@ -1,1 +1,27 @@
-﻿<div ng-view></div>
+﻿<script>
+    (function (angular) {
+        'use strict';
+
+        var serverResult = @Html.Raw(Json.Encode(Model));
+        var uiSettings = {};
+
+        switch(serverResult.InfoResult.ResultCode) {
+            case 0:
+                toastr.error("No result from server");
+            break;
+            case 1:
+                uiSettings = serverResult.DataResult;
+            break;
+            case 2:
+                toastr.error(serverResult.InfoResult.ResultMessage);
+            break;
+            case 3:
+                toastr.warning(serverResult.InfoResult.ResultMessage);
+            break;
+        }
+
+        angular.module('app').constant('uiSettings', uiSettings);
+    })(angular);
+</script>
+
+<div ng-view></div>

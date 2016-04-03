@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/23/2016 01:59:39
+-- Date Created: 04/03/2016 02:52:49
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -226,7 +226,8 @@ GO
 CREATE TABLE [dbo].[SettingsSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Key] nvarchar(255)  NOT NULL,
-    [Value] nvarchar(max)  NOT NULL
+    [Value] nvarchar(max)  NOT NULL,
+    [ForUI] bit  NOT NULL
 );
 GO
 

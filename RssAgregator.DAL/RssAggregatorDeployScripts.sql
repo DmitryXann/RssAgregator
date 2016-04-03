@@ -689,9 +689,11 @@ GO
 --========================================================
 DECLARE @Key nvarchar(255)
 	   ,@Value nvarchar(max)
+	   ,@ForUI bit
 
 SELECT @Key		= N'ExceptionOccured'
 	   ,@Value	= N'An error has occurred in the system, and the administrator of the application has been notified.'
+	   ,@ForUI  = 0
 
 IF EXISTS(SELECT * FROM [dbo].[SettingsSet] WHERE [Key] like @Key)
 BEGIN
@@ -699,16 +701,19 @@ BEGIN
 	SET
 		 [Key]		= @Key
 		,[Value]	= @Value
+		,[ForUI]    = @ForUI
 	WHERE [Key]	= @Key
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[SettingsSet]
 		([Key]
-		,[Value])
+		,[Value]
+		,[ForUI])
 	VALUES
 		(@Key
-		,@Value)
+		,@Value
+		,@ForUI)
 END
 GO
 --========================================================
@@ -804,6 +809,37 @@ BEGIN
 		,@IsActive
 		,@XMLGuide
 		,@BaseUri)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Key nvarchar(255)
+	   ,@Value nvarchar(max)
+	   ,@ForUI bit
+
+SELECT @Key		= N'CantPlaySong'
+	   ,@Value	= N'Can`t play this song, there are an network problem or this song is not available in you`r location'
+	   ,@ForUI  = 1
+
+IF EXISTS(SELECT * FROM [dbo].[SettingsSet] WHERE [Key] like @Key)
+BEGIN
+	UPDATE [dbo].[SettingsSet]
+	SET
+		 [Key]		= @Key
+		,[Value]	= @Value
+		,[ForUI]    = @ForUI
+	WHERE [Key]	= @Key
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[SettingsSet]
+		([Key]
+		,[Value]
+		,[ForUI])
+	VALUES
+		(@Key
+		,@Value
+		,@ForUI)
 END
 GO
 --========================================================

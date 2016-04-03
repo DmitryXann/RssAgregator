@@ -25,7 +25,7 @@ namespace RssAgregator.WEB
 
             bundles.Add(new ScriptBundle("~/bundles/ui-bootstrap").Include("~/Scripts/ui-bootstrap-1.2.5/ui-bootstrap-tpls-1.2.5.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/soundmanager2").Include("~/Scripts/soundmanagerv2/soundmanager2-nodebug-jsmin.js"));
+            bundles.Add(new ScriptBundle("~/bundles/soundmanagerv2").Include("~/Scripts/soundmanagerv2/soundmanager2-nodebug-jsmin.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/main.css"));
 

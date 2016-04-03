@@ -179,9 +179,11 @@
     <Content Include="app\config.js" />
     <Content Include="app\controllers\dashboardController\dashboard.html" />
     <Content Include="app\controllers\dashboardController\dashboardController.js" />
+    <Content Include="app\directives\audioPlayer\audioPlayerProgressBar.html" />
+    <Content Include="app\directives\audioPlayer\audioPlayerProgressBar.js" />
     <Content Include="app\directives\containers\audioContainer.js" />
-    <Content Include="app\directives\audioPlayer.html" />
-    <Content Include="app\directives\audioPlayer.js" />
+    <Content Include="app\directives\audioPlayer\audioPlayer.html" />
+    <Content Include="app\directives\audioPlayer\audioPlayer.js" />
     <Content Include="app\directives\bindHtmlCompile.js" />
     <Content Include="app\directives\containers\imgContainer.js" />
     <Content Include="app\directives\ngEnter.js" />

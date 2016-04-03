@@ -2,6 +2,8 @@
 using RssAgregator.DAL;
 using RssAgregator.Models.Results;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RssAgregator.BAL.Services
 {
@@ -16,6 +18,25 @@ namespace RssAgregator.BAL.Services
                 using (var db = new RssAggregatorModelContainer())
                 {
                     result.SetDataResult(db.GetEntity<Settings>(el => el.Key == key).Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogTypeEnum.BAL);
+            }
+
+            return result;
+        }
+
+        public GenericResult<IDictionary<string, string>> GetAllUISettings()
+        {
+            var result = new GenericResult<IDictionary<string, string>>();
+
+            try
+            {
+                using (var db = new RssAggregatorModelContainer())
+                {
+                    result.SetDataResult(db.GetDBSet<Settings>(el => el.ForUI).ToDictionary(el => el.Key, el => el.Value));
                 }
             }
             catch (Exception ex)

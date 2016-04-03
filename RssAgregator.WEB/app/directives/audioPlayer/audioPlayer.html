@@ -5,7 +5,7 @@
             <div ng-click="payPause()">Play\Pause</div>
             <div ng-click="playNext()">Next</div>
         </div>
-        <uib-progressbar max="getMaxSongDuration()" value="getCurrentSongProgress()"><span class="song-name" ng-bind="getCurrentSongName()"></span> <span class="song-duraion" ng-bind="getCurrentSongUserFriendlyProgress()"></span></uib-progressbar>
+        <audio-player-progress-bar current-playing-song="currentPlayingSong" seek="seek"></audio-player-progress-bar>
         <div>
             <div ng-click="repeatAll()">Repeat</div>
             <div ng-click="shuffle()">Shuffle</div>
