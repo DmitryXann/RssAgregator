@@ -8,7 +8,7 @@
                 $scope.addNewPostButtonVisible = false;
                 $scope.postList = [];
 
-                $scope.pageSize = 5;
+                $scope.pageSize = 10;
                 $scope.currentPage = 1;
                 $scope.hideAdultContent = true;
 
