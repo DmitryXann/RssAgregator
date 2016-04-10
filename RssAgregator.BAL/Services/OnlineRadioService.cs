@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.Unity;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RssAgregator.BAL.Interfaces.Services;
 using RssAgregator.CORE.Models.PostModel.PostContentModel;
 using RssAgregator.CORE.Models.PostModel.PostContentModel.PostContentContainerModel;
@@ -17,12 +16,30 @@ namespace RssAgregator.BAL.Services
 {
     public class OnlineRadioService : IOnlineRadioService
     {
-        private const string ONLINE_RADIO_SEARCH_URL = "http://zaycev.net/search.html";
-        private const string ONLINE_RADIO_SEARCH_BASE_URL = "http://zaycev.net";
-        private const string ONLINE_RADIO_TYPE_AHEAD_URL = "http://zaycev.net/suggest4/";
+        private string _onlineRadionBaseURL;
+        private string _onlineRadioSearchURl;
+        private string _onlineRadioTypeAheadPostfix;
 
-        [Dependency]
         public ISettingService SettingService { get; set; }
+
+        public OnlineRadioService(ISettingService settingsService)
+        {
+            SettingService = settingsService;
+
+            using (var db = new RssAggregatorModelContainer())
+            {
+                var onlineRadioEntity = db.GetEntity<DataSources>(el => el.Type == DataSourceEnum.OnlineRadio);
+
+                _onlineRadionBaseURL = onlineRadioEntity.BaseUri;
+                _onlineRadioSearchURl = onlineRadioEntity.Uri;
+
+                var onlineRadioTypeAheadPostfix = settingsService.GetSetting("OnlineRadioTypeAheadPostfix");
+                if (onlineRadioTypeAheadPostfix.InfoResult.ResultCode == Models.Enums.ResultCodeEnum.Success)
+                {
+                    _onlineRadioTypeAheadPostfix = string.Format("{0}/{1}", _onlineRadionBaseURL.TrimEnd(new[] { '/' }), onlineRadioTypeAheadPostfix.DataResult);
+                }
+            }
+        }
 
         public async Task<GenericResult<IEnumerable<OnlineRadioServiceSongModel>>> Search(OnlineRadioServiceSearchModel searchModel)
         {
@@ -30,15 +47,21 @@ namespace RssAgregator.BAL.Services
 
             try
             {
-                var serverFactory = ParcerProviderFactory.GetFactory(DataSourceEnum.Zaycev);
+                var serverFactory = ParcerProviderFactory.GetFactory(DataSourceEnum.OnlineRadio);
                 serverFactory.AddSearchCriteria(searchModel.Question);
                 serverFactory.SetPageNumber(searchModel.PageNumber);
 
-                var serverFactoryResult = await serverFactory.GetContent(new Uri(ONLINE_RADIO_SEARCH_URL));
+                var serverFactoryResult = await serverFactory.GetContent(new Uri(_onlineRadioSearchURl));
 
                 if (serverFactoryResult != null && serverFactoryResult.Any())
                 {
                     var allSongTasks = new List<Task<OnlineRadioServiceSongModel>>();
+                    IEnumerable<SongsBlackList> songsBlackList;
+
+                    using (var db = new RssAggregatorModelContainer())
+                    {
+                        songsBlackList = db.GetDBSet<SongsBlackList>(el => string.Compare(el.City, searchModel.City, true) == 0 && string.Compare(el.Country, searchModel.Country, true) == 0).ToList();
+                    }
 
                     foreach (var postItem in serverFactoryResult)
                     {
@@ -54,11 +77,11 @@ namespace RssAgregator.BAL.Services
                                         {
                                             using (var webClient = new HttpClient())
                                             {
-                                                var serverResponceTask = webClient.GetAsync(string.Format("{0}/{1}", ONLINE_RADIO_SEARCH_BASE_URL, audioContent.Link.TrimStart(new[] { '/' })));
+                                                var serverResponceTask = webClient.GetAsync(string.Format("{0}/{1}", _onlineRadionBaseURL.TrimEnd(new[] { '/' }), audioContent.Link.TrimStart(new[] { '/' })));
 
                                                 var serverResult = await (await serverResponceTask).Content.ReadAsStringAsync();
                                                 var serializedServerResult = JsonConvert.DeserializeObject<OnlineRadioServiceSongUrlJsonModel>(serverResult);
-                                                if (serializedServerResult != null && !string.IsNullOrEmpty(serializedServerResult.url))
+                                                if (serializedServerResult != null && !string.IsNullOrEmpty(serializedServerResult.url) && !songsBlackList.Any(el => el.SongURL == serializedServerResult.url))
                                                 {
                                                     return new OnlineRadioServiceSongModel
                                                     {
@@ -106,12 +129,39 @@ namespace RssAgregator.BAL.Services
             {
                 using (var webClient = new HttpClient())
                 {
-                    var serverResponceTask = webClient.GetAsync(string.Format("{0}?terms.prefix={1}", ONLINE_RADIO_TYPE_AHEAD_URL, question));
+                    var serverResponceTask = webClient.GetAsync(string.Format("{0}/?terms.prefix={1}", _onlineRadioTypeAheadPostfix.TrimEnd(new[] { '/' }), question));
 
                     var serverResult = await (await serverResponceTask).Content.ReadAsStringAsync();
                     var serializedServerResult = JsonConvert.DeserializeObject<OnlineRadioTypeAhedJsonModel>(serverResult);
 
                     result.SetDataResult(serializedServerResult == null ? Enumerable.Empty<string>() : serializedServerResult.terms.GetAllKeys());
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogTypeEnum.BAL);
+                result.SetErrorResultCode(SettingService.GetUserFriendlyExceptionMessage());
+            }
+
+            return result;
+        }
+
+        public GenericResult<bool> AddNotPlayebleSong(OnlineRadioNotPlayebleSongModel inputParams)
+        {
+            var result = new GenericResult<bool>();
+
+            try
+            {
+                using (var db = new RssAggregatorModelContainer(true))
+                {
+                    db.AddEntity(new SongsBlackList
+                    {
+                        SongURL = inputParams.SongURL,
+                        City = inputParams.City,
+                        Country = inputParams.Country
+                    });
+
+                    result.SetDataResult(true);
                 }
             }
             catch (Exception ex)

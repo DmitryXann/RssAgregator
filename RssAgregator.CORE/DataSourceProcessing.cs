@@ -6,9 +6,6 @@ using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace RssAgregator.CORE
 {
@@ -36,7 +33,7 @@ namespace RssAgregator.CORE
                     _systemTemplates = db.GetDBSet<Template>(el => el.Type == TemplateTypeEnum.System && el.Version == null).ToList();
                 }
 
-                foreach (var dataSource in db.GetDBSet<DataSources>(el => el.IsActive))
+                foreach (var dataSource in db.GetDBSet<DataSources>(el => el.IsActive && el.IsNewsSource))
                 {
                     var expectedFactory = ParcerProviderFactory.GetFactory(dataSource.Type);
                     var contetn = expectedFactory.GetContent(new Uri(dataSource.Uri));

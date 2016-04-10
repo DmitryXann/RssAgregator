@@ -26,6 +26,7 @@ namespace RssAgregator.DAL
         public bool IsActive { get; set; }
         public string XMLGuide { get; set; }
         public string BaseUri { get; set; }
+        public bool IsNewsSource { get; set; }
     
         public virtual ICollection<News> News { get; set; }
     }

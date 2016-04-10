@@ -25,10 +25,20 @@
                         get: function (actionName, params) {
                             return $resource('api/' + controllerName + '/' + actionName + '/:id',
                                 { id: '@id' }, {
-                                get: {
-                                    transformResponse: transformResponseProcessing
+                                    get: {
+                                        method: "GET",
+                                        transformResponse: transformResponseProcessing,
                                 }
                             }).get(params).$promise;
+                        },
+                        post: function (actionName, params) {
+                            return $resource('api/' + controllerName + '/' + actionName + '/:id',
+                                { id: '@id' }, {
+                                    save: {
+                                        method: "POST",
+                                        transformResponse: transformResponseProcessing
+                                    }
+                            }).save(params).$promise;
                         }
                     }
                 }

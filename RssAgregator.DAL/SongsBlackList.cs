@@ -10,13 +10,13 @@
 namespace RssAgregator.DAL
 {
     using System;
+    using System.Collections.Generic;
     
-    public enum DataSourceEnum : int
+    public partial class SongsBlackList
     {
-        VK = 1,
-        Pikabu = 2,
-        Mainfun = 3,
-        Joyreactor = 4,
-        OnlineRadio = 0
+        public int Id { get; set; }
+        public string SongURL { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
     }
 }

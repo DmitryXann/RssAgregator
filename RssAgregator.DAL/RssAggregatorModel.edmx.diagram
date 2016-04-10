@@ -28,6 +28,7 @@
         <AssociationConnector Association="RssAggregatorModel.UserMessagesUser" ></AssociationConnector>
         <AssociationConnector Association="RssAggregatorModel.UserMessagesUser1" />
         <EntityTypeShape EntityType="RssAggregatorModel.Settings" Width="1.5" PointX="2.375" PointY="6.625" />
+        <EntityTypeShape EntityType="RssAggregatorModel.SongsBlackList" Width="1.5" PointX="2.375" PointY="8.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

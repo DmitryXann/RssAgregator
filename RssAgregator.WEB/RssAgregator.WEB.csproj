@@ -191,6 +191,7 @@
     <Content Include="app\directives\containers\videoContainer.js" />
     <Content Include="app\factories\apiFactory.js" />
     <Content Include="app\services\notificationService.js" />
+    <Content Include="app\factories\userInfoFactory.js" />
     <Content Include="app\services\webApi.js" />
     <Content Include="app\route.js" />
     <Content Include="Content\libs\angular-1.4.8\angular-csp.css" />

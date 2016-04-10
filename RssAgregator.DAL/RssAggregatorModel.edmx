@@ -18,6 +18,7 @@
     <EntitySet Name="UserFeedbackSet" EntityType="RssAggregatorModel.Store.UserFeedbackSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserMessagesSet" EntityType="RssAggregatorModel.Store.UserMessagesSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SettingsSet" EntityType="RssAggregatorModel.Store.SettingsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SongsBlackListSet" EntityType="RssAggregatorModel.Store.SongsBlackListSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="NewsDataSources" Association="RssAggregatorModel.Store.NewsDataSources">
       <End Role="News" EntitySet="NewsSet" />
       <End Role="DataSources" EntitySet="DataSourcesSet" />
@@ -74,6 +75,7 @@
     <Property Name="IsActive" Type="bit" Nullable="false" />
     <Property Name="XMLGuide" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BaseUri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsNewsSource" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="NewsSet">
     <Key>
@@ -197,6 +199,15 @@
     <Property Name="Key" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ForUI" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SongsBlackListSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SongURL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="NewsDataSources">
     <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="*" />
@@ -391,6 +402,7 @@
             <End Role="User" EntitySet="UserSet" />
           </AssociationSet>
           <EntitySet Name="SettingsSet" EntityType="RssAggregatorModel.Settings" />
+          <EntitySet Name="SongsBlackListSet" EntityType="RssAggregatorModel.SongsBlackList" />
         </EntityContainer>
         <EntityType Name="DataSources">
           <Key>
@@ -404,13 +416,14 @@
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="String" Name="XMLGuide" Nullable="false" />
           <Property Type="String" Name="BaseUri" Nullable="false" />
+          <Property Name="IsNewsSource" Type="Boolean" Nullable="false" />
         </EntityType>
         <EnumType Name="DataSourceEnum">
-          <Member Name="VK" />
-          <Member Name="Pikabu" />
-          <Member Name="Mainfun" />
-          <Member Name="Joyreactor" />
-          <Member Name="Zaycev" />
+          <Member Name="VK" Value="1" />
+          <Member Name="Pikabu" Value="2" />
+          <Member Name="Mainfun" Value="3" />
+          <Member Name="Joyreactor" Value="4" />
+          <Member Name="OnlineRadio" Value="0" />
         </EnumType>
         <EntityType Name="News">
           <Key>
@@ -607,6 +620,15 @@
           <Property Name="Value" Type="String" Nullable="false" />
           <Property Name="ForUI" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="SongsBlackList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SongURL" Type="String" Nullable="false" />
+          <Property Name="Country" Type="String" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -623,6 +645,7 @@
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="XMLGuide" ColumnName="XMLGuide" />
           <ScalarProperty Name="BaseUri" ColumnName="BaseUri" />
+          <ScalarProperty Name="IsNewsSource" ColumnName="IsNewsSource" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -746,6 +769,16 @@
           <ScalarProperty Name="Key" ColumnName="Key" />
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="ForUI" ColumnName="ForUI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SongsBlackListSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.SongsBlackList)">
+        <MappingFragment StoreEntitySet="SongsBlackListSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SongURL" ColumnName="SongURL" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

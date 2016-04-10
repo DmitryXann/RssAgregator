@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings',
-		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings) {
+		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory',
+		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: 'app/directives/audioPlayer/audioPlayer.html',
@@ -143,22 +143,29 @@
 
 		            
 		            scope.search = function () {
-		                onlineRadioService.get('GetSongs', { Question: scope.searchQuestion, PageNumber: scope.pageNumber }).then(function (serverResult) {
-		                    if (serverResult.sucessResult) {
-		                        scope.searchResult = [];
+		                 userInfoFactory.getUserInfo().then(function (locationResult) {
+                             onlineRadioService.get('GetSongs', {
+                                 Question: scope.searchQuestion,
+                                 PageNumber: scope.pageNumber,
+                                 City: locationResult.city,
+                                 Country: locationResult.country
+                             }).then(function (serverResult) {
+                                 if (serverResult.sucessResult) {
+                                     scope.searchResult = [];
 
-		                        angular.forEach(serverResult.DataResult, function (value) {
-		                            scope.searchResult.push({
-		                                name: value.Name,
-		                                artist: value.Artist,
-		                                link: value.Link,
-		                                alreadyInPlayList: false
-		                            });
-		                        });
-		                        scope.activceTabIndex = 1;
-		                    } else {
-		                        serverResult.showInfoMessage();
-		                    }
+                                     angular.forEach(serverResult.DataResult, function (value) {
+                                         scope.searchResult.push({
+                                             name: value.Name,
+                                             artist: value.Artist,
+                                             link: value.Link,
+                                             alreadyInPlayList: false
+                                         });
+                                     });
+                                     scope.activceTabIndex = 1;
+                                 } else {
+                                     serverResult.showInfoMessage();
+                                 }
+                             });
 		                });
 		            };
 
@@ -197,6 +204,24 @@
 		                            });
 		                        } else {
 		                            notificationService.warning(uiSettings.CantPlaySong);
+
+		                            userInfoFactory.getUserInfo().then(function (locationResult) {
+		                                onlineRadioService.post('AddNotPlayebleSong', {
+		                                    SongURL: elToAdd.link,
+		                                    City: locationResult.city,
+		                                    Country: locationResult.country
+		                                }).then(function (serverResult) {
+		                                    if (serverResult.sucessResult) {
+		                                        if (serverResult.sucessResult) {
+		                                            $timeout(function () {
+		                                                notificationService.warning(uiSettings.SongInBlackList);
+		                                            }, 500);
+		                                        }
+		                                    } else {
+		                                        serverResult.showInfoMessage();
+		                                    }
+		                                });
+		                            });
 		                        }
 		                    }
 		                });

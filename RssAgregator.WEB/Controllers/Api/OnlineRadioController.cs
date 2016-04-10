@@ -31,5 +31,15 @@ namespace RssAgregator.WEB.Controllers.Api
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
+        [System.Web.Http.HttpPost]
+        public JsonResult AddNotPlayebleSong([FromBody]OnlineRadioNotPlayebleSongModel inputParams)
+        {
+            return new JsonResult
+            {
+                Data = OnlineRadioService.AddNotPlayebleSong(inputParams),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
     }
 }

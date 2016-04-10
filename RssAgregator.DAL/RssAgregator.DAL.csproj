@@ -108,6 +108,9 @@
     <Compile Include="Settings.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SongsBlackList.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Template.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>

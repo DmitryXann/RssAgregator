@@ -36,7 +36,7 @@ namespace RssAgregator.CORE.Parcers
                                 case DataSourceEnum.Mainfun:
                                     AddFactory(dataSource.Type, typeof(MainfunResourceParcer), new[] { xmlGuide });
                                     break;
-                                case DataSourceEnum.Zaycev:
+                                case DataSourceEnum.OnlineRadio:
                                     AddFactory(dataSource.Type, typeof(ZaycevResourceParcer), new[] { xmlGuide });
                                     break;
                             }

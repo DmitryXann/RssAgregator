@@ -10,5 +10,7 @@ namespace RssAgregator.BAL.Interfaces.Services
         Task<GenericResult<IEnumerable<OnlineRadioServiceSongModel>>> Search(OnlineRadioServiceSearchModel searchModel);
 
         Task<GenericResult<IEnumerable<string>>> TypeAheadSearch(string question);
+
+        GenericResult<bool> AddNotPlayebleSong(OnlineRadioNotPlayebleSongModel inputParams);
     }
 }

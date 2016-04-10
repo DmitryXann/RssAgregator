@@ -33,10 +33,13 @@ namespace RssAgregator.WEB
 
         public static void RegisterTypes(IUnityContainer container)
         {
+            var settingsService = new SettingService();
+            container.RegisterInstance<ISettingService>(settingsService);
+
+            container.RegisterType<IOnlineRadioService, OnlineRadioService>(new InjectionConstructor(settingsService));
+
             container.RegisterType<ITemplateService, TemplateService>();
             container.RegisterType<INewsService, NewsService>();
-            container.RegisterType<IOnlineRadioService, OnlineRadioService>();
-            container.RegisterType<ISettingService, SettingService>();
         }
     }
 }

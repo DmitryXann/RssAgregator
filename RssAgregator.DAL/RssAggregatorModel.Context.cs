@@ -37,5 +37,6 @@ namespace RssAgregator.DAL
         public DbSet<UserFeedback> UserFeedbackSet { get; set; }
         public DbSet<UserMessages> UserMessagesSet { get; set; }
         public DbSet<Settings> SettingsSet { get; set; }
+        public DbSet<SongsBlackList> SongsBlackListSet { get; set; }
     }
 }

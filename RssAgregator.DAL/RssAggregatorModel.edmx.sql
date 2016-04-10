@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/03/2016 02:52:49
+-- Date Created: 04/10/2016 18:43:43
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -104,7 +104,8 @@ CREATE TABLE [dbo].[DataSourcesSet] (
     [Type] int  NOT NULL,
     [IsActive] bit  NOT NULL,
     [XMLGuide] nvarchar(max)  NOT NULL,
-    [BaseUri] nvarchar(max)  NOT NULL
+    [BaseUri] nvarchar(max)  NOT NULL,
+    [IsNewsSource] bit  NOT NULL
 );
 GO
 
@@ -231,6 +232,15 @@ CREATE TABLE [dbo].[SettingsSet] (
 );
 GO
 
+-- Creating table 'SongsBlackListSet'
+CREATE TABLE [dbo].[SongsBlackListSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SongURL] nvarchar(max)  NOT NULL,
+    [Country] nvarchar(max)  NOT NULL,
+    [City] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -304,6 +314,12 @@ GO
 -- Creating primary key on [Id] in table 'SettingsSet'
 ALTER TABLE [dbo].[SettingsSet]
 ADD CONSTRAINT [PK_SettingsSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SongsBlackListSet'
+ALTER TABLE [dbo].[SongsBlackListSet]
+ADD CONSTRAINT [PK_SongsBlackListSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
