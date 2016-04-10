@@ -2,19 +2,15 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioContainer', [
+		.directive('imgContainer', [
 		function () {
 		    return {
 		        restrict: 'E',
-		        template: '',
+		        templateUrl: 'app/directives/containers/imgContainer/imgContainer.html',
 		        scope: {
 		            link: '@',
-		            preview: '@',
-		            name: '@'
 		        },
 		        link: function (scope, element, attrs) {
-		            scope.audio;
-
 		            function init() {
 		            }
 

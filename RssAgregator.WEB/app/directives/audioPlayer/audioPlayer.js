@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory',
-		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory) {
+		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope',
+		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: 'app/directives/audioPlayer/audioPlayer.html',
@@ -68,7 +68,7 @@
 		            };
 
 		            scope.playNext = function () {
-		                if (scope.playList && scope.playList.length > 1) {
+		                if (scope.playList && scope.playList.length) {
 		                    var ignoreSongChange = false;
 		                    var expectedIndex = 0;
 
@@ -97,7 +97,7 @@
 		            };
 
 		            scope.playPrevious = function () {
-		                if (scope.playList && scope.playList.length > 1) {
+		                if (scope.playList && scope.playList.length) {
 		                    var ignoreSongChange = false;
 		                    var expectedIndex = 0;
 
@@ -256,6 +256,20 @@
 		                    url: '/Scripts/soundmanagerv2/',
 		                    flashVersion: 9,
 		                    preferFlash: false
+		                });
+
+		                $rootScope.$on('playSong', function (event, args) {
+		                    event.preventDefault();
+
+		                    if (args && args.link) {
+		                        scope.addToPlayList({
+		                            name: args.name,
+		                            artist: args.artist,
+		                            link: args.link
+		                        });
+
+		                        scope.play(scope.playList[scope.playList.length - 1]);
+		                    }
 		                });
 		            }
 

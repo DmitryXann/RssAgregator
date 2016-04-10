@@ -27,13 +27,20 @@ namespace RssAgregator.WEB
 
             bundles.Add(new ScriptBundle("~/bundles/soundmanagerv2").Include("~/Scripts/soundmanagerv2/soundmanager2-nodebug-jsmin.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/main.css"));
+            bundles.Add(new ScriptBundle("~/bundles/photoswipe").Include(
+                "~/Scripts/photoswipe-4.1.1/photoswipe.js",
+                "~/Scripts/photoswipe-4.1.1/photoswipe-ui-default.js"));
+
 
             bundles.Add(new StyleBundle("~/Content/cssLibs").Include(
+                        "~/Content/libs/bootstrap-3.3.6/bootstrap-theme.css",
+                        "~/Content/libs/bootstrap-3.3.6/bootstrap.css",
                         "~/Content/libs/toastr/toastr.css",
                         "~/Content/libs/angular-1.4.8/angular-csp.css",
-                        "~/Content/libs/bootstrap-3.3.6/bootstrap-theme.css",
-                        "~/Content/libs/bootstrap-3.3.6/bootstrap.css"));
+                        "~/Content/libs/photoswipe-4.1.1/photoswipe.css",
+                        "~/Content/libs/photoswipe-4.1.1/default-skin.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/main.css"));
         }
     }
 }

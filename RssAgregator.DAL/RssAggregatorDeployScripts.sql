@@ -533,7 +533,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name			= N'AudioContainer'
 	   ,@Description	= N'Audio Container'
-	   ,@View			= N'<audio-container link="{ContainerValue}" author="{MediaAuthor}" name="{MediaName}"></audio-container>'
+	   ,@View			= N'<audio-container link="{ContainerValue}" artist="{MediaAuthor}" name="{MediaName}"></audio-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 0
 	   ,@User_Id		= 1
