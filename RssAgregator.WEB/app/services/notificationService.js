@@ -6,9 +6,9 @@
             function (ResultCodeEnum) {
                 this.notify = function (serverResult) {
                     if (angular.isUndefined(serverResult) || serverResult == null) {
-                        this.error("serverResult is null or indefined");
+                        this.error("serverResult is null or undefined");
                     } else if (angular.isUndefined(serverResult.InfoResult) || serverResult.InfoResult == null) {
-                        this.error("serverResult.InfoResult is null or indefined");
+                        this.error("serverResult.InfoResult is null or undefined");
                     } else {
                         switch (serverResult.InfoResult.ResultCode) {
                             case ResultCodeEnum.Unknown:

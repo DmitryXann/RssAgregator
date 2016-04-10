@@ -126,9 +126,10 @@
 		                }
 		            };
 
-		            scope.seek = function (milliseconds) {
+		            scope.seek = function (expectedPersentSeek) {
 		                if (scope.currentPlayingSong) {
-		                    scope.currentPlayingSong.audioObject.setPosition(milliseconds);
+		                    var expecetMillisecond = (scope.currentPlayingSong.estimatedDuration * expectedPersentSeek) / 100;
+		                    scope.currentPlayingSong.audioObject.setPosition(expecetMillisecond);
 		                }
 		            };
 
