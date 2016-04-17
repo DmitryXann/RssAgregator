@@ -226,6 +226,7 @@
     <Content Include="Scripts\toastr\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-1.2.5\ui-bootstrap-tpls-1.2.5.min.js" />
     <Content Include="Unity.Mvc4.README.txt" />
+    <Content Include="WatchersCounter.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
