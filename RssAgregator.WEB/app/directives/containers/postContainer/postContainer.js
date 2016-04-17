@@ -7,13 +7,13 @@
 		    return {
 		        restrict: 'E',
 		        templateUrl: 'app/directives/containers/postContainer/postContainer.html',
+		        transclude: true,
 		        scope: {
                     postId: '@',
 		            postObject: '='
 		        },
 		        link: function (scope, element, attrs) {
 		            scope.postView;
-		            scope.postImages;
 
 		            function init() {
 		                scope.postView = scope.postObject.PostContent;

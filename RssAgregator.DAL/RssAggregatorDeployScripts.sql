@@ -487,7 +487,53 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name			= N'ImgContainer'
 	   ,@Description	= N'Image Container'
-	   ,@View			= N'<img-container link="{ContainerValue}"></img-container>'
+	   ,@View			= N'<img-container link="{ContainerValue}" active-image="activeImage" images="images"></img-container>'
+	   ,@Version		= NULL
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Description nvarchar(max)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'GalleryContainer'
+	   ,@Description	= N'Gallery Container'
+	   ,@View			= N'<image-gallery>{ContainerValue}</image-gallery>'
 	   ,@Version		= NULL
 	   ,@Type			= 0
 	   ,@User_Id		= 1

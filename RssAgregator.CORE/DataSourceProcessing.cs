@@ -21,6 +21,7 @@ namespace RssAgregator.CORE
         private const string VIDEO_TEMPLATE_NAME = "VideoContainer";
         private const string TEXT_TEMPLATE_NAME = "TextContainer";
         private const string POST_TEMPLATE_NAME = "PostContainer";
+        private const string IMG_GALLERY_NAME = "GalleryContainer";
 
         private IEnumerable<Template> _systemTemplates;
 
@@ -74,10 +75,18 @@ namespace RssAgregator.CORE
                                         }
                                         break;
                                     case PostContentTypeEnum.Img:
-                                        var imgPostContainer = _systemTemplates.First(el => el.Name.ToLower() == IMG_TEMPLATE_NAME.ToLower());
-                                        foreach (var el in postContent.PostContent)
+                                        if (postContent.PostContent.Any())
                                         {
-                                            postStringContetnt.Add(imgPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el));
+                                            var imgPostContainer = _systemTemplates.First(el => el.Name.ToLower() == IMG_TEMPLATE_NAME.ToLower());
+                                            var galleryContainer = _systemTemplates.First(el => el.Name.ToLower() == IMG_GALLERY_NAME.ToLower());
+
+                                            var imgPostContainers = string.Empty;
+                                            foreach (var el in postContent.PostContent)
+                                            {
+                                                imgPostContainers += imgPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el);
+                                            }
+
+                                            postStringContetnt.Add(galleryContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, imgPostContainers));
                                         }
                                         break;
                                     case PostContentTypeEnum.Audio:
