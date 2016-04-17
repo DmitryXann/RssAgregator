@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope',
-		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope) {
+		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope', '$log',
+		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope, $log) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: 'app/directives/audioPlayer/audioPlayer.html',
@@ -204,6 +204,7 @@
 		                            });
 		                        } else {
 		                            notificationService.warning(uiSettings.CantPlaySong);
+		                            $log.warn('Can`t play song: ' + elToAdd.link + ' song was added to the black list');
 
 		                            userInfoFactory.getUserInfo().then(function (locationResult) {
 		                                onlineRadioService.post('AddNotPlayebleSong', {
