@@ -29,7 +29,7 @@
 		            scope.previous = function () {
 		                var activeImageIndex = getActiveImageId();
 
-		                if (activeImageIndex - 1 > 0) {
+		                if (activeImageIndex - 1 >= 0) {
 		                    scope.images[activeImageIndex - 1].activate();
 		                } else {
 		                    scope.images[scope.images.length - 1].activate();

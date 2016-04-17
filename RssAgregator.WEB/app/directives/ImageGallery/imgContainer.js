@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('imgContainer', [
-		function () {
+		.directive('imgContainer', ['$filter',
+		function ($filter) {
 		    return {
 		        restrict: 'E',
 		        template: '<img ng-src="{{::link}}" ng-click="activate()" is-active="{{isActive()}}" >',
@@ -33,6 +33,12 @@
 		                        if (element.next('img-container').length === 0 && element.prev('img-container').length === 0) {
 		                            element.remove();
 		                        }
+
+		                        element.children('img').error(function () {
+		                            var indexOfBadEl = scope.images.indexOf($filter('filter')(scope.images, { id: scope.$id }, true)[0]);
+		                            scope.images.splice(indexOfBadEl, 1);
+		                            element.remove();
+                                });
 
 		                        activeImageWatcher();
 		                    }
