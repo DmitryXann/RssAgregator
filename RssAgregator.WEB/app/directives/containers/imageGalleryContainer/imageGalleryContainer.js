@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('app')
-		.directive('imageGallery', ['$filter',
+		.directive('imageGalleryContainer', ['$filter',
 		function ($filter) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/ImageGallery/imageGallery.html',
+		        templateUrl: 'app/directives/containers/imageGalleryContainer/imageGalleryContainer.html',
                 transclude: true,
 		        scope: {
 		        },

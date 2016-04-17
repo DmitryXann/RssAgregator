@@ -533,7 +533,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name			= N'GalleryContainer'
 	   ,@Description	= N'Gallery Container'
-	   ,@View			= N'<image-gallery>{ContainerValue}</image-gallery>'
+	   ,@View			= N'<image-gallery-container>{ContainerValue}</image-gallery-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 0
 	   ,@User_Id		= 1

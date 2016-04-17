@@ -187,9 +187,9 @@
     <Content Include="app\directives\audioPlayer\audioPlayer.js" />
     <Content Include="app\directives\bindHtmlCompile.js" />
     <Content Include="app\directives\containers\postContainer\postContainer.html" />
-    <Content Include="app\directives\ImageGallery\imageGallery.js" />
-    <Content Include="app\directives\ImageGallery\imgContainer.js" />
-    <Content Include="app\directives\ImageGallery\imageGallery.html" />
+    <Content Include="app\directives\containers\imageGalleryContainer\imageGalleryContainer.js" />
+    <Content Include="app\directives\containers\imageGalleryContainer\imgContainer.js" />
+    <Content Include="app\directives\containers\imageGalleryContainer\imageGalleryContainer.html" />
     <Content Include="app\directives\ngEnter.js" />
     <Content Include="app\directives\containers\postContainer\postContainer.js" />
     <Content Include="app\directives\containers\videoContainer.js" />
