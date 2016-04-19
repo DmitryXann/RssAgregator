@@ -6,7 +6,7 @@
 		function ($filter, $log) {
 		    return {
 		        restrict: 'E',
-		        template: '<img ng-src="{{::link}}" ng-click="activate()" is-active="{{isActive()}}" >',
+		        templateUrl: 'app/directives/containers/imageGalleryContainer/imgContainer.html',
 		        scope: {
 		            link: '@',
 		            activeImage: '=',

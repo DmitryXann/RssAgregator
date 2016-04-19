@@ -186,13 +186,16 @@
     <Content Include="app\directives\audioPlayer\audioPlayer.html" />
     <Content Include="app\directives\audioPlayer\audioPlayer.js" />
     <Content Include="app\directives\bindHtmlCompile.js" />
+    <Content Include="app\directives\containers\imageGalleryContainer\imgContainer.html" />
     <Content Include="app\directives\containers\postContainer\postContainer.html" />
     <Content Include="app\directives\containers\imageGalleryContainer\imageGalleryContainer.js" />
     <Content Include="app\directives\containers\imageGalleryContainer\imgContainer.js" />
     <Content Include="app\directives\containers\imageGalleryContainer\imageGalleryContainer.html" />
+    <Content Include="app\directives\containers\videoGalleryContainer\videoGalleryContainer.html" />
+    <Content Include="app\directives\containers\videoGalleryContainer\videoGalleryContainer.js" />
     <Content Include="app\directives\ngEnter.js" />
     <Content Include="app\directives\containers\postContainer\postContainer.js" />
-    <Content Include="app\directives\containers\videoContainer.js" />
+    <Content Include="app\directives\containers\videoGalleryContainer\videoContainer.js" />
     <Content Include="app\factories\apiFactory.js" />
     <Content Include="app\services\notificationService.js" />
     <Content Include="app\factories\userInfoFactory.js" />
@@ -205,6 +208,8 @@
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap.min.css" />
     <Content Include="Content\libs\toastr\toastr.css" />
     <Content Include="Content\libs\toastr\toastr.min.css" />
+    <Content Include="Content\libs\video-js-5.9.2\video-js.css" />
+    <Content Include="Content\libs\video-js-5.9.2\video-js.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular-1.4.8\angular-animate.js" />
     <Content Include="Scripts\angular-1.4.8\angular-animate.min.js" />
@@ -225,6 +230,9 @@
     <Content Include="Scripts\soundmanagerv2\soundmanager2.swf" />
     <Content Include="Scripts\toastr\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-1.2.5\ui-bootstrap-tpls-1.2.5.min.js" />
+    <Content Include="Scripts\video-js-5.9.2\video-js.swf" />
+    <Content Include="Scripts\video-js-5.9.2\video.js" />
+    <Content Include="Scripts\video-js-5.9.2\video.min.js" />
     <Content Include="Unity.Mvc4.README.txt" />
     <Content Include="WatchersCounter.txt" />
     <Content Include="Web.config">
@@ -284,6 +292,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\toastr\toastr.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\video-js-5.9.2\video.js.map" />
+    <Content Include="Scripts\video-js-5.9.2\video.min.js.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

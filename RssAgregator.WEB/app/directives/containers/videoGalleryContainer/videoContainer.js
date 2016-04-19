@@ -2,20 +2,18 @@
     'use strict';
 
     angular.module('app')
-		.directive('videoContainer', [
-		function () {
+		.directive('videoContainer', ['$filter', '$log',
+		function ($filter, $log) {
 		    return {
 		        restrict: 'E',
+		        template: '<img ng-src="{{::link}}" ng-click="activate()" is-active="{{isActive()}}" >',
 		        scope: {
 		            link: '@',
-		            author: '@',
-		            name: '@'
+		            activeImage: '=',
+		            images: '='
 		        },
 		        link: function (scope, element, attrs) {
-		            function init() {
-		            }
 
-		            init();
 		        }
 		    };
 		}]);
