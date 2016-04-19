@@ -717,7 +717,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name			= N'PostContainer'
 	   ,@Description	= N'Post Container'
-	   ,@View			= N'<div>{ContainerValue}</div>'
+	   ,@View			= N'<post-container>{ContainerValue}</post-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 0
 	   ,@User_Id		= 1
