@@ -10,6 +10,8 @@
 		        scope: {
 		        },
 		        link: function (scope, element, attrs) {
+		            scope.player = soundManager;
+
 		            scope.loadingResults = false;
 		            scope.typeAheadNoResults = false;
 
@@ -17,8 +19,6 @@
 		            
 		            scope.searchQuestion = null;
 		            scope.pageNumber = 1;
-
-		            scope.player = soundManager;
 
 		            scope.currentPlayingSong;
 		            scope.currentIndex = 0;
@@ -253,12 +253,6 @@
 		            }
 
 		            function init() {
-		                scope.player.setup({
-		                    url: '/Scripts/soundmanagerv2/',
-		                    flashVersion: 9,
-		                    preferFlash: false
-		                });
-
 		                $rootScope.$on('playSong', function (event, args) {
 		                    event.preventDefault();
 
