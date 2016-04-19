@@ -531,8 +531,8 @@ DECLARE @Name nvarchar(max)
 	   ,@Type tinyint
 	   ,@User_Id int
 
-SELECT @Name			= N'GalleryContainer'
-	   ,@Description	= N'Gallery Container'
+SELECT @Name			= N'ImageGalleryContainer'
+	   ,@Description	= N'Image Gallery Container'
 	   ,@View			= N'<image-gallery-container>{ContainerValue}</image-gallery-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 0
@@ -763,7 +763,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name			= N'TempHeader'
 	   ,@Description	= N'Temp header'
-	   ,@View			= N'<post-container ng-repeat="post in postList" post-id="{{post.Id}}" post-object="post"></post-container>'
+	   ,@View			= N'<div ng-repeat="post in postList" post-id="{{post.Id}}" post-object="post"></post-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 2
 	   ,@User_Id		= 1
