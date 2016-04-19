@@ -63,3 +63,7 @@ Temporary Items
 /RssAgregator.WEB/obj
 /RssAgregator.WEB.Tests/bin
 /RssAgregator.WEB.Tests/obj
+/.vs/config/applicationhost.config
+/.vs/RssAgregator/v14/.suo
+/RssAgregator.BAL/RssAgregator.BAL.csproj.user
+/RssAgregator.BAL.Interfaces/RssAgregator.BAL.Interfaces.csproj.user
