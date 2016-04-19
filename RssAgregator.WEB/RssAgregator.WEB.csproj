@@ -196,6 +196,8 @@
     <Content Include="app\directives\ngEnter.js" />
     <Content Include="app\directives\containers\postContainer\postContainer.js" />
     <Content Include="app\directives\containers\videoGalleryContainer\videoContainer.js" />
+    <Content Include="app\directives\videoPlayer\videoPlayer.html" />
+    <Content Include="app\directives\videoPlayer\videoPlayer.js" />
     <Content Include="app\factories\apiFactory.js" />
     <Content Include="app\services\notificationService.js" />
     <Content Include="app\factories\userInfoFactory.js" />
@@ -230,6 +232,8 @@
     <Content Include="Scripts\soundmanagerv2\soundmanager2.swf" />
     <Content Include="Scripts\toastr\toastr.min.js" />
     <Content Include="Scripts\ui-bootstrap-1.2.5\ui-bootstrap-tpls-1.2.5.min.js" />
+    <Content Include="Scripts\video-js-5.9.2\lang\en.js" />
+    <Content Include="Scripts\video-js-5.9.2\lang\ru.js" />
     <Content Include="Scripts\video-js-5.9.2\video-js.swf" />
     <Content Include="Scripts\video-js-5.9.2\video.js" />
     <Content Include="Scripts\video-js-5.9.2\video.min.js" />

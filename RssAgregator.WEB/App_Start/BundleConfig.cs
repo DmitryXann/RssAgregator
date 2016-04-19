@@ -27,7 +27,7 @@ namespace RssAgregator.WEB
 
             bundles.Add(new ScriptBundle("~/bundles/soundmanagerv2").Include("~/Scripts/soundmanagerv2/soundmanager2-nodebug-jsmin.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/videojs").Include("~/Scripts/video-js-5.9.2/video.js"));
+            bundles.Add(new ScriptBundle("~/bundles/videojs").Include("~/Scripts/video-js-5.9.2/video.js").IncludeDirectory("~/Scripts/video-js-5.9.2/lang/", "*.js", true));
 
 
             bundles.Add(new StyleBundle("~/Content/cssLibs").Include(

@@ -1,0 +1,4 @@
+﻿<video class="video-js" width="{{::width}}" height="{{::height}}" poster="{{::poster}}" data-setup="{{::options()}}">
+    <source src="{{::videoLink}}" type='{{::getContentType()}}'>
+    <p class="vjs-no-js" ng-bind-html="::cantPlayVideo"></p>
+</video>
