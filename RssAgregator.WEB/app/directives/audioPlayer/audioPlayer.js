@@ -1,4 +1,4 @@
-﻿; (function (angular) {
+﻿; (function (angular, soundManager) {
     'use strict';
 
     angular.module('app')
@@ -272,4 +272,4 @@
 		        }
 		    };
 		}]);
-})(angular);
+})(angular, soundManager);
