@@ -8,8 +8,8 @@
         'ngSanitize',
         'ngTouch',
         'ui.bootstrap'
-    ]).run(['$rootScope', '$log',
-        function ($rootScope, $log) {
+    ]).run(['$rootScope', '$log', '$window',
+        function ($rootScope, $log, $window) {
 
         function decimalAdjust(type, value, exp) {
             if (angular.isUndefined(exp) || +exp === 0) {
@@ -51,7 +51,7 @@
             }
 
             //global error handling
-            window.onerror = function (errorMsg, url, lineNumber) {
+            $window.onerror = function (errorMsg, url, lineNumber) {
                 $log.error('An error ha occurred: {0}, url: {1}, line: {3}'.format(errorMsg, url, lineNumber));
                 return false; //TODO: change to true
             };
