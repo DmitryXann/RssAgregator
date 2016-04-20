@@ -1,4 +1,4 @@
-﻿; (function (angular) {
+﻿; (function (angular, videojs) {
     'use strict';
 
     angular.module('app')
@@ -20,47 +20,9 @@
 		            loop: '@'
 		        },
 		        link: function (scope, element, attrs) {
+		            scope.video;
 
 		            scope.cantPlayVideo = $sce.trustAsHtml(uiSettings.VideoJSCantPlay);
-		            scope.videoLink = $sce.trustAsResourceUrl(scope.link);
-
-		            scope.options = function () {
-		                var result = '';
-
-		                if (scope.controls) {
-		                    if (result.length) {
-		                        result += ', ';
-		                    }
-
-		                    result += '"controls": {0}'.format(scope.controls);
-		                }
-
-		                if (scope.autoplay) {
-		                    if (result.length) {
-		                        result += ', ';
-		                    }
-
-		                    result += '"autoplay": {0}'.format(scope.autoplay);
-		                }
-
-		                if (scope.preload) {
-		                    if (result.length) {
-		                        result += ', ';
-		                    }
-
-		                    result += '"preload": {0}'.format(scope.preload);
-		                }
-
-		                if (scope.loop) {
-		                    if (result.length) {
-		                        result += ', ';
-		                    }
-
-		                    result += '"loop": {0}'.format(scope.loop);
-		                }
-
-		                return '{{0}}'.format(result);
-		            };
 
 		            scope.getContentType = function () {
 		                var result = '';
@@ -85,11 +47,49 @@
 		            };
 
 		            function init() {
-		                
+		                var videoJsOptions = {};
+
+		                if (scope.width) {
+		                    videoJsOptions.width = scope.width;
+		                }
+
+		                if (scope.height) {
+		                    videoJsOptions.height = scope.height;
+		                }
+
+		                if (scope.poster) {
+		                    videoJsOptions.poster = scope.poster;
+		                }
+
+		                if (scope.controls) {
+		                    videoJsOptions.controls = scope.controls;
+		                }
+
+		                if (scope.autoplay) {
+		                    videoJsOptions.autoplay = scope.autoplay;
+		                }
+
+		                if (scope.preload) {
+		                    videoJsOptions.preload = scope.preload;
+		                }
+
+		                if (scope.loop) {
+		                    videoJsOptions.loop = scope.loop;
+		                }
+
+		                videojs(element.children('video')[0], videoJsOptions, function () {
+		                    this.src([{ type: scope.getContentType(), src: $sce.trustAsResourceUrl(scope.link) }]);
+		                    scope.video = this;
+		                });
+
+
+		                scope.$on('$destroy', function () {
+		                    scope.video.dispose();
+		                });
 		            }
 
 		            init();
 		        }
 		    };
 		}]);
-})(angular);
+})(angular, videojs);
