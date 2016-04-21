@@ -1,4 +1,4 @@
-﻿; (function (angular) {
+﻿; (function (angular, videojs, soundManager) {
     'use strict';
 
     angular.module('app', [
@@ -69,4 +69,4 @@
 
         init();
     }]);
-})(angular);
+})(angular, videojs, soundManager);
