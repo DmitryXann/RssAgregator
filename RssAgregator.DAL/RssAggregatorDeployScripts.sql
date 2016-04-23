@@ -487,7 +487,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name			= N'ImgContainer'
 	   ,@Description	= N'Image Container'
-	   ,@View			= N'<img-container link="{ContainerValue}" active-image="activeImage" images="images"></img-container>'
+	   ,@View			= N'<img-container link="{ContainerValue}"></img-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 0
 	   ,@User_Id		= 1
