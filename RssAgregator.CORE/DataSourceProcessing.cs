@@ -16,12 +16,15 @@ namespace RssAgregator.CORE
         private const string CONTENT_MEDIA_NAME_PLACEHOLDER = "{MediaName}";
         private const string CONTENT_MEDIA_PREVIEW_PLACEHOLDER = "{MediaPreview}";
 
+        private const string IMG_GALLERY_TEMPLATE_NAME = "ImageGalleryContainer";
         private const string IMG_TEMPLATE_NAME = "ImgContainer";
-        private const string AUDIO_TEMPLATE_NAME = "AudioContainer";
+
+        private const string VIDEO_GALLERY_TEMPLATE_NAME = "VideoGalleryContainer";
         private const string VIDEO_TEMPLATE_NAME = "VideoContainer";
+
+        private const string AUDIO_TEMPLATE_NAME = "AudioContainer";
         private const string TEXT_TEMPLATE_NAME = "TextContainer";
-        private const string POST_TEMPLATE_NAME = "PostContainer";
-        private const string IMG_GALLERY_NAME = "GalleryContainer";
+       
 
         private IEnumerable<Template> _systemTemplates;
 
@@ -78,7 +81,7 @@ namespace RssAgregator.CORE
                                         if (postContent.PostContent.Any())
                                         {
                                             var imgPostContainer = _systemTemplates.First(el => el.Name.ToLower() == IMG_TEMPLATE_NAME.ToLower());
-                                            var galleryContainer = _systemTemplates.First(el => el.Name.ToLower() == IMG_GALLERY_NAME.ToLower());
+                                            var imgGalleryContainer = _systemTemplates.First(el => el.Name.ToLower() == IMG_GALLERY_TEMPLATE_NAME.ToLower());
 
                                             var imgPostContainers = string.Empty;
                                             foreach (var el in postContent.PostContent)
@@ -86,7 +89,7 @@ namespace RssAgregator.CORE
                                                 imgPostContainers += imgPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el);
                                             }
 
-                                            postStringContetnt.Add(galleryContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, imgPostContainers));
+                                            postStringContetnt.Add(imgGalleryContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, imgPostContainers));
                                         }
                                         break;
                                     case PostContentTypeEnum.Audio:
@@ -99,20 +102,27 @@ namespace RssAgregator.CORE
                                         }
                                         break;
                                     case PostContentTypeEnum.Video:
-                                        var videoPostContainer = _systemTemplates.First(el => el.Name.ToLower() == VIDEO_TEMPLATE_NAME.ToLower());
-                                        foreach (var el in ((BasePostContentModel<VideoPostContentContainerModel>)postContent).PostSpecificContent)
+                                        if (postContent.PostContent.Any())
                                         {
-                                            postStringContetnt.Add(videoPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el.VideoLink)
+                                            var videoPostContainer = _systemTemplates.First(el => el.Name.ToLower() == VIDEO_TEMPLATE_NAME.ToLower());
+                                            var videoGalleryContainer = _systemTemplates.First(el => el.Name.ToLower() == VIDEO_GALLERY_TEMPLATE_NAME.ToLower());
+
+                                            var videoPostContainers = string.Empty;
+                                            foreach (var el in ((BasePostContentModel<VideoPostContentContainerModel>)postContent).PostSpecificContent)
+                                            {
+                                                videoPostContainers += videoPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el.VideoLink)
                                                                                            .Replace(CONTENT_MEDIA_AUTHOR_PLACEHOLDER, el.Name)
-                                                                                           .Replace(CONTENT_MEDIA_PREVIEW_PLACEHOLDER, el.ImagePreviewLink));
+                                                                                           .Replace(CONTENT_MEDIA_PREVIEW_PLACEHOLDER, el.ImagePreviewLink);
+                                            }
+
+                                            postStringContetnt.Add(videoGalleryContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, videoPostContainers));
                                         }
+
                                         break;
                                 }
                             }
 
-                            var postContainer = _systemTemplates.First(el => el.Name.ToLower() == POST_TEMPLATE_NAME.ToLower());
-
-                            newPost.PostContent = postContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, string.Format("{0}\n", postStringContetnt.Aggregate(string.Empty, (agg, el) => agg + '\n' + el)));
+                            newPost.PostContent = postStringContetnt.Aggregate(string.Empty, (agg, el) => agg + '\n' + el);
 
                             db.AddEntity(newPost);
                         }
