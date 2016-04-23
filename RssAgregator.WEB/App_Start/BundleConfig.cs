@@ -37,7 +37,7 @@ namespace RssAgregator.WEB
                         "~/Content/libs/angular-1.4.8/angular-csp.css",
                         "~/Content/libs/video-js-5.9.2/video-js.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/main.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/app/main.css"));
         }
     }
 }

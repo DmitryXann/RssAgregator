@@ -191,6 +191,7 @@
     <Content Include="app\directives\containers\imageGalleryContainer\imageGalleryContainer.js" />
     <Content Include="app\directives\containers\imageGalleryContainer\imgContainer.js" />
     <Content Include="app\directives\containers\imageGalleryContainer\imageGalleryContainer.html" />
+    <Content Include="app\directives\containers\videoGalleryContainer\videoContainer.html" />
     <Content Include="app\directives\containers\videoGalleryContainer\videoGalleryContainer.html" />
     <Content Include="app\directives\containers\videoGalleryContainer\videoGalleryContainer.js" />
     <Content Include="app\directives\ngEnter.js" />
@@ -203,6 +204,14 @@
     <Content Include="app\factories\userInfoFactory.js" />
     <Content Include="app\services\webApi.js" />
     <Content Include="app\route.js" />
+    <Content Include="Content\app\main.css">
+      <DependentUpon>main.less</DependentUpon>
+    </Content>
+    <Content Include="Content\app\main.min.css">
+      <DependentUpon>main.css</DependentUpon>
+    </Content>
+    <Content Include="Content\app\players\audioPlayer.less" />
+    <Content Include="Content\app\players\videoPlayer.less" />
     <Content Include="Content\libs\angular-1.4.8\angular-csp.css" />
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap-theme.css" />
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap-theme.min.css" />
@@ -261,7 +270,7 @@
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap-theme.min.css.map" />
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap.css.map" />
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap.min.css.map" />
-    <Content Include="Content\main.less" />
+    <Content Include="Content\app\main.less" />
     <Content Include="Scripts\angular-1.4.8\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-1.4.8\angular-loader.min.js.map" />
     <Content Include="Scripts\angular-1.4.8\angular-resource.min.js.map" />
@@ -300,6 +309,27 @@
   <ItemGroup>
     <Content Include="Scripts\video-js-5.9.2\video.js.map" />
     <Content Include="Scripts\video-js-5.9.2\video.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\app\pages\dashboard.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\app\containers\imageGalleryContainer.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\app\containers\videoGalleryContainer.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\app\containers\audioContainer.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\app\containers\postContainer.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
