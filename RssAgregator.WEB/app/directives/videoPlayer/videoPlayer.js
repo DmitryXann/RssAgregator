@@ -2,11 +2,13 @@
     'use strict';
 
     angular.module('app')
-		.directive('videoPlayer', ['$sce', 'uiSettings', '$log',
-		function ($sce, uiSettings, $log) {
+		.directive('videoPlayer', ['$sce', 'uiSettings', '$log', 'templateFactory',
+		function ($sce, uiSettings, $log, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/videoPlayer/videoPlayer.html',
+		        templateUrl: function () {
+		            return templateFactory.get('videoPlayer');
+		        },
 		        scope: {
 		            link: '@',
 		            poster: '@',

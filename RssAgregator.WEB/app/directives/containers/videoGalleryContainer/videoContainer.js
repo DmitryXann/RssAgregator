@@ -2,11 +2,13 @@
     'use strict';
 
     angular.module('app')
-		.directive('videoContainer', ['$timeout',
-		function ($timeout) {
+		.directive('videoContainer', ['$timeout', 'templateFactory',
+		function ($timeout, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/containers/videoGalleryContainer/videoContainer.html',
+		        templateUrl: function () {
+		            return templateFactory.get('videoContainer');
+		        },
                 transclude: true,
 		        scope: {
 		        },

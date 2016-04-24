@@ -8,8 +8,8 @@
         'ngSanitize',
         'ngTouch',
         'ui.bootstrap'
-    ]).run(['$rootScope', '$log', '$window',
-        function ($rootScope, $log, $window) {
+    ]).run(['$rootScope', '$log', '$window', 'templateFactory', 'viewTemplates',
+        function ($rootScope, $log, $window, templateFactory, viewTemplates) {
 
         function decimalAdjust(type, value, exp) {
             if (angular.isUndefined(exp) || +exp === 0) {
@@ -65,6 +65,11 @@
                 flashVersion: 9,
                 preferFlash: false
             });
+
+            //get all templates from DB
+            for (var el in viewTemplates) {
+                templateFactory.put(el);
+            }
         }
 
         init();

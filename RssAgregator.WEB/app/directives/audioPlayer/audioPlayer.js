@@ -2,11 +2,13 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope', '$log',
-		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope, $log) {
+		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope', '$log', 'templateFactory',
+		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope, $log, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/audioPlayer/audioPlayer.html',
+		        templateUrl: function () {
+		            return templateFactory.get('audioPlayer');
+		        },
 		        scope: {
 		        },
 		        link: function (scope, element, attrs) {

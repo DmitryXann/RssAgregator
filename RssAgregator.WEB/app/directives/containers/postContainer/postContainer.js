@@ -2,11 +2,13 @@
     'use strict';
 
     angular.module('app')
-		.directive('postContainer', ['newsService', '$sce',
-		function (newsService, $sce) {
+		.directive('postContainer', ['newsService', 'templateFactory',
+		function (newsService, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/containers/postContainer/postContainer.html',
+		        templateUrl: function () {
+		            return templateFactory.get('postContainer');
+		        },
 		        transclude: true,
 		        scope: {
 		            postId: '@',

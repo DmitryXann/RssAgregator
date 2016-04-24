@@ -2,11 +2,13 @@
     'use strict';
 
     angular.module('app')
-		.directive('imgContainer', ['$filter', '$log',
-		function ($filter, $log) {
+		.directive('imgContainer', ['$filter', '$log', 'templateFactory',
+		function ($filter, $log, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/containers/imageGalleryContainer/imgContainer.html',
+		        templateUrl: function () {
+		            return templateFactory.get('imgContainer');
+		        },
 		        scope: {
 		            link: '@'
 		        },
