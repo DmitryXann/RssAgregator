@@ -13,6 +13,7 @@
         }).constant('viewTemplates', {
             //controllers
             dashboardController: 'app/controllers/dashboardController/dashboard.html',
+            aboutController: 'app/controllers/aboutController/aboutController.html',
 
             //general directives
             audioPlayer: 'app/directives/audioPlayer/audioPlayer.html',

@@ -9,6 +9,12 @@
                 //    return templateFactory.get('dashboardController');
                 //},
                 controller: 'dashboardController'
+            }).when('/about', {
+                templateUrl: 'app/controllers/aboutController/aboutController.html',
+                //templateUrl: function () {
+                //    return templateFactory.get('dashboardController');
+                //},
+                controller: 'aboutController'
             }).otherwise({
                 redirectTo: '/'
             });

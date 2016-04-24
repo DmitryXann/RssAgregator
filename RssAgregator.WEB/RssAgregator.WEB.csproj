@@ -177,6 +177,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="app\app.js" />
     <Content Include="app\config.js" />
+    <Content Include="app\controllers\aboutController\aboutController.html" />
+    <Content Include="app\controllers\aboutController\aboutController.js" />
     <Content Include="app\controllers\dashboardController\dashboard.html" />
     <Content Include="app\controllers\dashboardController\dashboardController.js" />
     <Content Include="app\directives\audioPlayer\audioPlayerProgressBar.html" />
