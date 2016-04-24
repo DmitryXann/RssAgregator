@@ -419,11 +419,12 @@
           <Property Name="IsNewsSource" Type="Boolean" Nullable="false" />
         </EntityType>
         <EnumType Name="DataSourceEnum">
-          <Member Name="VK" Value="1" />
-          <Member Name="Pikabu" Value="2" />
-          <Member Name="Mainfun" Value="3" />
-          <Member Name="Joyreactor" Value="4" />
-          <Member Name="OnlineRadio" Value="0" />
+          <Member Name="VK" Value="2" />
+          <Member Name="Pikabu" Value="3" />
+          <Member Name="Mainfun" Value="4" />
+          <Member Name="Joyreactor" Value="5" />
+          <Member Name="OnlineRadio" Value="1" />
+          <Member Name="System" Value="0" />
         </EnumType>
         <EntityType Name="News">
           <Key>

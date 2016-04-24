@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/10/2016 18:43:43
+-- Date Created: 04/25/2016 01:32:02
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -90,6 +90,9 @@ IF OBJECT_ID(N'[dbo].[UserMessagesSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SettingsSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SettingsSet];
+GO
+IF OBJECT_ID(N'[dbo].[SongsBlackListSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SongsBlackListSet];
 GO
 
 -- --------------------------------------------------

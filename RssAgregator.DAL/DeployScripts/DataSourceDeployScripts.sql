@@ -11,7 +11,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name		= N'MDK'
 	   ,@Uri		= N'https://vk.com/wall-10639516'
-	   ,@Type		= 1
+	   ,@Type		= 2
 	   ,@IsActive	= 1
 	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
 <PostModelXMLGuide>
@@ -189,7 +189,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name		= N'pikabu'
 	   ,@Uri		= N'http://pikabu.ru/'
-	   ,@Type		= 2
+	   ,@Type		= 3
 	   ,@IsActive	= 0
 	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
 <PostModelXMLGuide>
@@ -342,7 +342,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name		= N'mainfun'
 	   ,@Uri		= N'http://mainfun.ru/'
-	   ,@Type		= 3
+	   ,@Type		= 4
 	   ,@IsActive	= 0
 	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
 <PostModelXMLGuide>
@@ -394,7 +394,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name		= N'joyreactor'
 	   ,@Uri		= N'http://joyreactor.cc/'
-	   ,@Type		= 4
+	   ,@Type		= 5
 	   ,@IsActive	= 0
 	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
 <PostModelXMLGuide>
@@ -447,7 +447,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name		= N'ZaycevNet'
 	   ,@Uri		= N'http://zaycev.net/search.html'
-	   ,@Type		= 0
+	   ,@Type		= 1
 	   ,@IsActive	= 0
 	   ,@XMLGuide	= N'<?xml version="1.0" encoding="utf-8" ?>
 <PostModelXMLGuide>
@@ -501,6 +501,57 @@ SELECT @Name		= N'ZaycevNet'
 </PostModelXMLGuide>'
 	   ,@BaseUri	= N'http://zaycev.net/'
 	   ,@IsNewsSource = 0
+
+IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[DataSourcesSet]
+	SET
+		 [Name]		    = @Name
+		,[Uri]		    = @Uri
+		,[Type]		    = @Type
+		,[IsActive]	    = @IsActive
+		,[XMLGuide]	    = @XMLGuide
+		,[BaseUri]	    = @BaseUri
+		,[IsNewsSource] = @IsNewsSource
+	WHERE [Name]	= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[DataSourcesSet]
+		([Name]
+		,[Uri]
+		,[Type]
+		,[IsActive]
+		,[XMLGuide]
+		,[BaseUri]
+		,[IsNewsSource])
+	VALUES
+		(@Name
+		,@Uri
+		,@Type
+		,@IsActive
+		,@XMLGuide
+		,@BaseUri
+		,@IsNewsSource)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Uri nvarchar(max)
+	   ,@Type int
+	   ,@IsActive bit
+	   ,@XMLGuide nvarchar(max)
+	   ,@BaseUri nvarchar(max)
+	   ,@IsNewsSource bit
+
+SELECT @Name		= N'System'
+	   ,@Uri		= N'http://SOME.COM/'
+	   ,@Type		= 0
+	   ,@IsActive	= 0
+	   ,@XMLGuide	= N''
+	   ,@BaseUri	= N'http://SOME.COM/'
+	   ,@IsNewsSource = 1
 
 IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
 BEGIN
