@@ -1,1 +1,10 @@
-﻿<bind-html-compile source-html="::postView"></bind-html-compile>
+﻿<div ng-bind="::authorName"></div>
+<div ng-bind="::authorLink"></div>
+<div ng-bind="::postName"></div>
+<div ng-bind="::getAuthorLink()"></div>
+<div ng-bind="::getPostLink()"></div>
+<button role="button" class="btn btn-default" ng-click="likeToggle(true)" ng-class="{'active': likeToggleActive(true)}">+</button>
+<div ng-bind="postLikes"></div>
+<button role="button" class="btn btn-default" ng-click="likeToggle(false)" ng-class="{'active': likeToggleActive(false)}">-</button>
+
+<bind-html-compile source-html="::postView"></bind-html-compile>

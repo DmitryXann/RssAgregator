@@ -763,7 +763,7 @@ DECLARE @Name nvarchar(max)
 
 SELECT @Name			= N'TempHeader'
 	   ,@Description	= N'Temp header'
-	   ,@View			= N'<post-container ng-repeat="post in postList" source-html="::post.PostContent"></post-container>'
+	   ,@View			= N'<post-container ng-repeat="post in postList" post-id="{{::post.Id}}" post-object="::post" class="{{::post.DataSource}}"></post-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 2
 	   ,@User_Id		= 1

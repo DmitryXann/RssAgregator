@@ -29,7 +29,8 @@ namespace RssAgregator.BAL.Services
                                                 .Skip(pageSize * (pageNumber - 1))
                                                 .Take(pageSize)
                                                 .ToList()
-                                                .Select(el => el.GetModel()));
+                                                .Select(el => el.GetModel())
+                                                .ToList());
 
                     }
                 }

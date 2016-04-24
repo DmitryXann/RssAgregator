@@ -1,9 +1,5 @@
 ﻿using RssAgregator.Models.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RssAgregator.DAL
 {
@@ -24,7 +20,7 @@ namespace RssAgregator.DAL
                 PostTags = PostTags.Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries),
                 External = External,
                 AdultContent = AdultContent,
-                //DataSource = DataSource.BaseUri
+                DataSource = DataSource.Type.ToString()
             };
         }
     }
