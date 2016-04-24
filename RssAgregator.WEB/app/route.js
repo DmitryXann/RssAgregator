@@ -12,9 +12,15 @@
             }).when('/about', {
                 templateUrl: 'app/controllers/aboutController/aboutController.html',
                 //templateUrl: function () {
-                //    return templateFactory.get('dashboardController');
+                //    return templateFactory.get('aboutController');
                 //},
                 controller: 'aboutController'
+            }).when('/addEditPost', {
+                templateUrl: 'app/controllers/addEditPostController/addEditPostController.html',
+                //templateUrl: function () {
+                //    return templateFactory.get('addEditPostController');
+                //},
+                controller: 'addEditPostController'
             }).otherwise({
                 redirectTo: '/'
             });

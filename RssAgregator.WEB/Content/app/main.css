@@ -18,3 +18,12 @@
   height: 200px;
   pointer-events: none;
 }
+.post-add-edit {
+  margin-top: 50px;
+}
+.post-add-edit .post-editable-container {
+  min-height: 100px;
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}

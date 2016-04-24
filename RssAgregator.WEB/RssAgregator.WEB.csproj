@@ -179,6 +179,8 @@
     <Content Include="app\config.js" />
     <Content Include="app\controllers\aboutController\aboutController.html" />
     <Content Include="app\controllers\aboutController\aboutController.js" />
+    <Content Include="app\controllers\addEditPostController\addEditPostController.html" />
+    <Content Include="app\controllers\addEditPostController\addEditPostController.js" />
     <Content Include="app\controllers\dashboardController\dashboard.html" />
     <Content Include="app\controllers\dashboardController\dashboardController.js" />
     <Content Include="app\directives\audioPlayer\audioPlayerProgressBar.html" />
@@ -199,6 +201,8 @@
     <Content Include="app\directives\ngEnter.js" />
     <Content Include="app\directives\containers\postContainer\postContainer.js" />
     <Content Include="app\directives\containers\videoGalleryContainer\videoContainer.js" />
+    <Content Include="app\directives\tagCloud\tagCloud.html" />
+    <Content Include="app\directives\tagCloud\tagCloud.js" />
     <Content Include="app\directives\videoPlayer\videoPlayer.html" />
     <Content Include="app\directives\videoPlayer\videoPlayer.js" />
     <Content Include="app\factories\apiFactory.js" />
@@ -220,6 +224,11 @@
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap-theme.min.css" />
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap.css" />
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap.min.css" />
+    <Content Include="Content\libs\content-tools\content-tools.min.css" />
+    <Content Include="Content\libs\content-tools\images\drop-horz.svg" />
+    <Content Include="Content\libs\content-tools\images\drop-vert-above.svg" />
+    <Content Include="Content\libs\content-tools\images\drop-vert-below.svg" />
+    <Content Include="Content\libs\content-tools\images\video.svg" />
     <Content Include="Content\libs\toastr\toastr.css" />
     <Content Include="Content\libs\toastr\toastr.min.css" />
     <Content Include="Content\libs\video-js-5.9.2\video-js.css" />
@@ -239,6 +248,8 @@
     <Content Include="Scripts\angular-1.4.8\angular-touch.min.js" />
     <Content Include="Scripts\angular-1.4.8\angular.js" />
     <Content Include="Scripts\angular-1.4.8\angular.min.js" />
+    <Content Include="Scripts\content-tools\content-tools.js" />
+    <Content Include="Scripts\content-tools\content-tools.min.js" />
     <Content Include="Scripts\jquerry-2.2.2\jquery-2.2.2.min.js" />
     <Content Include="Scripts\soundmanagerv2\soundmanager2-nodebug-jsmin.js" />
     <Content Include="Scripts\soundmanagerv2\soundmanager2.swf" />
@@ -263,6 +274,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\modals\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -333,6 +345,9 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\libs\content-tools\icons.woff" />
+    <Content Include="Content\app\pages\about.less" />
+    <Content Include="Content\app\pages\addEditPost.less" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
