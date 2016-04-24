@@ -6,6 +6,7 @@ using RssAgregator.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace RssAgregator.BAL.Services
 {
@@ -33,6 +34,47 @@ namespace RssAgregator.BAL.Services
                                                 .ToList());
 
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogTypeEnum.BAL);
+                result.SetErrorResultCode(SettingService.GetUserFriendlyExceptionMessage());
+            }
+
+            return result;
+        }
+
+        public GenericResult<bool> AddNewsItem(NewsItemModel inputParams)
+        {
+            var result = new GenericResult<bool>();
+
+            try
+            {
+                using (var db = new RssAggregatorModelContainer(true))
+                {
+                    var user = db.GetEntity<User>(el => el.Id == inputParams.UserId && el.IsActive);
+                    var userName = user.Name.ToLower();
+
+                    var systemDataSource = db.GetEntity<DataSources>(el => el.Type == DataSourceEnum.System);
+
+                    db.AddEntity<News>(new News {
+                        PostId = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}{1}", userName, DateTime.Now.Ticks))),
+                        AuthorId = userName,
+                        AuthorName = userName,
+                        AuthorLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), userName),
+                        PostName = inputParams.PostName,
+                        PostLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), userName),
+                        PostContent = inputParams.PostContent,
+                        PostTags = inputParams.PostTags,
+                        IsActive = true,
+                        AdultContent = inputParams.AdultContent,
+
+                        DataSource = systemDataSource,
+                        User = user
+                    });
+                    result.SetDataResult(true);
+
                 }
             }
             catch (Exception ex)

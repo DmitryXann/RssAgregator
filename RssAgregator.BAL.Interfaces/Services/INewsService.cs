@@ -7,5 +7,7 @@ namespace RssAgregator.BAL.Interfaces.Services
     public interface INewsService
     {
         GenericResult<IEnumerable<NewsModel>> GetNews(int pageSize, int pageNumber, bool hideAdult);
+
+        GenericResult<bool> AddNewsItem(NewsItemModel inputParams);
     }
 }
