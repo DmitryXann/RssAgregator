@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="DeployScripts\DataSourceDeployScripts.sql" />
     <None Include="packages.config" />
     <EntityDeploy Include="RssAggregatorModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -165,7 +166,9 @@
     </Content>
     <Content Include="DBScriptTemplates\TemplateSetInsertUpdate.sql" />
     <Content Include="DBScriptTemplates\UserSetInsertUpdate.sql" />
-    <Content Include="RssAggregatorDeployScripts.sql" />
+    <Content Include="DeployScripts\SettingsDeployScripts.sql" />
+    <Content Include="DeployScripts\TemplateDeployScripts.sql" />
+    <Content Include="DeployScripts\GeneralDeployScripts.sql" />
     <Content Include="RssAggregatorModel.edmx.sql" />
   </ItemGroup>
   <ItemGroup>
