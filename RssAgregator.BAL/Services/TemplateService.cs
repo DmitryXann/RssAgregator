@@ -6,6 +6,7 @@ using RssAgregator.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace RssAgregator.BAL.Services
 {
@@ -36,21 +37,29 @@ namespace RssAgregator.BAL.Services
             return result;
         }
 
-        public GenericResult<TemplateModel> GetUserTemplate(string templateType, int userId)
+        public GenericResult<TemplateModel> GetUserTemplate(string templateOrTemplateType, int userId)
         {
             var result = new GenericResult<TemplateModel>();
 
             try
             {
-                TemplateTypeEnum expectedTemplate;
-                if (Enum.TryParse(templateType, out expectedTemplate) || expectedTemplate == TemplateTypeEnum.System)
+                using (var db = new RssAggregatorModelContainer())
                 {
-                    using (var db = new RssAggregatorModelContainer())
-                    {
-                        var selectedEntity = db.GetEntity<Template>(el => el.Type == expectedTemplate);
+                    Expression<Func<Template, bool>> predicate;
 
-                        result.SetDataResult(selectedEntity == null ? null : selectedEntity.GetModel());
+                    TemplateTypeEnum expectedTemplate;
+                    if (Enum.TryParse(templateOrTemplateType, out expectedTemplate))
+                    {
+                        predicate = el => el.Type == expectedTemplate;
                     }
+                    else
+                    {
+                        predicate = el => el.Name.ToLower() == templateOrTemplateType.ToLower();
+                    }
+
+                    var selectedEntity = db.GetEntity<Template>(predicate);
+
+                    result.SetDataResult(selectedEntity == null ? null : selectedEntity.GetModel());
                 }
             }
             catch (Exception ex)
