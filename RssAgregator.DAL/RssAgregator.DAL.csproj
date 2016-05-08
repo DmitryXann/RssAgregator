@@ -117,6 +117,9 @@
     <Compile Include="TemplateTypeEnum.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Transliteration.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
@@ -135,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="DBScriptTemplates\TransliterationSetinsertUpdate.sql" />
     <Content Include="DeployScripts\DataSourceDeployScripts.sql" />
     <None Include="packages.config" />
     <EntityDeploy Include="RssAggregatorModel.edmx">
@@ -169,6 +173,7 @@
     <Content Include="DeployScripts\SettingsDeployScripts.sql" />
     <Content Include="DeployScripts\TemplateDeployScripts.sql" />
     <Content Include="DeployScripts\GeneralDeployScripts.sql" />
+    <Content Include="DeployScripts\TransliterationDeployScript.sql" />
     <Content Include="RssAggregatorModel.edmx.sql" />
   </ItemGroup>
   <ItemGroup>

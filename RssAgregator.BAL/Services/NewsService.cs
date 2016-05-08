@@ -15,6 +15,9 @@ namespace RssAgregator.BAL.Services
         [Dependency]
         public ISettingService SettingService { get; set; }
 
+        [Dependency]
+        public ITranslateService TranslateService { get; set; }
+
         public GenericResult<IEnumerable<NewsModel>> GetNews(int pageSize, int pageNumber, bool hideAdult)
         {
             var result = new GenericResult<IEnumerable<NewsModel>>();
@@ -51,15 +54,33 @@ namespace RssAgregator.BAL.Services
 
             try
             {
+                Func<string, string, string> preparePostid = (postName, userName) =>
+                {
+                    var dateTimeNow = DateTime.Now;
+                    return string.Format("{0}_{1}_{2}",
+                                                    postName,
+                                                    userName,
+                                                    string.Format("{0}.{1}.{2}_{3}:{4}:{5}.{6}", (dateTimeNow.Day < 10 ? "0" + dateTimeNow.Day.ToString() : dateTimeNow.Day.ToString()),
+                                                                                         (dateTimeNow.Month < 10 ? "0" + dateTimeNow.Month.ToString() : dateTimeNow.Month.ToString()),
+                                                                                         dateTimeNow.Year.ToString().Substring(2),
+                                                                                         dateTimeNow.Hour, dateTimeNow.Minute, dateTimeNow.Second, dateTimeNow.Millisecond));
+                };
+
                 using (var db = new RssAggregatorModelContainer(true))
                 {
                     var user = db.GetEntity<User>(el => el.Id == inputParams.UserId && el.IsActive);
                     var userName = user.Name.ToLower();
 
+                    var translatePost = TranslateService.Translate(inputParams.PostName);
+                    var postId = preparePostid(translatePost.InfoResult.ResultCode == Models.Enums.ResultCodeEnum.Success 
+                                                    ? translatePost.DataResult 
+                                                    : Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}{1}", userName, DateTime.Now.Ticks))), 
+                                                userName);
+
                     var systemDataSource = db.GetEntity<DataSources>(el => el.Type == DataSourceEnum.System);
 
                     db.AddEntity<News>(new News {
-                        PostId = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}{1}", userName, DateTime.Now.Ticks))),
+                        PostId = postId,
                         AuthorId = userName,
                         AuthorName = userName,
                         AuthorLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), userName),

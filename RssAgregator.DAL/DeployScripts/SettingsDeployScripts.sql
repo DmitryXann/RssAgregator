@@ -1,4 +1,9 @@
 ﻿USE RssAggregator
+
+IF EXISTS(SELECT * FROM [dbo].[SettingsSet])
+BEGIN
+	DELETE [dbo].[SettingsSet]
+END
 --========================================================
 --========================================================
 DECLARE @Key nvarchar(255)

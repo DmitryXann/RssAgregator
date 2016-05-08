@@ -1,4 +1,9 @@
 ﻿USE RssAggregator
+
+IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet])
+BEGIN
+	DELETE [dbo].[DataSourcesSet]
+END
 --========================================================
 --========================================================
 DECLARE @Name nvarchar(max)

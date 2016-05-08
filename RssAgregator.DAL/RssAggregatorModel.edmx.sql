@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/25/2016 01:32:02
+-- Date Created: 05/08/2016 21:45:11
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -93,6 +93,9 @@ IF OBJECT_ID(N'[dbo].[SettingsSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SongsBlackListSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SongsBlackListSet];
+GO
+IF OBJECT_ID(N'[dbo].[TransliterationSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TransliterationSet];
 GO
 
 -- --------------------------------------------------
@@ -244,6 +247,14 @@ CREATE TABLE [dbo].[SongsBlackListSet] (
 );
 GO
 
+-- Creating table 'TransliterationSet'
+CREATE TABLE [dbo].[TransliterationSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [FromLetter] nvarchar(10)  NOT NULL,
+    [ToLetter] nvarchar(10)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -323,6 +334,12 @@ GO
 -- Creating primary key on [Id] in table 'SongsBlackListSet'
 ALTER TABLE [dbo].[SongsBlackListSet]
 ADD CONSTRAINT [PK_SongsBlackListSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TransliterationSet'
+ALTER TABLE [dbo].[TransliterationSet]
+ADD CONSTRAINT [PK_TransliterationSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
