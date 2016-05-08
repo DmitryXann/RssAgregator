@@ -814,8 +814,8 @@ GO
 DECLARE @FromLetter nvarchar(10)
 	   ,@ToLetter nvarchar(10)
 
-SELECT @FromLetter	= N' ' + CHAR(9)
-	   ,@ToLetter	= N'_'
+SELECT @FromLetter	= N'' + CHAR(9)
+	   ,@ToLetter	= N' '
 
 IF EXISTS(SELECT * FROM [dbo].[TransliterationSet] WHERE [FromLetter] like @FromLetter)
 BEGIN

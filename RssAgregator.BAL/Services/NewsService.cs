@@ -58,7 +58,7 @@ namespace RssAgregator.BAL.Services
                 {
                     var dateTimeNow = DateTime.Now;
                     return string.Format("{0}_{1}_{2}",
-                                                    postName,
+                                                    postName.Replace(' ', '_'),
                                                     userName,
                                                     string.Format("{0}.{1}.{2}_{3}:{4}:{5}.{6}", (dateTimeNow.Day < 10 ? "0" + dateTimeNow.Day.ToString() : dateTimeNow.Day.ToString()),
                                                                                          (dateTimeNow.Month < 10 ? "0" + dateTimeNow.Month.ToString() : dateTimeNow.Month.ToString()),

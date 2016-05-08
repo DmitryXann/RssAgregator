@@ -25,7 +25,7 @@ namespace RssAgregator.BAL.Services
                     var transliterationData = db.GetDBSet<Transliteration>().ToList();
                     var transliterationResult = new List<string>();
 
-                    foreach (var charEl in text.ToLower().Where(el => char.IsLetterOrDigit(el) || el == ' ' || el == '\t'))
+                    foreach (var charEl in text.ToLower().Where(el => char.IsLetterOrDigit(el) || el == ' ' || el == '\t' || el == '_'))
                     {
                         var expectedEl = transliterationData.FirstOrDefault(el => el.FromLetter.Contains(charEl));
                         if (expectedEl != null)
@@ -39,7 +39,7 @@ namespace RssAgregator.BAL.Services
                     }
 
                     var transliterationString= transliterationResult.Aggregate(string.Empty, (agg, el) => agg + el);
-                    var rgx = new Regex("[^a-zA-Z0-9]");
+                    var rgx = new Regex("[^a-zA-Z0-9_ ]");
 
                     result.SetDataResult(rgx.Replace(transliterationString, string.Empty));
                 }
