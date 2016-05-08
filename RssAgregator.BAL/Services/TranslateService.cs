@@ -5,6 +5,7 @@ using RssAgregator.Models.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RssAgregator.BAL.Services
 {
@@ -37,7 +38,10 @@ namespace RssAgregator.BAL.Services
                         }
                     }
 
-                    result.SetDataResult(transliterationResult.Aggregate(string.Empty, (agg, el) => agg + el));
+                    var transliterationString= transliterationResult.Aggregate(string.Empty, (agg, el) => agg + el);
+                    var rgx = new Regex("[^a-zA-Z0-9]");
+
+                    result.SetDataResult(rgx.Replace(transliterationString, string.Empty));
                 }
 
                 return result;
