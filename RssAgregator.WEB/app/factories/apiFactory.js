@@ -2,21 +2,34 @@
     'use strict';
 
     angular.module('app')
-        .factory('apiFactory', ['$resource', 'ResultCodeEnum', 'notificationService',
-            function ($resource, ResultCodeEnum, notificationService) {
-                function transformResponseProcessing(data, headers) {
-                    var serverResult = angular.fromJson(data);
-                    var serverResultData = serverResult.Data;
+        .factory('apiFactory', ['$resource', 'ResultCodeEnum', 'notificationService', 'uiSettings',
+            function ($resource, ResultCodeEnum, notificationService, uiSettings) {
+                function transformResponseProcessing(data, headers, status) {
+                    if (status == 200) {
+                        var serverResult = angular.fromJson(data);
+                        var serverResultData = serverResult.Data;
 
-                    return {
-                        sucessResult: !angular.isUndefined(serverResultData) && serverResultData != null &&
-                                      !angular.isUndefined(serverResultData.InfoResult) && serverResultData.InfoResult != null &&
-                                      serverResultData.InfoResult.ResultCode === ResultCodeEnum.Success,
-                        showInfoMessage: function () {
-                            notificationService.notify(serverResultData);
-                        },
-                        DataResult: serverResultData.DataResult,
-                        InfoResult: serverResultData.InfoResult
+                        return {
+                            sucessResult: !angular.isUndefined(serverResultData) && serverResultData != null &&
+                                          !angular.isUndefined(serverResultData.InfoResult) && serverResultData.InfoResult != null &&
+                                          serverResultData.InfoResult.ResultCode === ResultCodeEnum.Success,
+                            showInfoMessage: function () {
+                                notificationService.notify(serverResultData);
+                            },
+                            DataResult: serverResultData.DataResult,
+                            InfoResult: serverResultData.InfoResult
+                        }
+                    } else {
+                        notificationService.error(uiSettings.ExceptionOccured);
+
+                        return {
+                            sucessResult: false,
+                            showInfoMessage: function () {
+                                notificationService.error(uiSettings.ExceptionOccured);
+                            },
+                            DataResult: null,
+                            InfoResult: null
+                        }
                     }
                 }
 

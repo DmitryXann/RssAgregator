@@ -17,7 +17,7 @@
 
         @Scripts.Render("~/bundles/app")
     </head>
-    <body ng-app="app" ng-cloak>
+    <body ng-app="app" ng-cloak ng-class="{'invalid-data-on-page' : invalidDataOnPage}">
         @RenderBody()
     </body>
 </html>

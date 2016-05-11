@@ -23,15 +23,25 @@ namespace RssAgregator.WEB.Controllers.Api
             };
         }
 
+        [System.Web.Http.HttpGet]
+        public JsonResult NewsItemSearch(string inputParams)
+        {
+            return new JsonResult
+            {
+                Data = NewsService.GetNewsItem(inputParams),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         [System.Web.Http.HttpPost]
         [ValidateInput(false)]
-        public JsonResult AddNewsItem([FromBody] NewsItemModel inputParams)
+        public JsonResult AddEditNewsItem([FromBody] NewsItemModel inputParams)
         {
             inputParams.ModificationDate = DateTime.Now;
             inputParams.UserId = 1; //TODO: remove when user login implemented
             return new JsonResult
             {
-                Data = NewsService.AddNewsItem(inputParams),
+                Data = NewsService.AddEditNewsItem(inputParams),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

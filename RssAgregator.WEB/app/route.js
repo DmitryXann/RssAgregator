@@ -15,7 +15,13 @@
                 //    return templateFactory.get('aboutController');
                 //},
                 controller: 'aboutController'
-            }).when('/addEditPost', {
+            }).when('/addPost', {
+                templateUrl: 'app/controllers/addEditPostController/addEditPostController.html',
+                //templateUrl: function () {
+                //    return templateFactory.get('addEditPostController');
+                //},
+                controller: 'addEditPostController'
+            }).when('/editPost/:postId', {
                 templateUrl: 'app/controllers/addEditPostController/addEditPostController.html',
                 //templateUrl: function () {
                 //    return templateFactory.get('addEditPostController');

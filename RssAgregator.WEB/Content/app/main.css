@@ -18,6 +18,9 @@
   height: 200px;
   pointer-events: none;
 }
+.invalid-data-on-page .ct-app .ct-ignition__button--confirm {
+  display: none;
+}
 .post-add-edit {
   margin-top: 50px;
 }

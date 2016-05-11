@@ -20,5 +20,20 @@ namespace RssAgregator.DAL
                 db.AddEntity(logEntity);
             }
         }
+
+        public static void LogException(string message, LogTypeEnum type)
+        {
+            using (var db = new RssAggregatorModelContainer(true))
+            {
+                var logEntity = new Log
+                {
+                    Message = message,
+                    DateTime = DateTime.Now,
+                    Type = type
+                };
+
+                db.AddEntity(logEntity);
+            }
+        }
     }
 }

@@ -15,5 +15,9 @@ namespace RssAgregator.Models.Services
         public int UserId { get; set; }
 
         public DateTime ModificationDate { get; set; }
+
+        public bool IsNewOne { get; set; }
+
+        public string PostId { get; set; }
     }
 }

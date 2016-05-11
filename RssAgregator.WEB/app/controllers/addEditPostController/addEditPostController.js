@@ -2,61 +2,140 @@
     'use strict';
 
     angular.module('app')
-        .controller('addEditPostController', ['$scope', 'newsService',
-            function ($scope, newsService) {
+        .controller('addEditPostController', ['$scope', 'newsService', '$routeParams', '$location', '$timeout', '$sce', 'uiSettings',
+            function ($scope, newsService, $routeParams, $location, $timeout, $sce, uiSettings) {
                 $scope.editor;
 
+                $scope.postContent;
+                $scope.originalData;
+
                 $scope.postName = '';
+                $scope.invalidPostName = false;
+                $scope.invalidPostNameMessage = uiSettings.InvalidPostNameData;
+
                 $scope.postTags = '';
+                $scope.invalidPostTag = false;
+                $scope.invalidPostTagMessage = uiSettings.InvalidPostTagsData;
+
                 $scope.isAdult = false;
 
+                $scope.postDataOnChange = function (minLength, sourceData, validation) {
+                    if (!angular.isUndefined($scope[validation]) && !angular.isUndefined($scope[sourceData])) {
+                        $scope[validation] = $scope[sourceData].length < minLength;
+                        $scope.$emit('invalidDataOnPage', $scope.invalidPostName || $scope.invalidPostTag);
+                    }
+                };
+
                 function init() {
-                    $scope.editor = ContentTools.EditorApp.get();
-                    $scope.editor.init('*[data-editable]', 'data-name');
+                    var redirectToDashboard = function () {
+                        $timeout(function () {
+                            $location.path('/');
+                        }, 500);
+                    };
 
-                    $scope.editor.addEventListener('saved', function (ev) {
+                    var savedEditorEventHandler = function (event) {
                         var that = this;
-                        // Check that something changed
-                        var regions = ev.detail().regions;
-                        if (Object.keys(regions).length == 0) {
-                            return;
-                        }
+                        var postContent = '';
+                        var regions = event.detail().regions;
 
-                        // Set the editor as busy while we save our changes
                         that.busy(true);
 
-                        // Collect the contents of each region into a FormData instance
-                        var postContent = '';
-                        for (var name in regions) {
-                            if (regions.hasOwnProperty(name)) {
-                                postContent += regions[name];
+                        if (Object.keys(regions).length !== 0) {
+                            for (var name in regions) {
+                                if (regions.hasOwnProperty(name)) {
+                                    postContent += regions[name];
+                                }
                             }
                         }
 
-                        newsService.post('AddNewsItem', {
-                            PostName: $scope.postName,
-                            PostTags: $scope.postTags,
-                            AdultContent: $scope.isAdult,
-                            PostContent: postContent
-                        }).then(function (serverResult) {
+                        if ($scope.postName !== $scope.originalData.PostName ||
+                            $scope.postTags !== $scope.originalData.PostTags ||
+                            $scope.isAdult !== $scope.originalData.AdultContent) {
+
+                            newsService.post('AddEditNewsItem', {
+                                PostName: $scope.postName,
+                                PostTags: $scope.postTags,
+                                AdultContent: $scope.isAdult,
+                                PostContent: postContent || $scope.originalData.PostContent,
+                                IsNewOne: angular.isUndefined($routeParams.postId)
+                            }).then(function (serverResult) {
+                                that.busy(false);
+
+                                if (serverResult.sucessResult) {
+                                    new ContentTools.FlashUI('ok');
+                                    redirectToDashboard();
+                                } else {
+                                    new ContentTools.FlashUI('no');
+                                    serverResult.showInfoMessage();
+                                }
+                            });
+                        } else {
                             that.busy(false);
 
+                            new ContentTools.FlashUI('ok');
+                            redirectToDashboard();
+                        }
+                    };
+
+                    var stopEdtiorEventHandler = function (event) {
+                        if (!event.detail().save) {
+                            redirectToDashboard();
+                        }
+                    };
+
+                    var initializeEditor = function () {
+                        $scope.editor = ContentTools.EditorApp.get();
+                        $scope.editor.init('*[data-editable]', 'data-name');
+
+                        $scope.editor.addEventListener('saved', savedEditorEventHandler);
+                        $scope.editor.addEventListener('stop', stopEdtiorEventHandler);
+                        
+                        $scope.editor.ignition().busy(true);
+                    };
+                    
+
+                    if ($routeParams.postId) {
+                        newsService.get('NewsItemSearch', {
+                            id: $routeParams.postId
+                        }).then(function (serverResult) {
                             if (serverResult.sucessResult) {
-                                new ContentTools.FlashUI('ok');
+                                $scope.originalData = serverResult.DataResult;
+
+                                $scope.postContent = $sce.trustAsHtml(serverResult.DataResult.PostContent);
+                                $scope.postName = serverResult.DataResult.PostName;
+                                $scope.postTags = serverResult.DataResult.PostTags.join(',');
+                                $scope.isAdult = serverResult.DataResult.AdultContent;
+
+                                initializeEditor();
+                                $timeout(function () {
+                                    $scope.editor.ignition().edit();
+                                }, 500);
                             } else {
-                                new ContentTools.FlashUI('no');
                                 serverResult.showInfoMessage();
                             }
                         });
-                    });
-
+                    } else {
+                        $scope.postContent = null;
+                        initializeEditor();
+                        
+                        $timeout(function () {
+                            $scope.editor.ignition().edit();
+                        }, 100);
+                    }
+                    
                     $scope.$on('$destroy', function () {
-                        $scope.editor.destroy();
+                        if ($scope.editor) {
+                            $scope.editor.removeEventListener('saved', savedEditorEventHandler);
+                            $scope.editor.removeEventListener('stop', stopEdtiorEventHandler);
+
+                            $scope.editor.destroy();
+                        }
                     });
 
                     $scope.$on('$routeChangeStart', function (event) {
-                        $scope.editor.revert();
-                        event.preventDefault();
+                        if ($scope.editor.ignition().state() === 'editing') {
+                            event.preventDefault();
+                        }
                     });
                 }
 

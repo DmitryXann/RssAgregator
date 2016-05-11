@@ -48,7 +48,33 @@ namespace RssAgregator.BAL.Services
             return result;
         }
 
-        public GenericResult<bool> AddNewsItem(NewsItemModel inputParams)
+        public GenericResult<NewsModel> GetNewsItem(string newsItemId)
+        {
+            var result = new GenericResult<NewsModel>();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(newsItemId))
+                {
+                    using (var db = new RssAggregatorModelContainer())
+                    {
+                        result.SetDataResult(db.GetEntity<News>(el => el.IsActive && el.PostId == newsItemId).GetModel());
+
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogTypeEnum.BAL);
+                result.SetErrorResultCode(SettingService.GetUserFriendlyExceptionMessage());
+            }
+
+            return result;
+        }
+
+
+        public GenericResult<bool> AddEditNewsItem(NewsItemModel inputParams)
         {
             var result = new GenericResult<bool>();
 
@@ -60,10 +86,13 @@ namespace RssAgregator.BAL.Services
                     return string.Format("{0}_{1}_{2}",
                                                     postName.Replace(' ', '_'),
                                                     userName,
-                                                    string.Format("{0}.{1}.{2}_{3}:{4}:{5}.{6}", (dateTimeNow.Day < 10 ? "0" + dateTimeNow.Day.ToString() : dateTimeNow.Day.ToString()),
-                                                                                         (dateTimeNow.Month < 10 ? "0" + dateTimeNow.Month.ToString() : dateTimeNow.Month.ToString()),
-                                                                                         dateTimeNow.Year.ToString().Substring(2),
-                                                                                         dateTimeNow.Hour, dateTimeNow.Minute, dateTimeNow.Second, dateTimeNow.Millisecond));
+                                                    string.Format("{0}-{1}-{2}_{3}-{4}-{5}", 
+                                                                    dateTimeNow.Day < 10 ? "0" + dateTimeNow.Day.ToString() : dateTimeNow.Day.ToString(),
+                                                                    dateTimeNow.Month < 10 ? "0" + dateTimeNow.Month.ToString() : dateTimeNow.Month.ToString(),
+                                                                    dateTimeNow.Year,
+                                                                    dateTimeNow.Hour < 10 ? "0" + dateTimeNow.Hour.ToString() : dateTimeNow.Hour.ToString(), 
+                                                                    dateTimeNow.Minute < 10 ? "0" + dateTimeNow.Minute.ToString() : dateTimeNow.Minute.ToString(), 
+                                                                    dateTimeNow.Second < 10 ? "0" + dateTimeNow.Second.ToString() : dateTimeNow.Second.ToString()));
                 };
 
                 using (var db = new RssAggregatorModelContainer(true))
@@ -79,23 +108,49 @@ namespace RssAgregator.BAL.Services
 
                     var systemDataSource = db.GetEntity<DataSources>(el => el.Type == DataSourceEnum.System);
 
-                    db.AddEntity<News>(new News {
-                        PostId = postId,
-                        AuthorId = userName,
-                        AuthorName = userName,
-                        AuthorLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), userName),
-                        PostName = inputParams.PostName,
-                        PostLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), userName),
-                        PostContent = inputParams.PostContent,
-                        PostTags = inputParams.PostTags,
-                        IsActive = true,
-                        AdultContent = inputParams.AdultContent,
 
-                        DataSource = systemDataSource,
-                        User = user
-                    });
+                    if (inputParams.IsNewOne && !string.IsNullOrEmpty(inputParams.PostId))
+                    {
+                        var newsEntity = db.GetEntity<News>(el => el.IsActive && el.User.Id == user.Id && el.PostId == inputParams.PostId);
+                        if (newsEntity != null)
+                        {
+                            newsEntity.PostContent = inputParams.PostContent;
+                            newsEntity.PostTags = inputParams.PostTags;
+                            newsEntity.AdultContent = inputParams.AdultContent;
+                            newsEntity.ModificationDateTime = DateTime.Now;
+
+                            result.SetDataResult(true);
+                        }
+                        else
+                        {
+                            Logger.LogException(string.Format("News item not found, expected user Id:{0}, expected news item id:{1}", user.Id, inputParams.PostId), LogTypeEnum.BAL);
+
+                            result.SetErrorResultCode(SettingService.GetUserFriendlyExceptionMessage());
+                        }
+                    }
+                    else
+                    {
+                        db.AddEntity<News>(new News
+                        {
+                            PostId = postId,
+                            AuthorId = userName,
+                            AuthorName = userName,
+                            AuthorLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), userName),
+                            PostName = inputParams.PostName,
+                            PostLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), postId),
+                            PostContent = inputParams.PostContent,
+                            PostTags = inputParams.PostTags,
+                            IsActive = true,
+                            AdultContent = inputParams.AdultContent,
+                            CreationDateTime = DateTime.Now,
+                            ModificationDateTime = DateTime.Now,
+
+                            DataSource = systemDataSource,
+                            User = user
+                        });
+                    }
+                    
                     result.SetDataResult(true);
-
                 }
             }
             catch (Exception ex)

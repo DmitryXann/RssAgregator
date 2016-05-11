@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/08/2016 21:45:11
+-- Date Created: 05/09/2016 00:23:35
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -130,6 +130,8 @@ CREATE TABLE [dbo].[NewsSet] (
     [External] bit  NOT NULL,
     [IsActive] bit  NOT NULL,
     [AdultContent] bit  NOT NULL,
+    [CreationDateTime] datetime  NOT NULL,
+    [ModificationDateTime] datetime  NOT NULL,
     [DataSource_Id] int  NULL,
     [User_Id] int  NOT NULL
 );

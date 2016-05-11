@@ -95,6 +95,8 @@
     <Property Name="External" Type="bit" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
     <Property Name="AdultContent" Type="bit" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDateTime" Type="datetime" Nullable="false" />
     <Property Name="DataSource_Id" Type="int" Nullable="true" />
     <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -457,6 +459,8 @@
           <Property Type="Boolean" Name="AdultContent" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="RssAggregatorModel.NewsComments" FromRole="News" ToRole="Comments" />
           <NavigationProperty Name="UsersImage" Relationship="RssAggregatorModel.NewsUsersImage" FromRole="News" ToRole="UsersImage" />
+          <Property Name="CreationDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="ModificationDateTime" Type="DateTime" Nullable="false" />
         </EntityType>
         <Association Name="NewsDataSources">
           <End Type="RssAggregatorModel.News" Role="News" Multiplicity="*" />
@@ -684,6 +688,8 @@
           <ScalarProperty Name="External" ColumnName="External" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="AdultContent" ColumnName="AdultContent" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="ModificationDateTime" ColumnName="ModificationDateTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
