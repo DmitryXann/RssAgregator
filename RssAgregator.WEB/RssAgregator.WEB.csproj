@@ -260,6 +260,7 @@
     <Content Include="Scripts\video-js-5.9.2\video-js.swf" />
     <Content Include="Scripts\video-js-5.9.2\video.js" />
     <Content Include="Scripts\video-js-5.9.2\video.min.js" />
+    <Content Include="Scripts\wordcloud2\wordcloud2.js" />
     <Content Include="Unity.Mvc4.README.txt" />
     <Content Include="WatchersCounter.txt" />
     <Content Include="Web.config">

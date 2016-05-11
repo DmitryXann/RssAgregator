@@ -31,6 +31,8 @@ namespace RssAgregator.WEB
 
             bundles.Add(new ScriptBundle("~/bundles/content-tools").Include("~/Scripts/content-tools/content-tools.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/wordcloud2").Include("~/Scripts/wordcloud2/wordcloud2.js"));
+
             bundles.Add(new StyleBundle("~/Content/cssLibs").Include(
                         "~/Content/libs/bootstrap-3.3.6/bootstrap-theme.css",
                         "~/Content/libs/bootstrap-3.3.6/bootstrap.css",
