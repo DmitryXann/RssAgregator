@@ -161,5 +161,30 @@ namespace RssAgregator.BAL.Services
 
             return result;
         }
+
+        public GenericResult<IEnumerable<KeyValuePair<string, int>>> GetAllNewsTags()
+        {
+            var result = new GenericResult<IEnumerable<KeyValuePair<string, int>>>();
+
+            try
+            {
+                using (var db = new RssAggregatorModelContainer())
+                {
+                    result.SetDataResult(db.GetDBSet<News>(el => el.IsActive)
+                                           .Select(el => el.PostTags)
+                                           .ToList()
+                                           .SelectMany(el => el.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                                           .GroupBy(el => el)
+                                           .ToDictionary(el => el.Key, el => el.Count()));
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogTypeEnum.BAL);
+                result.SetErrorResultCode(SettingService.GetUserFriendlyExceptionMessage());
+            }
+
+            return result;
+        }
     }
 }

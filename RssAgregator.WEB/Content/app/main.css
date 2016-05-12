@@ -30,3 +30,11 @@
   border-color: #9ecaed;
   box-shadow: 0 0 10px #9ecaed;
 }
+.word-cloud .selection-box {
+  pointer-events: none;
+  position: absolute;
+  box-shadow: 0 0 100px 100px #ff0000;
+  border-radius: 50px;
+  cursor: pointer;
+  background-color: rebeccapurple;
+}

@@ -201,16 +201,17 @@
     <Content Include="app\directives\ngEnter.js" />
     <Content Include="app\directives\containers\postContainer\postContainer.js" />
     <Content Include="app\directives\containers\videoGalleryContainer\videoContainer.js" />
-    <Content Include="app\directives\tagCloud\tagCloud.html" />
-    <Content Include="app\directives\tagCloud\tagCloud.js" />
     <Content Include="app\directives\videoPlayer\videoPlayer.html" />
     <Content Include="app\directives\videoPlayer\videoPlayer.js" />
+    <Content Include="app\directives\wordCloud\wordCloud.html" />
+    <Content Include="app\directives\wordCloud\wordCloud.js" />
     <Content Include="app\factories\apiFactory.js" />
     <Content Include="app\factories\templateFactory.js" />
     <Content Include="app\services\notificationService.js" />
     <Content Include="app\factories\userInfoFactory.js" />
     <Content Include="app\services\webApi.js" />
     <Content Include="app\route.js" />
+    <Content Include="Content\app\directives\directives.less" />
     <Content Include="Content\app\main.css">
       <DependentUpon>main.less</DependentUpon>
     </Content>

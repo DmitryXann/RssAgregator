@@ -11,5 +11,7 @@ namespace RssAgregator.BAL.Interfaces.Services
         GenericResult<NewsModel> GetNewsItem(string newsItemId);
 
         GenericResult<bool> AddEditNewsItem(NewsItemModel inputParams);
+
+        GenericResult<IEnumerable<KeyValuePair<string, int>>> GetAllNewsTags();
     }
 }

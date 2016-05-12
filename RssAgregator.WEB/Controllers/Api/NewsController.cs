@@ -33,6 +33,16 @@ namespace RssAgregator.WEB.Controllers.Api
             };
         }
 
+        [System.Web.Http.HttpGet]
+        public JsonResult GetAllNewsTags()
+        {
+            return new JsonResult
+            {
+                Data = NewsService.GetAllNewsTags(),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         [System.Web.Http.HttpPost]
         [ValidateInput(false)]
         public JsonResult AddEditNewsItem([FromBody] NewsItemModel inputParams)

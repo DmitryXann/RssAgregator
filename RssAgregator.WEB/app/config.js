@@ -14,11 +14,13 @@
             //controllers
             dashboardController: 'app/controllers/dashboardController/dashboard.html',
             aboutController: 'app/controllers/aboutController/aboutController.html',
+            addEditPostController: 'app/controllers/addEditPostController/addEditPostController.html',
 
             //general directives
             audioPlayer: 'app/directives/audioPlayer/audioPlayer.html',
             audioPlayerProgressBar: 'app/directives/audioPlayer/audioPlayerProgressBar.html',
             videoPlayer: 'app/directives/videoPlayer/videoPlayer.html',
+            wordCloud: 'app/directives/wordCloud/wordCloud.html',
 
             //container directives
             audioContainer: 'app/directives/containers/audioContainer/audioContainer.html',

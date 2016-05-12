@@ -1121,3 +1121,108 @@ BEGIN
 END
 GO
 --========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Description nvarchar(max)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'wordCloud'
+	   ,@Description	= N'wordCloud'
+	   ,@View			= N'<canvas></canvas>'
+	   ,@Version		= 0
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(max)
+	   ,@Description nvarchar(max)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'addEditPostController'
+	   ,@Description	= N'addEditPostController'
+	   ,@View			= N'<span>
+    Start by pressing the "Pencil icon" and make changes in glowind area below:
+</span>
+<div class="post-add-edit">
+    <div><span>Post name:</span><input type="text" ng-model="postName" ng-change="postDataOnChange(2, ''postName'', ''invalidPostName'')" /></div>
+    <div ng-show="invalidPostName"><span ng-bind="invalidPostNameMessage"></span></div>
+
+    <div><span>Post tags separated by coma:</span><input type="text" ng-model="postTags" ng-change="postDataOnChange(2, ''postTags'', ''invalidPostTag'')" /></div>
+    <div ng-show="invalidPostTag"><span ng-bind="invalidPostTagMessage"></span></div>
+
+    <div><span>Is Adult content:</span><input type="checkbox" ng-model="isAdult" /></div>
+    <div class="post-editable-container" data-editable data-name="main-content" ng-bind-html="::postContent">
+    </div>
+</div>'
+	   ,@Version		= 0
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================
