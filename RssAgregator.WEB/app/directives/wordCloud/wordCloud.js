@@ -21,33 +21,33 @@
 		                    if (serverResult.sucessResult) {
 		                        var serverResult = serverResult.DataResult;
 		                        
-
-		                        var tagsArray = [["Les Misérables", 30],
-		                        ["Victor Hugo", 20],
-		                        ["Jean Valjean", 15], 
-		                        ["Javert", 15], 
-		                        ["Fantine", 15],
-		                        ["Cosette", 15],
-		                        ["Éponine", 12],
-		                        ["Marius", 12],
-		                        ["Enjolras", 12],
-		                        ["Thénardiers", 10],
-		                        ["Gavroche", 10],
-		                        ["Bishop Myriel", 10],
-		                        ["Patron-Minette", 10],
-		                        ["God", 10],
-		                        ["ABC Café", 9],
-		                        ["Paris", 9],
-		                        ["Digne", 9],
-		                        ["Elephant of the Bastille", 9],
-		                        ["silverwarem", 5], 
-		                        ["Bagne of Toulon", 5 ],
-		                        ["loaf of bread", 5 ],
-		                        ["Rue Plumet", 5 ],
-		                        ["revolution", 5 ],
-		                        ["barricade", 5 ],
-		                        ["sewers", 4],
-		                        ["Fex urbis lex orbis", 4]];
+		                        var tagsArray = [];
+		                        //var tagsArray = [["Les Misérables", 30],
+		                        //["Victor Hugo", 20],
+		                        //["Jean Valjean", 15], 
+		                        //["Javert", 15], 
+		                        //["Fantine", 15],
+		                        //["Cosette", 15],
+		                        //["Éponine", 12],
+		                        //["Marius", 12],
+		                        //["Enjolras", 12],
+		                        //["Thénardiers", 10],
+		                        //["Gavroche", 10],
+		                        //["Bishop Myriel", 10],
+		                        //["Patron-Minette", 10],
+		                        //["God", 10],
+		                        //["ABC Café", 9],
+		                        //["Paris", 9],
+		                        //["Digne", 9],
+		                        //["Elephant of the Bastille", 9],
+		                        //["silverwarem", 5], 
+		                        //["Bagne of Toulon", 5 ],
+		                        //["loaf of bread", 5 ],
+		                        //["Rue Plumet", 5 ],
+		                        //["revolution", 5 ],
+		                        //["barricade", 5 ],
+		                        //["sewers", 4],
+		                        //["Fex urbis lex orbis", 4]];
 
 		                        for (var el in serverResult) {
 		                            tagsArray.push([String(el), serverResult[el]])
@@ -60,7 +60,7 @@
 
 		                        WordCloud(canvasEl[0], {
 		                            list: tagsArray,
-		                            hover: function drawBox(item, dimension) {
+		                            hover: function (item, dimension) {
 		                                if (!dimension) {
 		                                    boxEl.prop('hidden', true);
 		                                    return;
@@ -74,16 +74,12 @@
 		                                    height: dimension.h / $window.devicePixelRatio + 'px'
 		                                });
 		                            },
-		                            gridSize: Math.round((scope.width / (tagsArray.length / 1.5)) * (scope.width / 1024)),
-		                            ontFamily: 'Average, Times, serif',
+		                            gridSize: Math.round((scope.width / 2) * (scope.width / 1024)),
+		                            ontFamily: 'Average, Times, serif'
 		                        });
 		                    } else {
 		                        serverResult.showInfoMessage();
 		                    }
-		                });
-
-		                scope.$on('$destroy', function () {
-
 		                });
 		            }
 
