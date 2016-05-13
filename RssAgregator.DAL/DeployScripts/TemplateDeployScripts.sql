@@ -6,8 +6,8 @@ BEGIN
 END
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -52,8 +52,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -98,8 +98,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -144,8 +144,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -190,8 +190,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -236,8 +236,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -282,8 +282,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -328,8 +328,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -374,8 +374,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -479,8 +479,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -531,8 +531,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -579,8 +579,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -625,8 +625,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -674,8 +674,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -720,8 +720,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -775,8 +775,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -821,8 +821,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -869,8 +869,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -1122,8 +1122,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -1168,8 +1168,8 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint
@@ -1189,6 +1189,56 @@ SELECT @Name			= N'addEditPostController'
 
     <div><span>Is Adult content:</span><input type="checkbox" ng-model="isAdult" /></div>
     <div class="post-editable-container" data-editable data-name="main-content" ng-bind-html="::postContent">
+    </div>
+</div>'
+	   ,@Version		= 0
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name]			= @Name
+		,[Description]	= @Description
+		,[View]			= @View
+		,[Version]		= @Version
+		,[Type]			= @Type
+		,[User_Id]		= @User_Id
+	WHERE [Name]		= @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name]
+		,[Description]
+		,[View]
+		,[Version]
+		,[Type]
+		,[User_Id])
+	VALUES
+		(@Name
+		,@Description
+		,@View
+		,@Version
+		,@Type
+		,@User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
+	   ,@View nvarchar(max)
+	   ,@Version int
+	   ,@Type tinyint
+	   ,@User_Id int
+
+SELECT @Name			= N'navigation'
+	   ,@Description	= N'navigation'
+	   ,@View			= N'<div>
+    <div ng-repeat="item in ::navigationData | orderBy : ''OrderNo''">
+        <span ng-bind="::item.Title" ng-click="redirect(item.RedirectTo)"></span>
     </div>
 </div>'
 	   ,@Version		= 0

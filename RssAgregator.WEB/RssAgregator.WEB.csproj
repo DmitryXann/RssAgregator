@@ -161,6 +161,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Controllers\Api\NavigationController.cs" />
     <Compile Include="Controllers\Api\NewsController.cs" />
     <Compile Include="Controllers\Api\OnlineRadioController.cs" />
     <Compile Include="Controllers\Api\TemplateController.cs" />
@@ -198,6 +199,8 @@
     <Content Include="app\directives\containers\videoGalleryContainer\videoContainer.html" />
     <Content Include="app\directives\containers\videoGalleryContainer\videoGalleryContainer.html" />
     <Content Include="app\directives\containers\videoGalleryContainer\videoGalleryContainer.js" />
+    <Content Include="app\directives\navigation\navigation.html" />
+    <Content Include="app\directives\navigation\navigation.js" />
     <Content Include="app\directives\ngEnter.js" />
     <Content Include="app\directives\containers\postContainer\postContainer.js" />
     <Content Include="app\directives\containers\videoGalleryContainer\videoContainer.js" />

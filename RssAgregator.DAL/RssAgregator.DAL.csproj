@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="DALProcessing\EntityProcessing\GenericEntityProcessing.cs" />
     <Compile Include="DALProcessing\Entity\Comments.cs" />
+    <Compile Include="DALProcessing\Entity\Navigation.cs" />
     <Compile Include="DALProcessing\Entity\News.cs" />
     <Compile Include="DALProcessing\Entity\Template.cs" />
     <Compile Include="DALProcessing\RssAggregatorModelContainer.cs" />
@@ -81,6 +82,9 @@
     </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="LogTypeEnum.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NewDataSourceRequest.cs">
@@ -138,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="DBScriptTemplates\NavigationSetInsertUpdate.sql" />
     <Content Include="DBScriptTemplates\TransliterationSetinsertUpdate.sql" />
     <Content Include="DeployScripts\DataSourceDeployScripts.sql" />
     <None Include="packages.config" />
@@ -164,12 +169,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBScriptTemplates\DataSourcesSetInsertUpdate.sql" />
-    <Content Include="DBScriptTemplates\SettingsInserUpdate.sql">
+    <Content Include="DBScriptTemplates\SettingsSetInserUpdate.sql">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
     </Content>
     <Content Include="DBScriptTemplates\TemplateSetInsertUpdate.sql" />
     <Content Include="DBScriptTemplates\UserSetInsertUpdate.sql" />
+    <Content Include="DeployScripts\NavigationSetDeploySctipt.sql" />
     <Content Include="DeployScripts\SettingsDeployScripts.sql" />
     <Content Include="DeployScripts\TemplateDeployScripts.sql" />
     <Content Include="DeployScripts\GeneralDeployScripts.sql" />

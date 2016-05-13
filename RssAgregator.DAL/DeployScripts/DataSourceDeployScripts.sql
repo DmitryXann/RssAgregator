@@ -6,7 +6,7 @@ BEGIN
 END
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
+DECLARE @Name nvarchar(50)
 	   ,@Uri nvarchar(max)
 	   ,@Type int
 	   ,@IsActive bit
@@ -184,7 +184,7 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
+DECLARE @Name nvarchar(50)
 	   ,@Uri nvarchar(max)
 	   ,@Type int
 	   ,@IsActive bit
@@ -337,7 +337,7 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
+DECLARE @Name nvarchar(50)
 	   ,@Uri nvarchar(max)
 	   ,@Type int
 	   ,@IsActive bit
@@ -389,7 +389,7 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
+DECLARE @Name nvarchar(50)
 	   ,@Uri nvarchar(max)
 	   ,@Type int
 	   ,@IsActive bit
@@ -442,7 +442,7 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
+DECLARE @Name nvarchar(50)
 	   ,@Uri nvarchar(max)
 	   ,@Type int
 	   ,@IsActive bit
@@ -542,7 +542,7 @@ END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(max)
+DECLARE @Name nvarchar(50)
 	   ,@Uri nvarchar(max)
 	   ,@Type int
 	   ,@IsActive bit

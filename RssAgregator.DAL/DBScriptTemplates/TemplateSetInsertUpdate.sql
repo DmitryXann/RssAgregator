@@ -1,6 +1,6 @@
 ﻿--========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Description nvarchar(max)
+DECLARE @Name nvarchar(255)
+	   ,@Description nvarchar(255)
 	   ,@View nvarchar(max)
 	   ,@Version int
 	   ,@Type tinyint

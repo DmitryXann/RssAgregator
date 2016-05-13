@@ -33,6 +33,7 @@ namespace RssAgregator.BAL.Services
                                                 .Skip(pageSize * (pageNumber - 1))
                                                 .Take(pageSize)
                                                 .ToList()
+                                                .AsParallel()
                                                 .Select(el => el.GetModel())
                                                 .ToList());
 
@@ -173,6 +174,7 @@ namespace RssAgregator.BAL.Services
                     result.SetDataResult(db.GetDBSet<News>(el => el.IsActive)
                                            .Select(el => el.PostTags)
                                            .ToList()
+                                           .AsParallel()
                                            .SelectMany(el => el.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                                            .GroupBy(el => el)
                                            .ToDictionary(el => el.Key, el => el.Count()));

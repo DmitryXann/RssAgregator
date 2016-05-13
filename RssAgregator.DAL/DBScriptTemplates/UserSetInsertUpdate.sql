@@ -1,7 +1,7 @@
 ﻿--========================================================
-DECLARE @Name nvarchar(max)
-	   ,@Email nvarchar(max)
-	   ,@Password nvarchar(max)
+DECLARE @Name nvarchar(50)
+	   ,@Email nvarchar(50)
+	   ,@Password nvarchar(50)
 	   ,@Type tinyint
 	   ,@IsActive bit
 
