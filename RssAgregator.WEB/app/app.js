@@ -65,7 +65,7 @@
 
                     return false; //TODO: change to true
                 };
-                $window.onerror('TEST', 'URL', 123);
+
                 //videojs init
                 videojs.options.flash.swf = '/Scripts/video-js-5.9.2/video-js.swf';
 
