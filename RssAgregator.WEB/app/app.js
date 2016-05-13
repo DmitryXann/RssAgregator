@@ -8,8 +8,8 @@
         'ngSanitize',
         'ngTouch',
         'ui.bootstrap'
-    ]).run(['$rootScope', '$log', '$window', 'templateFactory', 'viewTemplates',
-        function ($rootScope, $log, $window, templateFactory, viewTemplates) {
+    ]).run(['$rootScope', '$log', '$window', 'templateFactory', 'viewTemplates', 'loggingService',
+        function ($rootScope, $log, $window, templateFactory, viewTemplates, loggingService) {
             $rootScope.invalidDataOnPage = false;
 
             function decimalAdjust(type, value, exp) {
@@ -53,10 +53,19 @@
 
                 //global error handling
                 $window.onerror = function (errorMsg, url, lineNumber) {
-                    $log.error('An error ha occurred: {0}, url: {1}, line: {3}'.format(errorMsg, url, lineNumber));
+                    var errorMessage = 'An error ha occurred: {0}, url: {1}, line: {2}'.format(errorMsg, url, lineNumber);
+
+                    $log.error(errorMessage);
+
+                    loggingService.post('LogFEError', { ErrorMsg: errorMessage }).then(function (serverResult) {
+                        if (!serverResult.sucessResult || !serverResult.DataResult) {
+                            serverResult.showInfoMessage();
+                        }
+                    });
+
                     return false; //TODO: change to true
                 };
-
+                $window.onerror('TEST', 'URL', 123);
                 //videojs init
                 videojs.options.flash.swf = '/Scripts/video-js-5.9.2/video-js.swf';
 

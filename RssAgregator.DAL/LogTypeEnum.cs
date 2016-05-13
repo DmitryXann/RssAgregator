@@ -16,6 +16,7 @@ namespace RssAgregator.DAL
         BAL = 0,
         DAL = 1,
         WEB = 2,
-        CORE = 3
+        CORE = 3,
+        FE = 4
     }
 }

@@ -42,6 +42,7 @@ namespace RssAgregator.WEB
             container.RegisterType<INewsService, NewsService>();
             container.RegisterType<ITranslateService, TranslateService>();
             container.RegisterType<INavigationService, NavigationService>();
+            container.RegisterType<ILoggingService, LoggingService>();
         }
     }
 }

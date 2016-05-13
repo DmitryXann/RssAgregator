@@ -17,4 +17,8 @@
         return apiFactory.create('Navigation');
     }]);
 
+    angular.module('app').service('loggingService', ['apiFactory', function (apiFactory) {
+        return apiFactory.create('Logging');
+    }]);
+
 })(angular);

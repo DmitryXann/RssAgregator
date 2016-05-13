@@ -637,6 +637,7 @@
           <Member Name="DAL" />
           <Member Name="WEB" />
           <Member Name="CORE" />
+          <Member Name="FE" />
         </EnumType>
         <EntityType Name="Settings">
           <Key>

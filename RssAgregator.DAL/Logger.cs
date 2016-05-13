@@ -28,6 +28,8 @@ namespace RssAgregator.DAL
                 var logEntity = new Log
                 {
                     Message = message,
+                    StackTrace = string.Empty,
+                    Source = string.Empty,
                     DateTime = DateTime.Now,
                     Type = type
                 };
