@@ -210,6 +210,7 @@
     <Content Include="app\directives\videoPlayer\videoPlayer.js" />
     <Content Include="app\directives\wordCloud\wordCloud.html" />
     <Content Include="app\directives\wordCloud\wordCloud.js" />
+    <Content Include="app\factories\%24exceptionHandler.js" />
     <Content Include="app\factories\apiFactory.js" />
     <Content Include="app\factories\templateFactory.js" />
     <Content Include="app\services\notificationService.js" />
