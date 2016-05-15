@@ -1,6 +1,5 @@
 ﻿--========================================================
-DECLARE @FromLetter nvarchar(10)
-	   ,@ToLetter nvarchar(10)
+DECLARE @FromLetter nvarchar(10), @ToLetter nvarchar(10)
 
 SELECT @FromLetter	= N''
 	   ,@ToLetter	= N''
@@ -9,18 +8,15 @@ IF EXISTS(SELECT * FROM [dbo].[TransliterationSet] WHERE [FromLetter] like @From
 BEGIN
 	UPDATE [dbo].[TransliterationSet]
 	SET
-		 [FromLetter]	= @FromLetter
-		,[ToLetter]		= @ToLetter
+		 [FromLetter] = @FromLetter, [ToLetter] = @ToLetter
 	WHERE [FromLetter]	= @FromLetter
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TransliterationSet]
-		([FromLetter]
-		,[ToLetter])
+		([FromLetter], [ToLetter])
 	VALUES
-		(@FromLetter
-		,@ToLetter)
+		(@FromLetter, @ToLetter)
 END
 GO
 --========================================================

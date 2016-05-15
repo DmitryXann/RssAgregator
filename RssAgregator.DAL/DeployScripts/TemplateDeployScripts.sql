@@ -6,12 +6,7 @@ BEGIN
 END
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'ImgContainer'
 	   ,@Description	= N'Image Container'
@@ -24,40 +19,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'ImageGalleryContainer'
 	   ,@Description	= N'Image Gallery Container'
@@ -70,40 +45,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'AudioContainer'
 	   ,@Description	= N'Audio Container'
@@ -116,40 +71,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'VideoContainer'
 	   ,@Description	= N'Video Container'
@@ -162,40 +97,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'VideoGalleryContainer'
 	   ,@Description	= N'Video Gallery Container'
@@ -208,40 +123,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'TextContainer'
 	   ,@Description	= N'Text Container'
@@ -254,40 +149,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'TempHeader'
 	   ,@Description	= N'Temp header'
@@ -300,40 +175,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'dashboardController'
 	   ,@Description	= N'dashboardController'
@@ -346,40 +201,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'audioPlayer'
 	   ,@Description	= N'audioPlayer'
@@ -451,40 +286,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'audioPlayerProgressBar'
 	   ,@Description	= N'audioPlayerProgressBar'
@@ -503,40 +318,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'videoPlayer'
 	   ,@Description	= N'videoPlayer'
@@ -551,40 +346,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'audioContainer'
 	   ,@Description	= N'audioContainer'
@@ -597,40 +372,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'imageGalleryContainer'
 	   ,@Description	= N'imageGalleryContainer'
@@ -646,40 +401,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'imgContainer'
 	   ,@Description	= N'imgContainer'
@@ -692,40 +427,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'postContainer'
 	   ,@Description	= N'postContainer'
@@ -747,40 +462,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'videoContainer'
 	   ,@Description	= N'videoContainer'
@@ -793,40 +488,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'videoGalleryContainer'
 	   ,@Description	= N'videoGalleryContainer'
@@ -841,40 +516,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'aboutController'
 	   ,@Description	= N'aboutController'
@@ -1094,40 +749,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'wordCloud'
 	   ,@Description	= N'wordCloud'
@@ -1140,40 +775,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'addEditPostController'
 	   ,@Description	= N'addEditPostController'
@@ -1199,40 +814,20 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(255)
-	   ,@Description nvarchar(255)
-	   ,@View nvarchar(max)
-	   ,@Version int
-	   ,@Type tinyint
-	   ,@User_Id int
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
 SELECT @Name			= N'navigation'
 	   ,@Description	= N'navigation'
@@ -1249,30 +844,15 @@ IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[TemplateSet]
 	SET
-		 [Name]			= @Name
-		,[Description]	= @Description
-		,[View]			= @View
-		,[Version]		= @Version
-		,[Type]			= @Type
-		,[User_Id]		= @User_Id
-	WHERE [Name]		= @Name
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[TemplateSet]
-		([Name]
-		,[Description]
-		,[View]
-		,[Version]
-		,[Type]
-		,[User_Id])
+		([Name], [Description], [View], [Version], [Type], [User_Id])
 	VALUES
-		(@Name
-		,@Description
-		,@View
-		,@Version
-		,@Type
-		,@User_Id)
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
 END
 GO
 --========================================================

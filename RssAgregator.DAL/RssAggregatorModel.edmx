@@ -111,6 +111,7 @@
     <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Type" Type="tinyint" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="UserKey" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="TemplateSet">
     <Key>
@@ -496,6 +497,7 @@
           <NavigationProperty Name="UserFeedback" Relationship="RssAggregatorModel.UserUserFeedback" FromRole="User" ToRole="UserFeedback" />
           <NavigationProperty Name="UserMessagesSend" Relationship="RssAggregatorModel.UserMessagesUser" FromRole="User" ToRole="UserMessages" />
           <NavigationProperty Name="UserMessagesRecived" Relationship="RssAggregatorModel.UserMessagesUser1" FromRole="User" ToRole="UserMessages" />
+          <Property Name="UserKey" Type="String" Nullable="false" MaxLength="Max" />
         </EntityType>
         <EnumType Name="UserTypeEnum" UnderlyingType="Byte">
           <Member Name="System" />
@@ -725,6 +727,7 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserKey" ColumnName="UserKey" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

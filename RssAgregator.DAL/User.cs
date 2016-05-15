@@ -31,6 +31,7 @@ namespace RssAgregator.DAL
         public string Password { get; set; }
         public UserTypeEnum Type { get; set; }
         public bool IsActive { get; set; }
+        public string UserKey { get; set; }
     
         public virtual ICollection<News> News { get; set; }
         public virtual Template Template { get; set; }

@@ -6,13 +6,7 @@ BEGIN
 END
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(50)
-	   ,@Uri nvarchar(max)
-	   ,@Type int
-	   ,@IsActive bit
-	   ,@XMLGuide nvarchar(max)
-	   ,@BaseUri nvarchar(max)
-	   ,@IsNewsSource bit
+DECLARE @Name nvarchar(50), @Uri nvarchar(max), @Type int, @IsActive bit, @XMLGuide nvarchar(max), @BaseUri nvarchar(max), @IsNewsSource bit 
 
 SELECT @Name		= N'MDK'
 	   ,@Uri		= N'https://vk.com/wall-10639516'
@@ -153,44 +147,20 @@ IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[DataSourcesSet]
 	SET
-		 [Name]		    = @Name
-		,[Uri]		    = @Uri
-		,[Type]		    = @Type
-		,[IsActive]	    = @IsActive
-		,[XMLGuide]	    = @XMLGuide
-		,[BaseUri]	    = @BaseUri
-		,[IsNewsSource] = @IsNewsSource
-	WHERE [Name]	= @Name
+		 [Name] = @Name, [Uri] = @Uri, [Type] = @Type, [IsActive] = @IsActive, [XMLGuide] = @XMLGuide, [BaseUri] = @BaseUri, [IsNewsSource] = @IsNewsSource
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[DataSourcesSet]
-		([Name]
-		,[Uri]
-		,[Type]
-		,[IsActive]
-		,[XMLGuide]
-		,[BaseUri]
-		,[IsNewsSource])
+		([Name], [Uri], [Type], [IsActive], [XMLGuide], [BaseUri], [IsNewsSource])
 	VALUES
-		(@Name
-		,@Uri
-		,@Type
-		,@IsActive
-		,@XMLGuide
-		,@BaseUri
-		,@IsNewsSource)
+		(@Name, @Uri, @Type, @IsActive, @XMLGuide, @BaseUri, @IsNewsSource)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(50)
-	   ,@Uri nvarchar(max)
-	   ,@Type int
-	   ,@IsActive bit
-	   ,@XMLGuide nvarchar(max)
-	   ,@BaseUri nvarchar(max)
-	   ,@IsNewsSource bit
+DECLARE @Name nvarchar(50), @Uri nvarchar(max), @Type int, @IsActive bit, @XMLGuide nvarchar(max), @BaseUri nvarchar(max), @IsNewsSource bit
 
 SELECT @Name		= N'pikabu'
 	   ,@Uri		= N'http://pikabu.ru/'
@@ -306,44 +276,20 @@ IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[DataSourcesSet]
 	SET
-		 [Name]		    = @Name
-		,[Uri]		    = @Uri
-		,[Type]		    = @Type
-		,[IsActive]	    = @IsActive
-		,[XMLGuide]	    = @XMLGuide
-		,[BaseUri]	    = @BaseUri
-		,[IsNewsSource] = @IsNewsSource
-	WHERE [Name]	= @Name
+		 [Name] = @Name, [Uri] = @Uri, [Type] = @Type, [IsActive] = @IsActive, [XMLGuide] = @XMLGuide, [BaseUri] = @BaseUri, [IsNewsSource] = @IsNewsSource
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[DataSourcesSet]
-		([Name]
-		,[Uri]
-		,[Type]
-		,[IsActive]
-		,[XMLGuide]
-		,[BaseUri]
-		,[IsNewsSource])
+		([Name], [Uri], [Type], [IsActive], [XMLGuide], [BaseUri], [IsNewsSource])
 	VALUES
-		(@Name
-		,@Uri
-		,@Type
-		,@IsActive
-		,@XMLGuide
-		,@BaseUri
-		,@IsNewsSource)
+		(@Name, @Uri, @Type, @IsActive, @XMLGuide, @BaseUri, @IsNewsSource)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(50)
-	   ,@Uri nvarchar(max)
-	   ,@Type int
-	   ,@IsActive bit
-	   ,@XMLGuide nvarchar(max)
-	   ,@BaseUri nvarchar(max)
-	   ,@IsNewsSource bit
+DECLARE @Name nvarchar(50), @Uri nvarchar(max), @Type int, @IsActive bit, @XMLGuide nvarchar(max), @BaseUri nvarchar(max), @IsNewsSource bit
 
 SELECT @Name		= N'mainfun'
 	   ,@Uri		= N'http://mainfun.ru/'
@@ -358,44 +304,20 @@ IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[DataSourcesSet]
 	SET
-		 [Name]		    = @Name
-		,[Uri]		    = @Uri
-		,[Type]		    = @Type
-		,[IsActive]	    = @IsActive
-		,[XMLGuide]	    = @XMLGuide
-		,[BaseUri]	    = @BaseUri
-		,[IsNewsSource] = @IsNewsSource
-	WHERE [Name]	= @Name
+		 [Name] = @Name, [Uri] = @Uri, [Type] = @Type, [IsActive] = @IsActive, [XMLGuide] = @XMLGuide, [BaseUri] = @BaseUri, [IsNewsSource] = @IsNewsSource
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[DataSourcesSet]
-		([Name]
-		,[Uri]
-		,[Type]
-		,[IsActive]
-		,[XMLGuide]
-		,[BaseUri]
-		,[IsNewsSource])
+		([Name], [Uri], [Type], [IsActive], [XMLGuide], [BaseUri], [IsNewsSource])
 	VALUES
-		(@Name
-		,@Uri
-		,@Type
-		,@IsActive
-		,@XMLGuide
-		,@BaseUri
-		,@IsNewsSource)
+		(@Name, @Uri, @Type, @IsActive, @XMLGuide, @BaseUri, @IsNewsSource)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(50)
-	   ,@Uri nvarchar(max)
-	   ,@Type int
-	   ,@IsActive bit
-	   ,@XMLGuide nvarchar(max)
-	   ,@BaseUri nvarchar(max)
-	   ,@IsNewsSource bit
+DECLARE @Name nvarchar(50), @Uri nvarchar(max), @Type int, @IsActive bit, @XMLGuide nvarchar(max), @BaseUri nvarchar(max), @IsNewsSource bit
 
 SELECT @Name		= N'joyreactor'
 	   ,@Uri		= N'http://joyreactor.cc/'
@@ -411,44 +333,20 @@ IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[DataSourcesSet]
 	SET
-		 [Name]		    = @Name
-		,[Uri]		    = @Uri
-		,[Type]		    = @Type
-		,[IsActive]	    = @IsActive
-		,[XMLGuide]	    = @XMLGuide
-		,[BaseUri]	    = @BaseUri
-		,[IsNewsSource] = @IsNewsSource
-	WHERE [Name]	= @Name
+		 [Name] = @Name, [Uri] = @Uri, [Type] = @Type, [IsActive] = @IsActive, [XMLGuide] = @XMLGuide, [BaseUri] = @BaseUri, [IsNewsSource] = @IsNewsSource
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[DataSourcesSet]
-		([Name]
-		,[Uri]
-		,[Type]
-		,[IsActive]
-		,[XMLGuide]
-		,[BaseUri]
-		,[IsNewsSource])
+		([Name], [Uri], [Type], [IsActive], [XMLGuide], [BaseUri], [IsNewsSource])
 	VALUES
-		(@Name
-		,@Uri
-		,@Type
-		,@IsActive
-		,@XMLGuide
-		,@BaseUri
-		,@IsNewsSource)
+		(@Name, @Uri, @Type, @IsActive, @XMLGuide, @BaseUri, @IsNewsSource)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(50)
-	   ,@Uri nvarchar(max)
-	   ,@Type int
-	   ,@IsActive bit
-	   ,@XMLGuide nvarchar(max)
-	   ,@BaseUri nvarchar(max)
-	   ,@IsNewsSource bit
+DECLARE @Name nvarchar(50), @Uri nvarchar(max), @Type int, @IsActive bit, @XMLGuide nvarchar(max), @BaseUri nvarchar(max), @IsNewsSource bit
 
 SELECT @Name		= N'ZaycevNet'
 	   ,@Uri		= N'http://zaycev.net/search.html'
@@ -511,44 +409,20 @@ IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[DataSourcesSet]
 	SET
-		 [Name]		    = @Name
-		,[Uri]		    = @Uri
-		,[Type]		    = @Type
-		,[IsActive]	    = @IsActive
-		,[XMLGuide]	    = @XMLGuide
-		,[BaseUri]	    = @BaseUri
-		,[IsNewsSource] = @IsNewsSource
-	WHERE [Name]	= @Name
+		 [Name] = @Name, [Uri] = @Uri, [Type] = @Type, [IsActive] = @IsActive, [XMLGuide] = @XMLGuide, [BaseUri] = @BaseUri, [IsNewsSource] = @IsNewsSource
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[DataSourcesSet]
-		([Name]
-		,[Uri]
-		,[Type]
-		,[IsActive]
-		,[XMLGuide]
-		,[BaseUri]
-		,[IsNewsSource])
+		([Name], [Uri], [Type], [IsActive], [XMLGuide], [BaseUri], [IsNewsSource])
 	VALUES
-		(@Name
-		,@Uri
-		,@Type
-		,@IsActive
-		,@XMLGuide
-		,@BaseUri
-		,@IsNewsSource)
+		(@Name, @Uri, @Type, @IsActive, @XMLGuide, @BaseUri, @IsNewsSource)
 END
 GO
 --========================================================
 --========================================================
-DECLARE @Name nvarchar(50)
-	   ,@Uri nvarchar(max)
-	   ,@Type int
-	   ,@IsActive bit
-	   ,@XMLGuide nvarchar(max)
-	   ,@BaseUri nvarchar(max)
-	   ,@IsNewsSource bit
+DECLARE @Name nvarchar(50), @Uri nvarchar(max), @Type int, @IsActive bit, @XMLGuide nvarchar(max), @BaseUri nvarchar(max), @IsNewsSource bit
 
 SELECT @Name		= N'System'
 	   ,@Uri		= N'http://SOME.COM/'
@@ -562,33 +436,15 @@ IF EXISTS(SELECT * FROM [dbo].[DataSourcesSet] WHERE [Name] like @Name)
 BEGIN
 	UPDATE [dbo].[DataSourcesSet]
 	SET
-		 [Name]		    = @Name
-		,[Uri]		    = @Uri
-		,[Type]		    = @Type
-		,[IsActive]	    = @IsActive
-		,[XMLGuide]	    = @XMLGuide
-		,[BaseUri]	    = @BaseUri
-		,[IsNewsSource] = @IsNewsSource
-	WHERE [Name]	= @Name
+		 [Name] = @Name, [Uri] = @Uri, [Type] = @Type, [IsActive] = @IsActive, [XMLGuide] = @XMLGuide, [BaseUri] = @BaseUri, [IsNewsSource] = @IsNewsSource
+	WHERE [Name] = @Name
 END
 ELSE
 BEGIN
 	INSERT INTO [dbo].[DataSourcesSet]
-		([Name]
-		,[Uri]
-		,[Type]
-		,[IsActive]
-		,[XMLGuide]
-		,[BaseUri]
-		,[IsNewsSource])
+		([Name], [Uri], [Type], [IsActive], [XMLGuide], [BaseUri], [IsNewsSource])
 	VALUES
-		(@Name
-		,@Uri
-		,@Type
-		,@IsActive
-		,@XMLGuide
-		,@BaseUri
-		,@IsNewsSource)
+		(@Name, @Uri, @Type, @IsActive, @XMLGuide, @BaseUri, @IsNewsSource)
 END
 GO
 --========================================================
