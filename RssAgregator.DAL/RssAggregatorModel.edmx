@@ -204,6 +204,7 @@
     <Property Name="Key" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ForUI" Type="bit" Nullable="false" />
+    <Property Name="Location" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SongsBlackListSet">
     <Key>
@@ -649,6 +650,7 @@
           <Property Name="Key" Type="String" Nullable="false" MaxLength="255" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" />
           <Property Name="ForUI" Type="Boolean" Nullable="false" />
+          <Property Name="Location" Type="RssAggregatorModel.LocationEnum" Nullable="false" />
         </EntityType>
         <EntityType Name="SongsBlackList">
           <Key>
@@ -677,6 +679,10 @@
           <Property Name="OrderNo" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EnumType Name="LocationEnum" UnderlyingType="Int32">
+          <Member Name="en" />
+          <Member Name="ru" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -820,6 +826,7 @@
           <ScalarProperty Name="Key" ColumnName="Key" />
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="ForUI" ColumnName="ForUI" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

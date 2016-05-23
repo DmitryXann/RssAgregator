@@ -67,6 +67,7 @@
     <Compile Include="DALProcessing\Entity\Navigation.cs" />
     <Compile Include="DALProcessing\Entity\News.cs" />
     <Compile Include="DALProcessing\Entity\Template.cs" />
+    <Compile Include="DALProcessing\Entity\User.cs" />
     <Compile Include="DALProcessing\RssAggregatorModelContainer.cs" />
     <Compile Include="DataSourceEnum.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
@@ -75,6 +76,9 @@
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Icons.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LocationEnum.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Log.cs">

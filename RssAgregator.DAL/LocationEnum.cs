@@ -10,14 +10,10 @@
 namespace RssAgregator.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Settings
+    public enum LocationEnum : int
     {
-        public int Id { get; set; }
-        public string Key { get; set; }
-        public string Value { get; set; }
-        public bool ForUI { get; set; }
-        public LocationEnum Location { get; set; }
+        en = 0,
+        ru = 1
     }
 }

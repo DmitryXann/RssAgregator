@@ -10,12 +10,12 @@
                 $scope.originalData;
 
                 $scope.postName = '';
-                $scope.invalidPostName = false;
-                $scope.invalidPostNameMessage = uiSettings.InvalidPostNameData;
+                $scope.invalidPostName = true;
+                $scope.invalidPostNameMessage = uiSettings.POST_InvalidPostNameData;
 
                 $scope.postTags = '';
-                $scope.invalidPostTag = false;
-                $scope.invalidPostTagMessage = uiSettings.InvalidPostTagsData;
+                $scope.invalidPostTag = true;
+                $scope.invalidPostTagMessage = uiSettings.POST_InvalidPostTagsData;
 
                 $scope.isAdult = false;
 
@@ -95,9 +95,7 @@
                     
 
                     if ($routeParams.postId) {
-                        newsService.get('NewsItemSearch', {
-                            id: $routeParams.postId
-                        }).then(function (serverResult) {
+                        newsService.get('NewsItemSearch', $routeParams.postId).then(function (serverResult) {
                             if (serverResult.sucessResult) {
                                 $scope.originalData = serverResult.DataResult;
 
@@ -120,6 +118,7 @@
                         
                         $timeout(function () {
                             $scope.editor.ignition().edit();
+                            $scope.postDataOnChange(2, 'postName', 'invalidPostName');
                         }, 100);
                     }
                     

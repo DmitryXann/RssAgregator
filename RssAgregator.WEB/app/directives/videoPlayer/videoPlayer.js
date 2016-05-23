@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('videoPlayer', ['$sce', 'uiSettings', '$log', 'templateFactory',
-		function ($sce, uiSettings, $log, templateFactory) {
+		.directive('videoPlayer', ['$sce', 'uiSettings', '$exceptionHandler', 'templateFactory',
+		function ($sce, uiSettings, $exceptionHandler, templateFactory) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: function () {
@@ -24,7 +24,7 @@
 		        link: function (scope, element, attrs) {
 		            scope.video;
 
-		            scope.cantPlayVideo = $sce.trustAsHtml(uiSettings.VideoJSCantPlay);
+		            scope.cantPlayVideo = $sce.trustAsHtml(uiSettings.VPLAYER_VideoJSCantPlay);
 
 		            scope.getContentType = function () {
 		                var result = '';
@@ -40,7 +40,7 @@
 		                        if (lastIndexOfWebm === linkLength - 5) {
 		                            result = 'video/webm';
 		                        } else {
-		                            $log.error(uiSettings.VideoJSNotSupportedFormat);
+		                            $exceptionHandler(uiSettings.VPLAYER_VideoJSNotSupportedFormat);
 		                        }
 		                    }
 		                }

@@ -21,4 +21,8 @@
         return apiFactory.create('Logging');
     }]);
 
+    angular.module('app').service('userService', ['apiFactory', function (apiFactory) {
+        return apiFactory.create('User');
+    }]);
+
 })(angular);

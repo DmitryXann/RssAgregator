@@ -7,7 +7,7 @@
 
                 function put(templateName) {
                     if (!$templateCache.get(templateName)) {
-                        templateService.get('GetTemplate', { id: templateName }).then(function (serverResult) {
+                        templateService.get('GetTemplate', templateName).then(function (serverResult) {
                             if (serverResult.sucessResult) {
                                 $templateCache.put(templateName, serverResult.DataResult.View);
                             } else {

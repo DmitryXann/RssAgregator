@@ -22,6 +22,7 @@
             videoPlayer: 'app/directives/videoPlayer/videoPlayer.html',
             wordCloud: 'app/directives/wordCloud/wordCloud.html',
             navigation: 'app/directives/navigation/navigation.html',
+            login: 'app/directives/login/login.html',
 
             //container directives
             audioContainer: 'app/directives/containers/audioContainer/audioContainer.html',

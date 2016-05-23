@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope', '$log', 'templateFactory',
-		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope, $log, templateFactory) {
+		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope', '$exceptionHandler', 'templateFactory',
+		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope, $exceptionHandler, templateFactory) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: function () {
@@ -205,8 +205,8 @@
 		                                elToAdd.userFriendlyEstimateDuration = (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 		                            });
 		                        } else {
-		                            notificationService.warning(uiSettings.CantPlaySong);
-		                            $log.warn('Can`t play song: ' + elToAdd.link + ' song was added to the black list');
+		                            notificationService.warning(uiSettings.PLAYER_CantPlaySong);
+		                            $exceptionHandler('Can`t play song: ' + elToAdd.link + ' song was added to the black list');
 
 		                            userInfoFactory.getUserInfo().then(function (locationResult) {
 		                                onlineRadioService.post('AddNotPlayebleSong', {
@@ -217,7 +217,7 @@
 		                                    if (serverResult.sucessResult) {
 		                                        if (serverResult.sucessResult) {
 		                                            $timeout(function () {
-		                                                notificationService.warning(uiSettings.SongInBlackList);
+		                                                notificationService.warning(uiSettings.PLAYER_SongInBlackList);
 		                                            }, 500);
 		                                        }
 		                                    } else {

@@ -12,6 +12,8 @@ namespace RssAgregator.WEB
 
             bundles.Add(new ScriptBundle("~/bundles/jquerry").Include("~/Scripts/jquerry-2.2.2/jquery-2.2.2.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquerry-plugins").Include("~/Scripts/jquerry-plugins/md5/jquery.md5.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include("~/Scripts/toastr/toastr.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(

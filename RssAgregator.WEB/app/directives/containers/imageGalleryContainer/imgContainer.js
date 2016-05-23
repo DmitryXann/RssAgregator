@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('imgContainer', ['$filter', '$log', 'templateFactory',
-		function ($filter, $log, templateFactory) {
+		.directive('imgContainer', ['$filter', '$exceptionHandler', 'templateFactory',
+		function ($filter, $exceptionHandler, templateFactory) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: function () {
@@ -32,7 +32,7 @@
 		                    scope.$emit('badImage', { id: scope.$id });
 		                    element.remove();
 
-		                    $log.warn('Bad image was removed: ' + scope.link);
+		                    $exceptionHandler('Bad image was removed: ' + scope.link);
 		                });
 
 		                scope.$on('imgActivated', function (event, data) {

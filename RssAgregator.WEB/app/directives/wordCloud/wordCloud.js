@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('wordCloud', ['$sce', 'uiSettings', '$log', 'templateFactory', 'newsService', '$window',
-		function ($sce, uiSettings, $log, templateFactory, newsService, $window) {
+		.directive('wordCloud', ['$sce', 'uiSettings', 'templateFactory', 'newsService', '$window',
+		function ($sce, uiSettings, templateFactory, newsService, $window) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: function () {

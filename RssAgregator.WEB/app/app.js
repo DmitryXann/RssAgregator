@@ -69,7 +69,7 @@
 
                 //get all templates from DB
                 for (var el in viewTemplates) {
-                    templateFactory.put(el);
+                    //templateFactory.put(el);
                 }
 
                 $rootScope.$on('invalidDataOnPage', function (event, data) {

@@ -42,7 +42,7 @@
                                         method: "GET",
                                         transformResponse: transformResponseProcessing,
                                 }
-                            }).get(params).$promise;
+                            }).get(angular.isObject(params) ? params : { id: params }).$promise;
                         },
                         post: function (actionName, params) {
                             return $resource('api/' + controllerName + '/' + actionName + '/:id',

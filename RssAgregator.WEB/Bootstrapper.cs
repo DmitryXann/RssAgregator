@@ -38,11 +38,13 @@ namespace RssAgregator.WEB
 
             container.RegisterType<IOnlineRadioService, OnlineRadioService>(new InjectionConstructor(settingsService));
 
+            container.RegisterType<ILoggingService, LoggingService>();
+
             container.RegisterType<ITemplateService, TemplateService>();
             container.RegisterType<INewsService, NewsService>();
             container.RegisterType<ITranslateService, TranslateService>();
             container.RegisterType<INavigationService, NavigationService>();
-            container.RegisterType<ILoggingService, LoggingService>();
+            container.RegisterType<IUserService, UserService>();
         }
     }
 }
