@@ -67,3 +67,4 @@ Temporary Items
 /.vs/RssAgregator/v14/.suo
 /RssAgregator.BAL/RssAgregator.BAL.csproj.user
 /RssAgregator.BAL.Interfaces/RssAgregator.BAL.Interfaces.csproj.user
+/packages
