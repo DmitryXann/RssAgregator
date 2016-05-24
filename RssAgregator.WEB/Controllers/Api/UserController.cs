@@ -1,5 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using RssAgregator.BAL.Interfaces.Services;
+using RssAgregator.Models.Results;
 using RssAgregator.Models.Services;
 using RssAgregator.WEB.Models;
 using System.Net;
@@ -70,9 +71,16 @@ namespace RssAgregator.WEB.Controllers.Api
         [System.Web.Http.HttpGet]
         public JsonResult GetUserData()
         {
+            var dataResult = UserService.GetUserData(Request);
+
+            if (dataResult.DataResult != null)
+            {
+                dataResult.DataResult.RemovePrivateData();
+            }
+
             return new JsonResult
             {
-                Data = UserService.GetUserData(Request),
+                Data = dataResult,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

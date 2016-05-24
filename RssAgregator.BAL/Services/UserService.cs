@@ -74,12 +74,16 @@ namespace RssAgregator.BAL.Services
                     {
                         result.SetDataResult(user.Name);
 
-                        var cookie = new CookieHeaderValue(DEFAULT_COOKIE_NAME, userModel.CreateCookie ? user.UserKey : string.Empty)
+                        var cookie = new CookieHeaderValue(DEFAULT_COOKIE_NAME, user.UserKey)
                         {
-                            Expires = DateTimeOffset.Now.AddDays(userModel.CreateCookie ? COOKIE_EXPIRE_DAYS : -1),
                             Domain = request.RequestUri.Host,
                             Path = "/"
                         };
+
+                        if (userModel.CreateCookie.HasValue && userModel.CreateCookie.Value)
+                        {
+                            cookie.Expires = DateTimeOffset.Now.AddDays(COOKIE_EXPIRE_DAYS);
+                        }
 
                         responce.Headers.AddCookies(new[] { cookie });
                     }
@@ -116,7 +120,7 @@ namespace RssAgregator.BAL.Services
                 {
                     var user = new User();
 
-                    if (userModel.Exists)
+                    if (userModel.Exists.HasValue && userModel.Exists.Value)
                     {
                         var requestCookie = request.Headers.GetCookies(DEFAULT_COOKIE_NAME).FirstOrDefault();
                         if (requestCookie != null)
@@ -175,13 +179,16 @@ namespace RssAgregator.BAL.Services
 
                     if (!string.IsNullOrEmpty(result.DataResult))
                     {
-                        var cookie = new CookieHeaderValue(DEFAULT_COOKIE_NAME, userModel.CreateCookie ? user.UserKey : string.Empty)
+                        var cookie = new CookieHeaderValue(DEFAULT_COOKIE_NAME, user.UserKey)
                         {
-                            Expires = DateTimeOffset.Now.AddDays(userModel.CreateCookie ? COOKIE_EXPIRE_DAYS : -1),
                             Domain = request.RequestUri.Host,
                             Path = "/"
                         };
 
+                        if (userModel.CreateCookie.HasValue && userModel.CreateCookie.Value) {
+                            cookie.Expires = DateTimeOffset.Now.AddDays(COOKIE_EXPIRE_DAYS);
+                        }
+                        
                         responce.Headers.AddCookies(new[] { cookie });
                     }
                 }

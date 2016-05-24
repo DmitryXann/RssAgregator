@@ -12,6 +12,9 @@
 		        scope: {
 		        },
 		        link: function (scope, element, attrs) {
+		            scope.userIsLoggedIn = false;
+		            scope.userName;
+
 		            scope.userNameAlreadyExistsError = uiSettings.LOGIN_UserNameAlreadyExists;
 		            scope.tooShortUserName = uiSettings.LOGIN_TooShortUserName;
 
@@ -56,7 +59,8 @@
 		                    }).then(function (serverResult) {
 		                        if (serverResult.sucessResult) {
 		                            if (serverResult.DataResult) {
-		                                uiSettings.userName = serverResult.DataResult;
+		                                scope.userIsLoggedIn = true;
+		                                scope.userName = serverResult.DataResult;
 		                            } else {
 		                                notificationService.warning(uiSettings.IncorrectUserNameOrPassword);
 		                            }
@@ -76,7 +80,8 @@
 		                        CreateCookie: scope.userData.stayInTheSystem
 		                    }).then(function (serverResult) {
 		                        if (serverResult.sucessResult) {
-		                            uiSettings.userName = serverResult.DataResult;
+		                            scope.userIsLoggedIn = true;
+		                            scope.userName = serverResult.DataResult;
 		                        } else {
 		                            serverResult.showInfoMessage();
 		                        }
@@ -112,6 +117,21 @@
 		                    }
 		                }
 		            };
+
+		            function init() {
+		                userService.getUserDataAsync().then(function (serverResult) {
+		                    if (serverResult.sucessResult) {
+		                        if (serverResult.DataResult != null) {
+		                            scope.userIsLoggedIn = true;
+		                            scope.userName = serverResult.DataResult.Name;
+		                        }
+		                    } else {
+		                        serverResult.showInfoMessage();
+		                    }
+		                });
+		            }
+
+		            init();
 		        }
 		    };
 		}]);
