@@ -75,7 +75,7 @@
 		                                });
 		                            },
 		                            gridSize: Math.round((scope.width / 2) * (scope.width / 1024)),
-		                            ontFamily: 'Average, Times, serif'
+		                            fontFamily: 'Average, Times, serif'
 		                        });
 		                    } else {
 		                        serverResult.showInfoMessage();
