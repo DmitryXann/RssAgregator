@@ -71,6 +71,19 @@
 		                }
 		            };
 
+		            scope.logOut = function () {
+		                userService.get('LogOut').then(function (serverResult) {
+		                    if (serverResult.sucessResult) {
+		                        if (serverResult.DataResult) {
+		                            scope.userIsLoggedIn = false;
+		                            scope.userName = null;
+		                        }
+		                    } else {
+		                        serverResult.showInfoMessage();
+		                    }
+		                });
+		            };
+
 		            scope.create = function () {
 		                if (scope.userData.userName && scope.userData.password && scope.userData.secondTimePassword && scope.userData.email) {
 		                    userService.post('CreateUpdate', {

@@ -102,6 +102,32 @@ namespace RssAgregator.BAL.Services
             return result;
         }
 
+        public GenericResult<bool> LogOut(HttpResponseMessage responce, HttpRequestMessage request)
+        {
+            var result = new GenericResult<bool>();
+
+            try
+            {
+                var cookie = new CookieHeaderValue(DEFAULT_COOKIE_NAME, string.Empty)
+                {
+                    Expires = DateTimeOffset.Now.AddDays(-1),
+                    Domain = request.RequestUri.Host,
+                    Path = "/"
+                };
+
+                responce.Headers.AddCookies(new[] { cookie });
+
+                result.SetDataResult(true);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogTypeEnum.BAL);
+                result.SetErrorResultCode(SettingService.GetUserFriendlyExceptionMessage());
+            }
+
+            return result;
+        }
+
         public GenericResult<string> CreateUpdate(UserModel userModel, HttpResponseMessage responce, HttpRequestMessage request)
         {
             var result = new GenericResult<string>();

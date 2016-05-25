@@ -12,6 +12,8 @@ namespace RssAgregator.BAL.Interfaces.Services
 
         GenericResult<string> Login(UserModel userModel, HttpResponseMessage responce, HttpRequestMessage request);
 
+        GenericResult<bool> LogOut(HttpResponseMessage responce, HttpRequestMessage request);
+
         GenericResult<string> CreateUpdate(UserModel userModel, HttpResponseMessage responce, HttpRequestMessage request);
 
         GenericResult<UserModel> GetUserData(HttpRequestMessage request);

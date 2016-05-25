@@ -32,6 +32,22 @@ namespace RssAgregator.WEB.Controllers.Api
             return responce;
         }
 
+        [System.Web.Http.HttpGet]
+        [ResponseType(typeof(JsonResult))]
+        public HttpResponseMessage LogOut()
+        {
+            var dataResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+            var responce = Request.CreateResponse(HttpStatusCode.OK, dataResult);
+
+            dataResult.Data = UserService.LogOut(responce, Request);
+
+            return responce;
+        }
+
         [System.Web.Http.HttpPost]
         [ResponseType(typeof(JsonResult))]
         public HttpResponseMessage CreateUpdate([FromBody]UserModel inputParams)
