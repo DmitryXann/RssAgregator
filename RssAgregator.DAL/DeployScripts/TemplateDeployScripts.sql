@@ -856,3 +856,58 @@ BEGIN
 END
 GO
 --========================================================
+--========================================================
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
+
+SELECT @Name			= N'login'
+	   ,@Description	= N'login'
+	   ,@View			= N'<div ng-show="!userIsLoggedIn">
+    <uib-tabset active="activceTabIndex">
+        <uib-tab heading="LogIn">
+            <span>UserName: </span><input type="text" ng-model="userData.userName">
+            <span>Password: </span><input type="password" ng-model="userData.password" ng-enter="login()">
+            <span>Stay in the system </span><input type="checkbox" ng-model="userData.stayInTheSystem">
+            <button type="button" class="btn btn-default" ng-click="login()" ng-disabled="!userData.userDataIsValid(false)">Login</button>
+        </uib-tab>
+        <uib-tab heading="Create an account">
+            <div ng-init="userData.minNameLength = 3"><span>UserName: </span><input type="text" ng-model="userData.userName" ng-change="validateName(userData.userName, userData.minNameLength)"></div>
+            <span ng-bind="::userNameAlreadyExistsError" ng-show="userData.userName && !userData.userNameIsValid"></span>
+            <span ng-bind="::tooShortUserName" ng-show="userData.userName && userData.userName.length < userData.minNameLength"></span>
+
+            <div><span>Email: </span><input type="text" ng-model="userData.email" ng-change="validateEmail(userData.email, 5)"></div>
+            <span ng-bind="::incorrectEmailAdress" ng-show="userData.email && !userData.emailIsValid"></span>
+            <span ng-bind="::emailAlreadyExistsError" ng-show="userData.email && !userData.emailIsNotTaken"></span>
+
+            <div ng-init="userData.minPasswordLength = 5"><span>Password: </span><input type="password" ng-model="userData.password"></div>
+            <div><span>Password: </span><input type="password" ng-model="userData.secondTimePassword"></div>
+            <span ng-bind="::incorrectPasswords" ng-show="userData.password && userData.secondTimePassword && (userData.password.length < userData.minPasswordLength || userData.secondTimePassword.length < userData.minPasswordLength || userData.password !== userData.secondTimePassword)"></span>
+
+            <span>Stay in the system </span><input type="checkbox" ng-model="userData.stayInTheSystem">
+            <button type="button" class="btn btn-default" ng-click="create()" ng-disabled="!userData.userDataIsValid(true)">Create</button>
+        </uib-tab>
+    </uib-tabset>
+</div>
+<div ng-show="userIsLoggedIn">
+    <span>Hello, {{::userName}}</span>
+    <button type="button" class="btn btn-default" ng-click="logOut()">LogOut</button>
+</div>'
+	   ,@Version		= 0
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name], [Description], [View], [Version], [Type], [User_Id])
+	VALUES
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
+END
+GO
+--========================================================
