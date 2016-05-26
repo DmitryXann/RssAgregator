@@ -23,6 +23,7 @@ namespace RssAgregator.DAL
             this.UserFeedback = new HashSet<UserFeedback>();
             this.UserMessagesSend = new HashSet<UserMessages>();
             this.UserMessagesRecived = new HashSet<UserMessages>();
+            this.UserActivityLog = new HashSet<UserActivityLog>();
         }
     
         public int Id { get; set; }
@@ -41,5 +42,6 @@ namespace RssAgregator.DAL
         public virtual ICollection<UserFeedback> UserFeedback { get; set; }
         public virtual ICollection<UserMessages> UserMessagesSend { get; set; }
         public virtual ICollection<UserMessages> UserMessagesRecived { get; set; }
+        public virtual ICollection<UserActivityLog> UserActivityLog { get; set; }
     }
 }

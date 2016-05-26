@@ -40,5 +40,6 @@ namespace RssAgregator.DAL
         public DbSet<SongsBlackList> SongsBlackListSet { get; set; }
         public DbSet<Transliteration> TransliterationSet { get; set; }
         public DbSet<Navigation> NavigationSet { get; set; }
+        public DbSet<UserActivityLog> UserActivityLogSet { get; set; }
     }
 }

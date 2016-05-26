@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityEnum.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Comments.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
@@ -133,6 +136,9 @@
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserActivityLog.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserFeedback.cs">

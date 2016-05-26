@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/23/2016 03:02:43
+-- Date Created: 05/26/2016 04:22:32
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -272,6 +272,21 @@ CREATE TABLE [dbo].[NavigationSet] (
 );
 GO
 
+-- Creating table 'UserActivityLogSet'
+CREATE TABLE [dbo].[UserActivityLogSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [UserKey] nvarchar(50)  NOT NULL,
+    [IsNew] bit  NOT NULL,
+    [Activity] int  NOT NULL,
+    [DateTime] datetime  NOT NULL,
+    [Browser] nvarchar(50)  NOT NULL,
+    [BrowserVersion] int  NOT NULL,
+    [Country] nvarchar(50)  NOT NULL,
+    [City] nvarchar(50)  NOT NULL,
+    [User_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -363,6 +378,12 @@ GO
 -- Creating primary key on [Id] in table 'NavigationSet'
 ALTER TABLE [dbo].[NavigationSet]
 ADD CONSTRAINT [PK_NavigationSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'UserActivityLogSet'
+ALTER TABLE [dbo].[UserActivityLogSet]
+ADD CONSTRAINT [PK_UserActivityLogSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -533,6 +554,21 @@ GO
 CREATE INDEX [IX_FK_UserMessagesUser1]
 ON [dbo].[UserMessagesSet]
     ([ToUser_Id]);
+GO
+
+-- Creating foreign key on [User_Id] in table 'UserActivityLogSet'
+ALTER TABLE [dbo].[UserActivityLogSet]
+ADD CONSTRAINT [FK_UserUserActivityLog]
+    FOREIGN KEY ([User_Id])
+    REFERENCES [dbo].[UserSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserUserActivityLog'
+CREATE INDEX [IX_FK_UserUserActivityLog]
+ON [dbo].[UserActivityLogSet]
+    ([User_Id]);
 GO
 
 -- --------------------------------------------------
