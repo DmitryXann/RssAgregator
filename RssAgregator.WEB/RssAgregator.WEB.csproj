@@ -313,7 +313,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -363,7 +363,7 @@
     <Content Include="Content\libs\content-tools\icons.woff" />
     <Content Include="Content\app\pages\about.less" />
     <Content Include="Content\app\pages\addEditPost.less" />
-    <Content Include="Views\Shared\NotSupportedBrowser.cshtml" />
+    <Content Include="Views\Home\NotSupportedBrowser.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
