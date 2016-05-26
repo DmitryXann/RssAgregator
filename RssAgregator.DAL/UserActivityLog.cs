@@ -23,6 +23,8 @@ namespace RssAgregator.DAL
         public int BrowserVersion { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
+        public string Region { get; set; }
+        public string Organization { get; set; }
     
         public virtual User User { get; set; }
     }

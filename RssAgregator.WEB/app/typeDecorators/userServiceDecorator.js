@@ -11,10 +11,13 @@
                             if (serverResult.sucessResult) {
                                 if (serverResult.DataResult != null) {
                                     deferred.resolve(true);
+                                
+                                } else {
+                                    deferred.resolve(false);
                                 }
                             } else {
                                 serverResult.showInfoMessage();
-                                deferred.reject(false);
+                                deferred.resolve(false);
                             }
                         });
 
@@ -27,7 +30,6 @@
                 }
 
                 ExtendedUserService.prototype = $delegate;
-                ExtendedUserService.constructor = ExtendedUserService;
                 
                 return new ExtendedUserService();
             }]);

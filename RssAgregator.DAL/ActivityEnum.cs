@@ -15,7 +15,7 @@ namespace RssAgregator.DAL
     {
         Open = 0,
         Close = 1,
-        Login = 2,
+        LogIn = 2,
         LogOut = 3
     }
 }

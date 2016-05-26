@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2016 04:22:32
+-- Date Created: 05/26/2016 05:27:07
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -49,6 +49,9 @@ IF OBJECT_ID(N'[dbo].[FK_UserMessagesUser]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserMessagesUser1]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserMessagesSet] DROP CONSTRAINT [FK_UserMessagesUser1];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserUserActivityLog]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserActivityLogSet] DROP CONSTRAINT [FK_UserUserActivityLog];
 GO
 
 -- --------------------------------------------------
@@ -99,6 +102,9 @@ IF OBJECT_ID(N'[dbo].[TransliterationSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[NavigationSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[NavigationSet];
+GO
+IF OBJECT_ID(N'[dbo].[UserActivityLogSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserActivityLogSet];
 GO
 
 -- --------------------------------------------------
@@ -283,7 +289,9 @@ CREATE TABLE [dbo].[UserActivityLogSet] (
     [BrowserVersion] int  NOT NULL,
     [Country] nvarchar(50)  NOT NULL,
     [City] nvarchar(50)  NOT NULL,
-    [User_Id] int  NOT NULL
+    [Region] nvarchar(50)  NOT NULL,
+    [Organization] nvarchar(50)  NOT NULL,
+    [User_Id] int  NULL
 );
 GO
 

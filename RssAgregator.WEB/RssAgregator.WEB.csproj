@@ -189,6 +189,7 @@
     <Content Include="app\controllers\addEditPostController\addEditPostController.js" />
     <Content Include="app\controllers\dashboardController\dashboard.html" />
     <Content Include="app\controllers\dashboardController\dashboardController.js" />
+    <Content Include="app\typeDecorators\loggingServiceDecorator.js" />
     <Content Include="app\typeDecorators\userServiceDecorator.js" />
     <Content Include="app\directives\audioPlayer\audioPlayerProgressBar.html" />
     <Content Include="app\directives\audioPlayer\audioPlayerProgressBar.js" />

@@ -8,8 +8,8 @@
         'ngSanitize',
         'ngTouch',
         'ui.bootstrap'
-    ]).run(['$rootScope', '$exceptionHandler', '$window', 'templateFactory', 'viewTemplates', 'loggingService',
-        function ($rootScope, $exceptionHandler, $window, templateFactory, viewTemplates, loggingService) {
+    ]).run(['$rootScope', '$exceptionHandler', '$window', 'templateFactory', 'viewTemplates', 'loggingService', 'ActivityEnum', '$http',
+        function ($rootScope, $exceptionHandler, $window, templateFactory, viewTemplates, loggingService, ActivityEnum, $http) {
             $rootScope.invalidDataOnPage = false;
 
             function decimalAdjust(type, value, exp) {
@@ -74,6 +74,30 @@
 
                 $rootScope.$on('invalidDataOnPage', function (event, data) {
                     $rootScope.invalidDataOnPage = data;
+                });
+
+
+                //Logging of app open
+                loggingService.logUserActivity(ActivityEnum.Open).then(function (serverResult) {
+                    if (!serverResult.sucessResult || !serverResult.DataResult) {
+                        $exceptionHandler("Can`t log user data");
+                    }
+                });
+
+                //Logging of app closed
+                $window.onbeforeunload = function () {
+                    while ($http.pendingRequests.length != 0) {
+                        //wait for data save
+                    }
+                };
+
+                //Logging of app closed
+                $rootScope.$on('$destroy', function () {
+                    loggingService.logUserActivity(ActivityEnum.Close).then(function (serverResult) {
+                        if (!serverResult.sucessResult || !serverResult.DataResult) {
+                            $exceptionHandler("Can`t log user data");
+                        }
+                    });
                 });
             }
 

@@ -82,7 +82,7 @@ namespace RssAgregator.BAL.Services
 
                         if (userModel.CreateCookie.HasValue && userModel.CreateCookie.Value)
                         {
-                            cookie.Expires = DateTimeOffset.Now.AddDays(COOKIE_EXPIRE_DAYS);
+                            cookie.Expires = DateTimeOffset.UtcNow.AddDays(COOKIE_EXPIRE_DAYS);
                         }
 
                         responce.Headers.AddCookies(new[] { cookie });
@@ -110,7 +110,7 @@ namespace RssAgregator.BAL.Services
             {
                 var cookie = new CookieHeaderValue(DEFAULT_COOKIE_NAME, string.Empty)
                 {
-                    Expires = DateTimeOffset.Now.AddDays(-1),
+                    Expires = DateTimeOffset.UtcNow.AddDays(-1),
                     Domain = request.RequestUri.Host,
                     Path = "/"
                 };
@@ -212,7 +212,7 @@ namespace RssAgregator.BAL.Services
                         };
 
                         if (userModel.CreateCookie.HasValue && userModel.CreateCookie.Value) {
-                            cookie.Expires = DateTimeOffset.Now.AddDays(COOKIE_EXPIRE_DAYS);
+                            cookie.Expires = DateTimeOffset.UtcNow.AddDays(COOKIE_EXPIRE_DAYS);
                         }
                         
                         responce.Headers.AddCookies(new[] { cookie });

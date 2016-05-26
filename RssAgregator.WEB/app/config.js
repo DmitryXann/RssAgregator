@@ -31,5 +31,10 @@
             postContainer: '/app/directives/containers/postContainer/postContainer.html',
             videoContainer: '/app/directives/containers/videoGalleryContainer/videoContainer.html',
             videoGalleryContainer: '/app/directives/containers/videoGalleryContainer/videoGalleryContainer.html'
+        }).constant('ActivityEnum', {
+            Open: 0,
+            Close: 1,
+            LogIn: 2,
+            LogOut: 3
         });
 })(angular);

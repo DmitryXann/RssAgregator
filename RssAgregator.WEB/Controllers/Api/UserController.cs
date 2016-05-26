@@ -1,6 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
 using RssAgregator.BAL.Interfaces.Services;
-using RssAgregator.Models.Results;
 using RssAgregator.Models.Services;
 using RssAgregator.WEB.Models;
 using System.Net;

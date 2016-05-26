@@ -104,7 +104,7 @@ namespace RssAgregator.BAL.Services
                     var translatePost = TranslateService.Translate(inputParams.PostName);
                     var postId = preparePostid(translatePost.InfoResult.ResultCode == Models.Enums.ResultCodeEnum.Success 
                                                     ? translatePost.DataResult 
-                                                    : Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}{1}", userName, DateTime.Now.Ticks))), 
+                                                    : Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}{1}", userName, DateTime.UtcNow.Ticks))), 
                                                 userName);
 
                     var systemDataSource = db.GetEntity<DataSources>(el => el.Type == DataSourceEnum.System);
@@ -118,7 +118,7 @@ namespace RssAgregator.BAL.Services
                             newsEntity.PostContent = inputParams.PostContent;
                             newsEntity.PostTags = inputParams.PostTags;
                             newsEntity.AdultContent = inputParams.AdultContent;
-                            newsEntity.ModificationDateTime = DateTime.Now;
+                            newsEntity.ModificationDateTime = DateTime.UtcNow;
 
                             result.SetDataResult(true);
                         }
@@ -131,7 +131,7 @@ namespace RssAgregator.BAL.Services
                     }
                     else
                     {
-                        db.AddEntity<News>(new News
+                        db.AddEntity(new News
                         {
                             PostId = postId,
                             AuthorId = userName,
@@ -143,8 +143,8 @@ namespace RssAgregator.BAL.Services
                             PostTags = inputParams.PostTags,
                             IsActive = true,
                             AdultContent = inputParams.AdultContent,
-                            CreationDateTime = DateTime.Now,
-                            ModificationDateTime = DateTime.Now,
+                            CreationDateTime = DateTime.UtcNow,
+                            ModificationDateTime = DateTime.UtcNow,
 
                             DataSource = systemDataSource,
                             User = user

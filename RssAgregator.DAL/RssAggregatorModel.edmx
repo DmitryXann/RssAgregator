@@ -251,7 +251,9 @@
     <Property Name="BrowserVersion" Type="int" Nullable="false" />
     <Property Name="Country" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Region" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Organization" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="User_Id" Type="int" Nullable="true" />
   </EntityType>
   <Association Name="NewsDataSources">
     <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="*" />
@@ -386,7 +388,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserUserActivityLog">
-    <End Role="User" Type="RssAggregatorModel.Store.UserSet" Multiplicity="1" />
+    <End Role="User" Type="RssAggregatorModel.Store.UserSet" Multiplicity="0..1" />
     <End Role="UserActivityLog" Type="RssAggregatorModel.Store.UserActivityLogSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
@@ -735,15 +737,17 @@
           <Property Name="Country" Type="String" Nullable="false" MaxLength="50" />
           <Property Name="City" Type="String" Nullable="false" MaxLength="50" />
           <NavigationProperty Name="User" Relationship="RssAggregatorModel.UserUserActivityLog" FromRole="UserActivityLog" ToRole="User" />
+          <Property Name="Region" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Organization" Type="String" Nullable="false" MaxLength="50" />
         </EntityType>
         <EnumType Name="ActivityEnum" >
           <Member Name="Open" />
           <Member Name="Close" />
-          <Member Name="Login" />
+          <Member Name="LogIn" />
           <Member Name="LogOut" />
         </EnumType>
         <Association Name="UserUserActivityLog">
-          <End Type="RssAggregatorModel.User" Role="User" Multiplicity="1" />
+          <End Type="RssAggregatorModel.User" Role="User" Multiplicity="0..1" />
           <End Type="RssAggregatorModel.UserActivityLog" Role="UserActivityLog" Multiplicity="*" />
         </Association>
       </Schema>
@@ -935,6 +939,8 @@
           <ScalarProperty Name="BrowserVersion" ColumnName="BrowserVersion" />
           <ScalarProperty Name="Country" ColumnName="Country" />
           <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Organization" ColumnName="Organization" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1035,6 +1041,7 @@
       <EndProperty Name="UserActivityLog">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="User_Id" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

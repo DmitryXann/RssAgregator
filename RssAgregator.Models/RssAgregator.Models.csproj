@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ResultCodeEnum.cs" />
+    <Compile Include="Enums\ActivityEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\GenericResult.cs" />
+    <Compile Include="Services\LogUserActivityModel.cs" />
     <Compile Include="Services\NavigationModel.cs" />
     <Compile Include="Services\NewsItemModel.cs" />
     <Compile Include="Services\NewsModel.cs" />
