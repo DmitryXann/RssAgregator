@@ -171,6 +171,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Extensions\BrowserCompatibilityExtension.cs" />
     <Compile Include="Models\LoggingModel.cs" />
     <Compile Include="Models\NewsSearchModel.cs" />
     <Compile Include="Models\SingleParamPostDataModel.cs" />
@@ -362,6 +363,7 @@
     <Content Include="Content\libs\content-tools\icons.woff" />
     <Content Include="Content\app\pages\about.less" />
     <Content Include="Content\app\pages\addEditPost.less" />
+    <Content Include="Views\Shared\NotSupportedBrowser.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

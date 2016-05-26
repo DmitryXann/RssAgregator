@@ -36,7 +36,7 @@
                 function create(controllerName) {
                     return {
                         get: function (actionName, params) {
-                            return $resource('api/' + controllerName + '/' + actionName + '/:id',
+                            return $resource('/api/' + controllerName + '/' + actionName + '/:id',
                                 { id: '@id' }, {
                                     get: {
                                         method: "GET",
@@ -45,7 +45,7 @@
                             }).get(angular.isObject(params) ? params : { id: params }).$promise;
                         },
                         post: function (actionName, params) {
-                            return $resource('api/' + controllerName + '/' + actionName + '/:id',
+                            return $resource('/api/' + controllerName + '/' + actionName + '/:id',
                                 { id: '@id' }, {
                                     save: {
                                         method: "POST",
