@@ -32,7 +32,8 @@ namespace RssAgregator.WEB
                         "~/Content/libs/bootstrap-3.3.6/bootstrap-theme.css",
                         "~/Content/libs/bootstrap-3.3.6/bootstrap.css",
                         "~/Content/libs/toastr/toastr.css",
-                        "~/Content/libs/angular-1.4.8/angular-csp.css"));
+                        "~/Content/libs/angular-1.4.8/angular-csp.css",
+                        "~/Content/libs/fontAwesome/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/main.css"));
         }
