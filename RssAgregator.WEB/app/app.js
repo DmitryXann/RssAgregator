@@ -90,15 +90,6 @@
                         //wait for data save
                     }
                 };
-
-                //Logging of app closed
-                $rootScope.$on('$destroy', function () {
-                    loggingService.logUserActivity(ActivityEnum.Close).then(function (serverResult) {
-                        if (!serverResult.sucessResult || !serverResult.DataResult) {
-                            $exceptionHandler("Can`t log user data");
-                        }
-                    });
-                });
             }
 
             init();
