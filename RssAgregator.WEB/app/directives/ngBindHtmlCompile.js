@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('app')
-		.directive('bindHtmlCompile', ['$compile',
+		.directive('ngBindHtmlCompile', ['$compile',
 		function ($compile) {
 		    return {
 		        restrict: 'E',

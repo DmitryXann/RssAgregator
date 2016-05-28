@@ -192,7 +192,7 @@ DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @V
 
 SELECT @Name			= N'dashboardController'
 	   ,@Description	= N'dashboardController'
-	   ,@View			= N'<bind-html-compile source-html="::headerView"></bind-html-compile>'
+	   ,@View			= N'<ng-bind-html-compile source-html="::headerView"></ng-bind-html-compile>'
 	   ,@Version		= 0
 	   ,@Type			= 0
 	   ,@User_Id		= 1
@@ -453,7 +453,7 @@ SELECT @Name			= N'postContainer'
 <div ng-bind="postLikes"></div>
 <button role="button" class="btn btn-default" ng-click="likeToggle(false)" ng-class="{''active'': likeToggleActive(false)}">-</button>
 
-<bind-html-compile source-html="::postView"></bind-html-compile>'
+<ng-bind-html-compile source-html="::postView"></ng-bind-html-compile>'
 	   ,@Version		= 0
 	   ,@Type			= 0
 	   ,@User_Id		= 1

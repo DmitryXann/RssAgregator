@@ -197,7 +197,7 @@
     <Content Include="app\directives\containers\audioContainer\audioContainer.js" />
     <Content Include="app\directives\audioPlayer\audioPlayer.html" />
     <Content Include="app\directives\audioPlayer\audioPlayer.js" />
-    <Content Include="app\directives\bindHtmlCompile.js" />
+    <Content Include="app\directives\ngBindHtmlCompile.js" />
     <Content Include="app\directives\containers\imageGalleryContainer\imgContainer.html" />
     <Content Include="app\directives\containers\postContainer\postContainer.html" />
     <Content Include="app\directives\containers\imageGalleryContainer\imageGalleryContainer.js" />

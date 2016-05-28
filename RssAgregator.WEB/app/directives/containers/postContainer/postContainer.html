@@ -7,4 +7,4 @@
 <div ng-bind="postLikes"></div>
 <button role="button" class="btn btn-default" ng-click="likeToggle(false)" ng-class="{'active': likeToggleActive(false)}">-</button>
 
-<bind-html-compile source-html="::postView"></bind-html-compile>
+<ng-bind-html-compile source-html="::postView"></ng-bind-html-compile>
