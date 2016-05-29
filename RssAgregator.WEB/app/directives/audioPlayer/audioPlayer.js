@@ -58,13 +58,16 @@
 		                if (!scope.currentPlayingSong && scope.playList && scope.playList.length) {
 		                    scope.currentPlayingSong = scope.playList[0];
 		                }
-		                if (scope.currentPlayingSong.audioObject.playState === 0) {
-		                    scope.currentPlayingSong.audioObject.play();
-		                } else {
-		                    if (scope.currentPlayingSong.audioObject.paused) {
-		                        scope.currentPlayingSong.audioObject.resume();
+
+		                if (scope.currentPlayingSong) {
+		                    if (scope.currentPlayingSong.audioObject.playState === 0) {
+		                        scope.currentPlayingSong.audioObject.play();
 		                    } else {
-		                        scope.currentPlayingSong.audioObject.pause();
+		                        if (scope.currentPlayingSong.audioObject.paused) {
+		                            scope.currentPlayingSong.audioObject.resume();
+		                        } else {
+		                            scope.currentPlayingSong.audioObject.pause();
+		                        }
 		                    }
 		                }
 		            };
