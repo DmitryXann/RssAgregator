@@ -51,7 +51,7 @@
 		                scope.$on('badImage', function (event, data) {
 		                    event.preventDefault();
 
-		                    var indexOfBadEl = scope.images.indexOf($filter('filter')(scope.images, { id: scope.$id }, true)[0]);
+		                    var indexOfBadEl = scope.images.indexOf($filter('filter')(scope.images, { id: data.id }, true)[0]);
 		                    scope.images.splice(indexOfBadEl, 1);
 		                });
 
