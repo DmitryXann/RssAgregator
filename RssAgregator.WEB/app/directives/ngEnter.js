@@ -6,6 +6,7 @@
 		function () {
 		    return {
 		        restrict: 'A',
+		        scope: false,
 		        link: function (scope, element, attrs) {
 		            element.bind("keydown keypress", function (event) {
 		                if (event.which === 13) {
