@@ -19,6 +19,9 @@
     <EntitySet Name="UserMessagesSet" EntityType="RssAggregatorModel.Store.UserMessagesSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SettingsSet" EntityType="RssAggregatorModel.Store.SettingsSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SongsBlackListSet" EntityType="RssAggregatorModel.Store.SongsBlackListSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TransliterationSet" EntityType="RssAggregatorModel.Store.TransliterationSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NavigationSet" EntityType="RssAggregatorModel.Store.NavigationSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserActivityLogSet" EntityType="RssAggregatorModel.Store.UserActivityLogSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="NewsDataSources" Association="RssAggregatorModel.Store.NewsDataSources">
       <End Role="News" EntitySet="NewsSet" />
       <End Role="DataSources" EntitySet="DataSourcesSet" />
@@ -63,13 +66,17 @@
       <End Role="UserMessages" EntitySet="UserMessagesSet" />
       <End Role="User" EntitySet="UserSet" />
     </AssociationSet>
+    <AssociationSet Name="UserUserActivityLog" Association="RssAggregatorModel.Store.UserUserActivityLog">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="UserActivityLog" EntitySet="UserActivityLogSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="DataSourcesSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="int" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -83,17 +90,19 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PostId" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="AuthorName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="AuthorId" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="AuthorLink" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="AuthorName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="AuthorId" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="AuthorLink" Type="nvarchar" Nullable="true" MaxLength="255" />
     <Property Name="PostLikes" Type="int" Nullable="false" />
-    <Property Name="PostName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PostName" Type="nvarchar" Nullable="true" MaxLength="255" />
     <Property Name="PostLink" Type="nvarchar(max)" Nullable="true" />
     <Property Name="PostContent" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PostTags" Type="nvarchar(max)" Nullable="false" />
     <Property Name="External" Type="bit" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
     <Property Name="AdultContent" Type="bit" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDateTime" Type="datetime" Nullable="false" />
     <Property Name="DataSource_Id" Type="int" Nullable="true" />
     <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -102,19 +111,20 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Type" Type="tinyint" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="UserKey" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="TemplateSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="View" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Version" Type="int" Nullable="true" />
     <Property Name="Type" Type="tinyint" Nullable="false" />
@@ -146,7 +156,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
   </EntityType>
   <EntityType Name="LogSet">
     <Key>
@@ -175,8 +185,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Header" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Header" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="User_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="UserMessagesSet">
@@ -184,7 +194,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Topic" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Topic" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
     <Property Name="SendDateTime" Type="datetime" Nullable="false" />
     <Property Name="Read" Type="bit" Nullable="false" />
@@ -199,15 +209,51 @@
     <Property Name="Key" Type="nvarchar" Nullable="false" MaxLength="255" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ForUI" Type="bit" Nullable="false" />
+    <Property Name="Location" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SongsBlackListSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SongURL" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SongURL" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Country" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TransliterationSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FromLetter" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="ToLetter" Type="nvarchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="NavigationSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="RedirectTo" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="OrderNo" Type="int" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserActivityLogSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserKey" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsNew" Type="bit" Nullable="false" />
+    <Property Name="Activity" Type="int" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="Browser" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="BrowserVersion" Type="int" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Region" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Organization" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="User_Id" Type="int" Nullable="true" />
   </EntityType>
   <Association Name="NewsDataSources">
     <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="*" />
@@ -341,6 +387,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="UserUserActivityLog">
+    <End Role="User" Type="RssAggregatorModel.Store.UserSet" Multiplicity="0..1" />
+    <End Role="UserActivityLog" Type="RssAggregatorModel.Store.UserActivityLogSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserActivityLog">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -403,42 +461,50 @@
           </AssociationSet>
           <EntitySet Name="SettingsSet" EntityType="RssAggregatorModel.Settings" />
           <EntitySet Name="SongsBlackListSet" EntityType="RssAggregatorModel.SongsBlackList" />
+          <EntitySet Name="TransliterationSet" EntityType="RssAggregatorModel.Transliteration" />
+          <EntitySet Name="NavigationSet" EntityType="RssAggregatorModel.Navigation" />
+          <EntitySet Name="UserActivityLogSet" EntityType="RssAggregatorModel.UserActivityLog" />
+          <AssociationSet Name="UserUserActivityLog" Association="RssAggregatorModel.UserUserActivityLog">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="UserActivityLog" EntitySet="UserActivityLogSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DataSources">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" />
-          <Property Type="String" Name="Uri" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Uri" Nullable="false" MaxLength="Max" />
           <Property Type="RssAggregatorModel.DataSourceEnum" Name="Type" Nullable="false" />
           <NavigationProperty Name="News" Relationship="RssAggregatorModel.NewsDataSources" FromRole="DataSources" ToRole="News" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
-          <Property Type="String" Name="XMLGuide" Nullable="false" />
-          <Property Type="String" Name="BaseUri" Nullable="false" />
+          <Property Type="String" Name="XMLGuide" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="BaseUri" Nullable="false" MaxLength="Max" />
           <Property Name="IsNewsSource" Type="Boolean" Nullable="false" />
         </EntityType>
         <EnumType Name="DataSourceEnum">
-          <Member Name="VK" Value="1" />
-          <Member Name="Pikabu" Value="2" />
-          <Member Name="Mainfun" Value="3" />
-          <Member Name="Joyreactor" Value="4" />
-          <Member Name="OnlineRadio" Value="0" />
+          <Member Name="VK" Value="2" />
+          <Member Name="Pikabu" Value="3" />
+          <Member Name="Mainfun" Value="4" />
+          <Member Name="Joyreactor" Value="5" />
+          <Member Name="OnlineRadio" Value="1" />
+          <Member Name="System" Value="0" />
         </EnumType>
         <EntityType Name="News">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="PostId" Nullable="false" />
-          <Property Type="String" Name="AuthorName" Nullable="false" />
-          <Property Type="String" Name="AuthorId" Nullable="false" />
-          <Property Type="String" Name="AuthorLink" Nullable="true" />
+          <Property Type="String" Name="PostId" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="AuthorName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="AuthorId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="AuthorLink" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="PostLikes" Nullable="false" />
-          <Property Type="String" Name="PostName" Nullable="true" />
-          <Property Type="String" Name="PostLink" Nullable="true" />
-          <Property Type="String" Name="PostContent" Nullable="false" />
-          <Property Type="String" Name="PostTags" Nullable="false" />
+          <Property Type="String" Name="PostName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="PostLink" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="PostContent" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="PostTags" Nullable="false" MaxLength="Max" />
           <NavigationProperty Name="DataSource" Relationship="RssAggregatorModel.NewsDataSources" FromRole="News" ToRole="DataSources" />
           <Property Type="Boolean" Name="External" Nullable="false" />
           <NavigationProperty Name="User" Relationship="RssAggregatorModel.NewsUsers" FromRole="News" ToRole="Users" />
@@ -446,6 +512,8 @@
           <Property Type="Boolean" Name="AdultContent" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="RssAggregatorModel.NewsComments" FromRole="News" ToRole="Comments" />
           <NavigationProperty Name="UsersImage" Relationship="RssAggregatorModel.NewsUsersImage" FromRole="News" ToRole="UsersImage" />
+          <Property Name="CreationDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="ModificationDateTime" Type="DateTime" Nullable="false" />
         </EntityType>
         <Association Name="NewsDataSources">
           <End Type="RssAggregatorModel.News" Role="News" Multiplicity="*" />
@@ -456,9 +524,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" />
-          <Property Type="String" Name="Email" Nullable="false" />
-          <Property Type="String" Name="Password" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
           <Property Type="RssAggregatorModel.UserTypeEnum" Name="Type" Nullable="false" />
           <NavigationProperty Name="News" Relationship="RssAggregatorModel.NewsUsers" FromRole="Users" ToRole="News" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
@@ -469,6 +537,8 @@
           <NavigationProperty Name="UserFeedback" Relationship="RssAggregatorModel.UserUserFeedback" FromRole="User" ToRole="UserFeedback" />
           <NavigationProperty Name="UserMessagesSend" Relationship="RssAggregatorModel.UserMessagesUser" FromRole="User" ToRole="UserMessages" />
           <NavigationProperty Name="UserMessagesRecived" Relationship="RssAggregatorModel.UserMessagesUser1" FromRole="User" ToRole="UserMessages" />
+          <Property Name="UserKey" Type="String" Nullable="false" MaxLength="Max" />
+          <NavigationProperty Name="UserActivityLog" Relationship="RssAggregatorModel.UserUserActivityLog" FromRole="User" ToRole="UserActivityLog" />
         </EntityType>
         <EnumType Name="UserTypeEnum" UnderlyingType="Byte">
           <Member Name="System" />
@@ -486,9 +556,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" />
-          <Property Type="String" Name="Description" Nullable="false" />
-          <Property Type="String" Name="View" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="View" Nullable="false" MaxLength="Max" />
           <Property Type="Int32" Name="Version" Nullable="true" />
           <NavigationProperty Name="User" Relationship="RssAggregatorModel.UsersTemplates" FromRole="Templates" ToRole="Users" />
           <Property Type="RssAggregatorModel.TemplateTypeEnum" Name="Type" Nullable="false" />
@@ -502,7 +572,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Comment" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="false" MaxLength="Max" />
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <NavigationProperty Name="News" Relationship="RssAggregatorModel.NewsComments" FromRole="Comments" ToRole="News" />
           <NavigationProperty Name="User" Relationship="RssAggregatorModel.UsersComments" FromRole="Comments" ToRole="Users" />
@@ -521,7 +591,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Uri" Nullable="false" />
+          <Property Type="String" Name="Uri" Nullable="false" MaxLength="Max" />
           <NavigationProperty Name="User" Relationship="RssAggregatorModel.UserImage" FromRole="Image" ToRole="User" />
           <NavigationProperty Name="News" Relationship="RssAggregatorModel.NewsUsersImage" FromRole="UsersImage" ToRole="News" />
         </EntityType>
@@ -534,8 +604,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Uri" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Uri" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
         </EntityType>
         <Association Name="NewsUsersImage">
           <End Type="RssAggregatorModel.News" Role="News" Multiplicity="1" />
@@ -546,9 +616,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Message" Nullable="false" />
-          <Property Type="String" Name="StackTrace" Nullable="false" />
-          <Property Type="String" Name="Source" Nullable="false" />
+          <Property Type="String" Name="Message" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="StackTrace" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="Source" Nullable="false" MaxLength="Max" />
           <Property Type="DateTime" Name="DateTime" Nullable="false" />
           <Property Type="RssAggregatorModel.LogTypeEnum" Name="Type" Nullable="false" />
         </EntityType>
@@ -557,8 +627,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Uri" Nullable="false" />
-          <Property Type="String" Name="Comment" Nullable="false" />
+          <Property Type="String" Name="Uri" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="Comment" Nullable="false" MaxLength="Max" />
           <NavigationProperty Name="User" Relationship="RssAggregatorModel.UserNewDataSourceRequest" FromRole="NewDataSourceRequest" ToRole="User" />
           <Property Type="Boolean" Name="Seen" Nullable="false" />
         </EntityType>
@@ -571,9 +641,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Comment" Nullable="false" />
-          <Property Type="String" Name="Header" Nullable="false" />
-          <Property Type="String" Name="Email" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="Header" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
           <NavigationProperty Name="User" Relationship="RssAggregatorModel.UserUserFeedback" FromRole="UserFeedback" ToRole="User" />
         </EntityType>
         <Association Name="UserUserFeedback">
@@ -585,8 +655,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Topic" Nullable="false" />
-          <Property Type="String" Name="Message" Nullable="false" />
+          <Property Type="String" Name="Topic" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Message" Nullable="false" MaxLength="Max" />
           <Property Type="DateTime" Name="SendDateTime" Nullable="false" />
           <NavigationProperty Name="FromUser" Relationship="RssAggregatorModel.UserMessagesUser" FromRole="UserMessages" ToRole="User" />
           <NavigationProperty Name="ToUser" Relationship="RssAggregatorModel.UserMessagesUser1" FromRole="UserMessages" ToRole="User" />
@@ -610,6 +680,7 @@
           <Member Name="DAL" />
           <Member Name="WEB" />
           <Member Name="CORE" />
+          <Member Name="FE" />
         </EnumType>
         <EntityType Name="Settings">
           <Key>
@@ -617,18 +688,68 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Key" Type="String" Nullable="false" MaxLength="255" />
-          <Property Name="Value" Type="String" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" />
           <Property Name="ForUI" Type="Boolean" Nullable="false" />
+          <Property Name="Location" Type="RssAggregatorModel.LocationEnum" Nullable="false" />
         </EntityType>
         <EntityType Name="SongsBlackList">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SongURL" Type="String" Nullable="false" />
-          <Property Name="Country" Type="String" Nullable="false" />
-          <Property Name="City" Type="String" Nullable="false" />
+          <Property Name="SongURL" Type="String" Nullable="false" MaxLength="255" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Transliteration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromLetter" Type="String" Nullable="false" MaxLength="10" />
+          <Property Name="ToLetter" Type="String" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Navigation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="25" />
+          <Property Name="RedirectTo" Type="String" Nullable="false" MaxLength="25" />
+          <Property Name="OrderNo" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EnumType Name="LocationEnum" UnderlyingType="Int32">
+          <Member Name="en" />
+          <Member Name="ru" />
+        </EnumType>
+        <EntityType Name="UserActivityLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserKey" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="IsNew" Type="Boolean" Nullable="false" />
+          <Property Name="Activity" Type="RssAggregatorModel.ActivityEnum" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" />
+          <Property Name="Browser" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="BrowserVersion" Type="Int32" Nullable="false" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" />
+          <NavigationProperty Name="User" Relationship="RssAggregatorModel.UserUserActivityLog" FromRole="UserActivityLog" ToRole="User" />
+          <Property Name="Region" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Organization" Type="String" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EnumType Name="ActivityEnum" >
+          <Member Name="Open" />
+          <Member Name="Close" />
+          <Member Name="LogIn" />
+          <Member Name="LogOut" />
+        </EnumType>
+        <Association Name="UserUserActivityLog">
+          <End Type="RssAggregatorModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="RssAggregatorModel.UserActivityLog" Role="UserActivityLog" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -665,6 +786,8 @@
           <ScalarProperty Name="External" ColumnName="External" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="AdultContent" ColumnName="AdultContent" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="ModificationDateTime" ColumnName="ModificationDateTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -677,6 +800,7 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UserKey" ColumnName="UserKey" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -769,6 +893,7 @@
           <ScalarProperty Name="Key" ColumnName="Key" />
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="ForUI" ColumnName="ForUI" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -779,6 +904,43 @@
           <ScalarProperty Name="SongURL" ColumnName="SongURL" />
           <ScalarProperty Name="Country" ColumnName="Country" />
           <ScalarProperty Name="City" ColumnName="City" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransliterationSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.Transliteration)">
+        <MappingFragment StoreEntitySet="TransliterationSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FromLetter" ColumnName="FromLetter" />
+          <ScalarProperty Name="ToLetter" ColumnName="ToLetter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NavigationSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.Navigation)">
+        <MappingFragment StoreEntitySet="NavigationSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="RedirectTo" ColumnName="RedirectTo" />
+          <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserActivityLogSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.UserActivityLog)">
+        <MappingFragment StoreEntitySet="UserActivityLogSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserKey" ColumnName="UserKey" />
+          <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Browser" ColumnName="Browser" />
+          <ScalarProperty Name="BrowserVersion" ColumnName="BrowserVersion" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="Organization" ColumnName="Organization" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -871,6 +1033,15 @@
       <EndProperty Name="UserMessages">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserUserActivityLog" TypeName="RssAggregatorModel.UserUserActivityLog" StoreEntitySet="UserActivityLogSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="UserActivityLog">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="User_Id" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

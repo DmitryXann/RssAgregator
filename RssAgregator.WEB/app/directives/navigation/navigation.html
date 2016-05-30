@@ -1,0 +1,5 @@
+﻿<div>
+    <div ng-repeat="item in ::navigationData | orderBy : 'OrderNo'">
+        <span ng-bind="::item.Title" ng-click="redirect(item.RedirectTo)"></span>
+    </div>
+</div>

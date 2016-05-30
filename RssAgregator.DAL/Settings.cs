@@ -18,5 +18,6 @@ namespace RssAgregator.DAL
         public string Key { get; set; }
         public string Value { get; set; }
         public bool ForUI { get; set; }
+        public LocationEnum Location { get; set; }
     }
 }

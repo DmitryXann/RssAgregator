@@ -12,6 +12,8 @@ namespace RssAgregator.WEB
 
             bundles.Add(new ScriptBundle("~/bundles/jquerry").Include("~/Scripts/jquerry-2.2.2/jquery-2.2.2.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquerry-plugins").Include("~/Scripts/jquerry-plugins/md5/jquery.md5.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include("~/Scripts/toastr/toastr.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
@@ -27,14 +29,21 @@ namespace RssAgregator.WEB
 
             bundles.Add(new ScriptBundle("~/bundles/soundmanagerv2").Include("~/Scripts/soundmanagerv2/soundmanager2-nodebug-jsmin.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/videojs").Include("~/Scripts/video-js-5.9.2/video.js").IncludeDirectory("~/Scripts/video-js-5.9.2/lang/", "*.js", true));
+
+            bundles.Add(new ScriptBundle("~/bundles/content-tools").Include("~/Scripts/content-tools/content-tools.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/wordcloud2").Include("~/Scripts/wordcloud2/wordcloud2.js"));
 
             bundles.Add(new StyleBundle("~/Content/cssLibs").Include(
                         "~/Content/libs/bootstrap-3.3.6/bootstrap-theme.css",
                         "~/Content/libs/bootstrap-3.3.6/bootstrap.css",
                         "~/Content/libs/toastr/toastr.css",
-                        "~/Content/libs/angular-1.4.8/angular-csp.css"));
+                        "~/Content/libs/angular-1.4.8/angular-csp.css",
+                        "~/Content/libs/video-js-5.9.2/video-js.css",
+                        "~/Content/libs/content-tools/content-tools.min.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/main.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/app/main.css"));
         }
     }
 }

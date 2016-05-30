@@ -2,11 +2,13 @@
     'use strict';
 
     angular.module('app')
-		.directive('imageGalleryContainer', ['$filter',
-		function ($filter) {
+		.directive('imageGalleryContainer', ['$filter', '$timeout', 'templateFactory',
+		function ($filter, $timeout, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/containers/imageGalleryContainer/imageGalleryContainer.html',
+		        templateUrl: function () {
+		            return templateFactory.get('imageGalleryContainer');
+		        },
                 transclude: true,
 		        scope: {
 		        },
@@ -16,7 +18,7 @@
 		            scope.canChangeImage;
 
 		            scope.next = function () {
-		                var activeImageIndex = getActiveImageId();
+		                var activeImageIndex = getActiveImageIndex();
 
 		                if (activeImageIndex + 1 < scope.images.length) {
 		                    scope.images[activeImageIndex + 1].activate();
@@ -27,7 +29,7 @@
 		            };
 
 		            scope.previous = function () {
-		                var activeImageIndex = getActiveImageId();
+		                var activeImageIndex = getActiveImageIndex();
 
 		                if (activeImageIndex - 1 >= 0) {
 		                    scope.images[activeImageIndex - 1].activate();
@@ -36,25 +38,37 @@
 		                }
 		            };
 
-		            function getActiveImageId() {
+		            function getActiveImageIndex() {
 		                return scope.images.indexOf($filter('filter')(scope.images, { id: scope.activeImage.id }, true)[0]);
 		            }
 
 		            function init() {
+		                scope.$on('imageData', function (event, data) {
+		                    event.preventDefault();
+		                    scope.images.push(data);
+		                });
+
+		                scope.$on('badImage', function (event, data) {
+		                    event.preventDefault();
+
+		                    var indexOfBadEl = scope.images.indexOf($filter('filter')(scope.images, { id: scope.$id }, true)[0]);
+		                    scope.images.splice(indexOfBadEl, 1);
+		                });
+
+		                scope.$on('imgActivated', function (event, data) {
+		                    scope.activeImage = $filter('filter')(scope.images, { id: data.id }, true)[0];
+		                });
+
 		                var transcludeEl = element.children('[transclude-img]');
 
 		                transclude(scope, function (clone, scope) {
+		                    scope.canChangeImage = clone.length > 2;
+
 		                    transcludeEl.append(clone);
 		                });
 
-		                var imagesWatcher = scope.$watch(function () {
-		                    return scope.images.length > 0;
-		                }, function (newVal) {
-		                    if (newVal) {
-		                        scope.canChangeImage = scope.images.length > 1;
-		                        scope.images[0].activate();
-		                        imagesWatcher();
-		                    }
+		                $timeout(function () {
+		                    scope.images[0].activate();
 		                });
 		            }
 

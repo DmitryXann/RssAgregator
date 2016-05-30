@@ -2,11 +2,13 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioContainer', ['$rootScope',
-		function ($rootScope) {
+		.directive('audioContainer', ['$rootScope', 'templateFactory',
+		function ($rootScope, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/containers/audioContainer/audioContainer.html',
+		        templateUrl: function () {
+		            return templateFactory.get('audioContainer');
+		        },
 		        scope: {
 		            link: '@',
 		            artist: '@',

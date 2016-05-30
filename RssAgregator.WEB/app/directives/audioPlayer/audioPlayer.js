@@ -1,15 +1,19 @@
-﻿; (function (angular) {
+﻿; (function (angular, soundManager) {
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope', '$log',
-		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope, $log) {
+		.directive('audioPlayer', ['onlineRadioService', '$window', '$filter', '$timeout', 'notificationService', 'uiSettings', 'userInfoFactory', '$rootScope', '$exceptionHandler', 'templateFactory',
+		function (onlineRadioService, $window, $filter, $timeout, notificationService, uiSettings, userInfoFactory, $rootScope, $exceptionHandler, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/audioPlayer/audioPlayer.html',
+		        templateUrl: function () {
+		            return templateFactory.get('audioPlayer');
+		        },
 		        scope: {
 		        },
 		        link: function (scope, element, attrs) {
+		            scope.player = soundManager;
+
 		            scope.loadingResults = false;
 		            scope.typeAheadNoResults = false;
 
@@ -17,8 +21,6 @@
 		            
 		            scope.searchQuestion = null;
 		            scope.pageNumber = 1;
-
-		            scope.player = soundManager;
 
 		            scope.currentPlayingSong;
 		            scope.currentIndex = 0;
@@ -56,13 +58,16 @@
 		                if (!scope.currentPlayingSong && scope.playList && scope.playList.length) {
 		                    scope.currentPlayingSong = scope.playList[0];
 		                }
-		                if (scope.currentPlayingSong.audioObject.playState === 0) {
-		                    scope.currentPlayingSong.audioObject.play();
-		                } else {
-		                    if (scope.currentPlayingSong.audioObject.paused) {
-		                        scope.currentPlayingSong.audioObject.resume();
+
+		                if (scope.currentPlayingSong) {
+		                    if (scope.currentPlayingSong.audioObject.playState === 0) {
+		                        scope.currentPlayingSong.audioObject.play();
 		                    } else {
-		                        scope.currentPlayingSong.audioObject.pause();
+		                        if (scope.currentPlayingSong.audioObject.paused) {
+		                            scope.currentPlayingSong.audioObject.resume();
+		                        } else {
+		                            scope.currentPlayingSong.audioObject.pause();
+		                        }
 		                    }
 		                }
 		            };
@@ -203,8 +208,8 @@
 		                                elToAdd.userFriendlyEstimateDuration = (minutes < 10 ? '0' : '') + minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 		                            });
 		                        } else {
-		                            notificationService.warning(uiSettings.CantPlaySong);
-		                            $log.warn('Can`t play song: ' + elToAdd.link + ' song was added to the black list');
+		                            notificationService.warning(uiSettings.PLAYER_CantPlaySong);
+		                            $exceptionHandler('Can`t play song: ' + elToAdd.link + ' song was added to the black list');
 
 		                            userInfoFactory.getUserInfo().then(function (locationResult) {
 		                                onlineRadioService.post('AddNotPlayebleSong', {
@@ -215,7 +220,7 @@
 		                                    if (serverResult.sucessResult) {
 		                                        if (serverResult.sucessResult) {
 		                                            $timeout(function () {
-		                                                notificationService.warning(uiSettings.SongInBlackList);
+		                                                notificationService.warning(uiSettings.PLAYER_SongInBlackList);
 		                                            }, 500);
 		                                        }
 		                                    } else {
@@ -253,12 +258,6 @@
 		            }
 
 		            function init() {
-		                scope.player.setup({
-		                    url: '/Scripts/soundmanagerv2/',
-		                    flashVersion: 9,
-		                    preferFlash: false
-		                });
-
 		                $rootScope.$on('playSong', function (event, args) {
 		                    event.preventDefault();
 
@@ -278,4 +277,4 @@
 		        }
 		    };
 		}]);
-})(angular);
+})(angular, soundManager);

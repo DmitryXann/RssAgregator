@@ -13,4 +13,16 @@
         return apiFactory.create('OnlineRadio');
     }]);
 
+    angular.module('app').service('navigationService', ['apiFactory', function (apiFactory) {
+        return apiFactory.create('Navigation');
+    }]);
+
+    angular.module('app').service('loggingService', ['apiFactory', function (apiFactory) {
+        return apiFactory.create('Logging');
+    }]);
+
+    angular.module('app').service('userService', ['apiFactory', function (apiFactory) {
+        return apiFactory.create('User');
+    }]);
+
 })(angular);

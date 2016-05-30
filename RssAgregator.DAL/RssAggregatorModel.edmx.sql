@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/10/2016 18:43:43
+-- Date Created: 05/26/2016 05:27:07
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -50,6 +50,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserMessagesUser1]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserMessagesSet] DROP CONSTRAINT [FK_UserMessagesUser1];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UserUserActivityLog]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserActivityLogSet] DROP CONSTRAINT [FK_UserUserActivityLog];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -91,6 +94,18 @@ GO
 IF OBJECT_ID(N'[dbo].[SettingsSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SettingsSet];
 GO
+IF OBJECT_ID(N'[dbo].[SongsBlackListSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SongsBlackListSet];
+GO
+IF OBJECT_ID(N'[dbo].[TransliterationSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TransliterationSet];
+GO
+IF OBJECT_ID(N'[dbo].[NavigationSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[NavigationSet];
+GO
+IF OBJECT_ID(N'[dbo].[UserActivityLogSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserActivityLogSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -99,7 +114,7 @@ GO
 -- Creating table 'DataSourcesSet'
 CREATE TABLE [dbo].[DataSourcesSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
     [Uri] nvarchar(max)  NOT NULL,
     [Type] int  NOT NULL,
     [IsActive] bit  NOT NULL,
@@ -113,17 +128,19 @@ GO
 CREATE TABLE [dbo].[NewsSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [PostId] nvarchar(max)  NOT NULL,
-    [AuthorName] nvarchar(max)  NOT NULL,
-    [AuthorId] nvarchar(max)  NOT NULL,
-    [AuthorLink] nvarchar(max)  NULL,
+    [AuthorName] nvarchar(50)  NOT NULL,
+    [AuthorId] nvarchar(50)  NOT NULL,
+    [AuthorLink] nvarchar(255)  NULL,
     [PostLikes] int  NOT NULL,
-    [PostName] nvarchar(max)  NULL,
+    [PostName] nvarchar(255)  NULL,
     [PostLink] nvarchar(max)  NULL,
     [PostContent] nvarchar(max)  NOT NULL,
     [PostTags] nvarchar(max)  NOT NULL,
     [External] bit  NOT NULL,
     [IsActive] bit  NOT NULL,
     [AdultContent] bit  NOT NULL,
+    [CreationDateTime] datetime  NOT NULL,
+    [ModificationDateTime] datetime  NOT NULL,
     [DataSource_Id] int  NULL,
     [User_Id] int  NOT NULL
 );
@@ -132,19 +149,20 @@ GO
 -- Creating table 'UserSet'
 CREATE TABLE [dbo].[UserSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [Email] nvarchar(max)  NOT NULL,
-    [Password] nvarchar(max)  NOT NULL,
+    [Name] nvarchar(50)  NOT NULL,
+    [Email] nvarchar(50)  NOT NULL,
+    [Password] nvarchar(50)  NOT NULL,
     [Type] tinyint  NOT NULL,
-    [IsActive] bit  NOT NULL
+    [IsActive] bit  NOT NULL,
+    [UserKey] nvarchar(max)  NOT NULL
 );
 GO
 
 -- Creating table 'TemplateSet'
 CREATE TABLE [dbo].[TemplateSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [Description] nvarchar(max)  NOT NULL,
+    [Name] nvarchar(255)  NOT NULL,
+    [Description] nvarchar(255)  NOT NULL,
     [View] nvarchar(max)  NOT NULL,
     [Version] int  NULL,
     [Type] tinyint  NOT NULL,
@@ -176,7 +194,7 @@ GO
 CREATE TABLE [dbo].[IconsSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Uri] nvarchar(max)  NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [Name] nvarchar(255)  NOT NULL
 );
 GO
 
@@ -205,8 +223,8 @@ GO
 CREATE TABLE [dbo].[UserFeedbackSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Comment] nvarchar(max)  NOT NULL,
-    [Header] nvarchar(max)  NOT NULL,
-    [Email] nvarchar(max)  NOT NULL,
+    [Header] nvarchar(255)  NOT NULL,
+    [Email] nvarchar(50)  NOT NULL,
     [User_Id] int  NULL
 );
 GO
@@ -214,7 +232,7 @@ GO
 -- Creating table 'UserMessagesSet'
 CREATE TABLE [dbo].[UserMessagesSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Topic] nvarchar(max)  NOT NULL,
+    [Topic] nvarchar(255)  NOT NULL,
     [Message] nvarchar(max)  NOT NULL,
     [SendDateTime] datetime  NOT NULL,
     [Read] bit  NOT NULL,
@@ -228,16 +246,52 @@ CREATE TABLE [dbo].[SettingsSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Key] nvarchar(255)  NOT NULL,
     [Value] nvarchar(max)  NOT NULL,
-    [ForUI] bit  NOT NULL
+    [ForUI] bit  NOT NULL,
+    [Location] int  NOT NULL
 );
 GO
 
 -- Creating table 'SongsBlackListSet'
 CREATE TABLE [dbo].[SongsBlackListSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [SongURL] nvarchar(max)  NOT NULL,
-    [Country] nvarchar(max)  NOT NULL,
-    [City] nvarchar(max)  NOT NULL
+    [SongURL] nvarchar(255)  NOT NULL,
+    [Country] nvarchar(50)  NOT NULL,
+    [City] nvarchar(50)  NOT NULL
+);
+GO
+
+-- Creating table 'TransliterationSet'
+CREATE TABLE [dbo].[TransliterationSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [FromLetter] nvarchar(10)  NOT NULL,
+    [ToLetter] nvarchar(10)  NOT NULL
+);
+GO
+
+-- Creating table 'NavigationSet'
+CREATE TABLE [dbo].[NavigationSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Title] nvarchar(25)  NOT NULL,
+    [RedirectTo] nvarchar(25)  NOT NULL,
+    [OrderNo] int  NOT NULL,
+    [IsActive] bit  NOT NULL
+);
+GO
+
+-- Creating table 'UserActivityLogSet'
+CREATE TABLE [dbo].[UserActivityLogSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [UserKey] nvarchar(50)  NOT NULL,
+    [IsNew] bit  NOT NULL,
+    [Activity] int  NOT NULL,
+    [DateTime] datetime  NOT NULL,
+    [Browser] nvarchar(50)  NOT NULL,
+    [BrowserVersion] int  NOT NULL,
+    [Country] nvarchar(50)  NOT NULL,
+    [City] nvarchar(50)  NOT NULL,
+    [Region] nvarchar(50)  NOT NULL,
+    [Organization] nvarchar(50)  NOT NULL,
+    [User_Id] int  NULL
 );
 GO
 
@@ -320,6 +374,24 @@ GO
 -- Creating primary key on [Id] in table 'SongsBlackListSet'
 ALTER TABLE [dbo].[SongsBlackListSet]
 ADD CONSTRAINT [PK_SongsBlackListSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TransliterationSet'
+ALTER TABLE [dbo].[TransliterationSet]
+ADD CONSTRAINT [PK_TransliterationSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'NavigationSet'
+ALTER TABLE [dbo].[NavigationSet]
+ADD CONSTRAINT [PK_NavigationSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'UserActivityLogSet'
+ALTER TABLE [dbo].[UserActivityLogSet]
+ADD CONSTRAINT [PK_UserActivityLogSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -490,6 +562,21 @@ GO
 CREATE INDEX [IX_FK_UserMessagesUser1]
 ON [dbo].[UserMessagesSet]
     ([ToUser_Id]);
+GO
+
+-- Creating foreign key on [User_Id] in table 'UserActivityLogSet'
+ALTER TABLE [dbo].[UserActivityLogSet]
+ADD CONSTRAINT [FK_UserUserActivityLog]
+    FOREIGN KEY ([User_Id])
+    REFERENCES [dbo].[UserSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserUserActivityLog'
+CREATE INDEX [IX_FK_UserUserActivityLog]
+ON [dbo].[UserActivityLogSet]
+    ([User_Id]);
 GO
 
 -- --------------------------------------------------

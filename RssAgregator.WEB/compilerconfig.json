@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/app/main.css",
+    "inputFile": "Content/app/main.less"
+  },
+  {
+    "outputFile": "Content/app/pages/addEditPost.css",
+    "inputFile": "Content/app/pages/addEditPost.less"
+  }
+]

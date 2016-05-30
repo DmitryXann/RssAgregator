@@ -33,7 +33,7 @@ namespace RssAgregator.BAL.Services
                 _onlineRadionBaseURL = onlineRadioEntity.BaseUri;
                 _onlineRadioSearchURl = onlineRadioEntity.Uri;
 
-                var onlineRadioTypeAheadPostfix = settingsService.GetSetting("OnlineRadioTypeAheadPostfix");
+                var onlineRadioTypeAheadPostfix = settingsService.GetSetting("PLAYER_OnlineRadioTypeAheadPostfix");
                 if (onlineRadioTypeAheadPostfix.InfoResult.ResultCode == Models.Enums.ResultCodeEnum.Success)
                 {
                     _onlineRadioTypeAheadPostfix = string.Format("{0}/{1}", _onlineRadionBaseURL.TrimEnd(new[] { '/' }), onlineRadioTypeAheadPostfix.DataResult);

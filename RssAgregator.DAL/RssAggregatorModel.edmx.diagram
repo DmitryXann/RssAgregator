@@ -5,30 +5,34 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0297768bbded4fc5a03c160d8332f420" Name="Diagram1" >
-        <EntityTypeShape EntityType="RssAggregatorModel.DataSources" Width="1.5" PointX="2.375" PointY="3.75" />
-        <EntityTypeShape EntityType="RssAggregatorModel.News" Width="1.5" PointX="4.375" PointY="3.75" />
+        <EntityTypeShape EntityType="RssAggregatorModel.DataSources" Width="1.5" PointX="0.5" PointY="4.25" />
+        <EntityTypeShape EntityType="RssAggregatorModel.News" Width="1.75" PointX="2.375" PointY="4.25" />
         <AssociationConnector Association="RssAggregatorModel.NewsDataSources" />
-        <EntityTypeShape EntityType="RssAggregatorModel.User" Width="1.875" PointX="6.375" PointY="3.625" />
+        <EntityTypeShape EntityType="RssAggregatorModel.User" Width="1.875" PointX="4.5" PointY="3.375" />
         <AssociationConnector Association="RssAggregatorModel.NewsUsers" />
-        <EntityTypeShape EntityType="RssAggregatorModel.Template" Width="1.5" PointX="8.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Template" Width="1.5" PointX="5.25" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="RssAggregatorModel.UsersTemplates" />
-        <EntityTypeShape EntityType="RssAggregatorModel.Comments" Width="1.5" PointX="5.25" PointY="8.875" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Comments" Width="1.5" PointX="1.625" PointY="1.625" />
         <AssociationConnector Association="RssAggregatorModel.NewsComments" />
         <AssociationConnector Association="RssAggregatorModel.UsersComments" />
-        <EntityTypeShape EntityType="RssAggregatorModel.UsersImage" Width="1.5" PointX="7.875" PointY="8.25" />
+        <EntityTypeShape EntityType="RssAggregatorModel.UsersImage" Width="1.5" PointX="4.5" PointY="7.75" />
         <AssociationConnector Association="RssAggregatorModel.UserImage" />
-        <EntityTypeShape EntityType="RssAggregatorModel.Icons" Width="1.5" PointX="10.625" PointY="3.625" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Icons" Width="1.5" PointX="17.875" PointY="3.625" />
         <AssociationConnector Association="RssAggregatorModel.NewsUsersImage" />
-        <EntityTypeShape EntityType="RssAggregatorModel.Log" Width="1.5" PointX="12.5" PointY="3.25" />
-        <EntityTypeShape EntityType="RssAggregatorModel.NewDataSourceRequest" Width="2.125" PointX="11.75" PointY="5.625" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Log" Width="1.5" PointX="12.25" PointY="2.75" />
+        <EntityTypeShape EntityType="RssAggregatorModel.NewDataSourceRequest" Width="2.125" PointX="7" PointY="1.875" />
         <AssociationConnector Association="RssAggregatorModel.UserNewDataSourceRequest" />
-        <EntityTypeShape EntityType="RssAggregatorModel.UserFeedback" Width="1.5" PointX="9.75" PointY="6.375" />
+        <EntityTypeShape EntityType="RssAggregatorModel.UserFeedback" Width="1.5" PointX="7" PointY="6.75" />
         <AssociationConnector Association="RssAggregatorModel.UserUserFeedback" />
-        <EntityTypeShape EntityType="RssAggregatorModel.UserMessages" Width="1.5" PointX="6.625" PointY="0.5" />
+        <EntityTypeShape EntityType="RssAggregatorModel.UserMessages" Width="1.5" PointX="3.375" PointY="0.5" />
         <AssociationConnector Association="RssAggregatorModel.UserMessagesUser" ></AssociationConnector>
         <AssociationConnector Association="RssAggregatorModel.UserMessagesUser1" />
-        <EntityTypeShape EntityType="RssAggregatorModel.Settings" Width="1.5" PointX="2.375" PointY="6.625" />
-        <EntityTypeShape EntityType="RssAggregatorModel.SongsBlackList" Width="1.5" PointX="2.375" PointY="8.625" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Settings" Width="1.5" PointX="12.25" PointY="0.5" />
+        <EntityTypeShape EntityType="RssAggregatorModel.SongsBlackList" Width="1.5" PointX="14.125" PointY="0.5" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Transliteration" Width="1.5" PointX="14.125" PointY="2.75" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Navigation" Width="1.5" PointX="10.375" PointY="0.5" />
+        <EntityTypeShape EntityType="RssAggregatorModel.UserActivityLog" Width="1.5" PointX="8.75" PointY="4" />
+        <AssociationConnector Association="RssAggregatorModel.UserUserActivityLog" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

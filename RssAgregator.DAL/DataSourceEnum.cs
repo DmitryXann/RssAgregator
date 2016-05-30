@@ -13,10 +13,11 @@ namespace RssAgregator.DAL
     
     public enum DataSourceEnum : int
     {
-        VK = 1,
-        Pikabu = 2,
-        Mainfun = 3,
-        Joyreactor = 4,
-        OnlineRadio = 0
+        VK = 2,
+        Pikabu = 3,
+        Mainfun = 4,
+        Joyreactor = 5,
+        OnlineRadio = 1,
+        System = 0
     }
 }

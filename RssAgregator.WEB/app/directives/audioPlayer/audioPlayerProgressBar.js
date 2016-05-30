@@ -2,11 +2,13 @@
     'use strict';
 
     angular.module('app')
-		.directive('audioPlayerProgressBar', ['$timeout',
-		function ($timeout) {
+		.directive('audioPlayerProgressBar', ['$timeout', 'templateFactory',
+		function ($timeout, templateFactory) {
 		    return {
 		        restrict: 'E',
-		        templateUrl: 'app/directives/audioPlayer/audioPlayerProgressBar.html',
+		        templateUrl: function () {
+		            return templateFactory.get('audioPlayerProgressBar');
+		        },
 		        scope: {
 		            currentPlayingSong: '=',
                     seek: '='
