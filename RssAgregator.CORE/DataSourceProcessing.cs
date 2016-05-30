@@ -37,6 +37,9 @@ namespace RssAgregator.CORE
                     _systemTemplates = db.GetDBSet<Template>(el => el.Type == TemplateTypeEnum.System && el.Version == null).ToList();
                 }
 
+                var user = db.GetSystemUser;
+                var systemDataSource = db.GetEntity<DataSources>(el => el.Type == DataSourceEnum.System);
+
                 foreach (var dataSource in db.GetDBSet<DataSources>(el => el.IsActive && el.IsNewsSource))
                 {
                     var expectedFactory = ParcerProviderFactory.GetFactory(dataSource.Type);
@@ -48,22 +51,26 @@ namespace RssAgregator.CORE
                         if (post.PostContent.Any())
                         {
                             var postStringContetnt = new List<string>();
+                            
+                            var postId = db.GetPostTransliteratedName(db.GetTransliteration(post.PostId), user.Name);
 
                             var newPost = new News()
                             {
-                                PostId = post.PostId,
+                                PostId = postId,
                                 AuthorName = post.AuthorName,
                                 AuthorId = post.AuthorId,
-                                AuthorLink = post.AuthorLink,
+                                AuthorLink = string.Format("{0}/{1}", dataSource.BaseUri.TrimEnd(new[] { '/' }), post.AuthorLink.TrimStart(new[] { '/' })),
                                 PostLikes = post.PostLikes,
                                 PostName = post.PostName,
-                                PostLink = post.PostName,
+                                PostLink = null,//postId,
                                 PostTags = post.PostTags.Aggregate(string.Empty, (agg, el) => agg + el + ", "),
                                 External = true,
                                 IsActive = true,
                                 AdultContent = false,
                                 DataSource = dataSource,
-                                User = db.GetSystemUser
+                                CreationDateTime = DateTime.UtcNow,
+                                ModificationDateTime = DateTime.UtcNow,
+                                User = user
                             };
 
                             foreach (var postContent in post.PostContent.OrderBy(el => el.PostOrder))

@@ -3,9 +3,6 @@ using RssAgregator.BAL.Interfaces.Services;
 using RssAgregator.DAL;
 using RssAgregator.Models.Results;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace RssAgregator.BAL.Services
 {
@@ -22,26 +19,7 @@ namespace RssAgregator.BAL.Services
             {
                 using (var db = new RssAggregatorModelContainer())
                 {
-                    var transliterationData = db.GetDBSet<Transliteration>().ToList();
-                    var transliterationResult = new List<string>();
-
-                    foreach (var charEl in text.ToLower().Where(el => char.IsLetterOrDigit(el) || el == ' ' || el == '\t' || el == '_'))
-                    {
-                        var expectedEl = transliterationData.FirstOrDefault(el => el.FromLetter.Contains(charEl));
-                        if (expectedEl != null)
-                        {
-                            transliterationResult.Add(expectedEl.ToLetter);
-                        }
-                        else
-                        {
-                            transliterationResult.Add(charEl.ToString());
-                        }
-                    }
-
-                    var transliterationString= transliterationResult.Aggregate(string.Empty, (agg, el) => agg + el);
-                    var rgx = new Regex("[^a-zA-Z0-9_ ]");
-
-                    result.SetDataResult(rgx.Replace(transliterationString, string.Empty));
+                    result.SetDataResult(db.GetTransliteration(text));
                 }
 
                 return result;

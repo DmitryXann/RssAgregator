@@ -75,6 +75,8 @@
     <Compile Include="DALProcessing\Entity\News.cs" />
     <Compile Include="DALProcessing\Entity\Template.cs" />
     <Compile Include="DALProcessing\Entity\User.cs" />
+    <Compile Include="DALProcessing\Helpers\Post.cs" />
+    <Compile Include="DALProcessing\Helpers\Transliteration.cs" />
     <Compile Include="DALProcessing\RssAggregatorModelContainer.cs" />
     <Compile Include="DataSourceEnum.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>

@@ -29,7 +29,7 @@ namespace RssAgregator.BAL.Services
             {
                 using (var db = new RssAggregatorModelContainer())
                 {
-                    result.SetDataResult(db.GetEntity<User>(el => el.Name.ToLower() == name.ToLower()) != null);
+                    result.SetDataResult(db.GetEntity<User>(el => el.Name.ToLower() == name.ToLower()) != null || db.GetEntity<DataSources>(el => el.Name.ToLower() == name.ToLower()) != null);
                 }
             }
             catch (Exception ex)

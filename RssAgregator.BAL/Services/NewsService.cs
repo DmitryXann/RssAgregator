@@ -81,31 +81,16 @@ namespace RssAgregator.BAL.Services
 
             try
             {
-                Func<string, string, string> preparePostid = (postName, userName) =>
-                {
-                    var dateTimeNow = DateTime.Now;
-                    return string.Format("{0}_{1}_{2}",
-                                                    postName.Replace(' ', '_'),
-                                                    userName,
-                                                    string.Format("{0}-{1}-{2}_{3}-{4}-{5}", 
-                                                                    dateTimeNow.Day < 10 ? "0" + dateTimeNow.Day.ToString() : dateTimeNow.Day.ToString(),
-                                                                    dateTimeNow.Month < 10 ? "0" + dateTimeNow.Month.ToString() : dateTimeNow.Month.ToString(),
-                                                                    dateTimeNow.Year,
-                                                                    dateTimeNow.Hour < 10 ? "0" + dateTimeNow.Hour.ToString() : dateTimeNow.Hour.ToString(), 
-                                                                    dateTimeNow.Minute < 10 ? "0" + dateTimeNow.Minute.ToString() : dateTimeNow.Minute.ToString(), 
-                                                                    dateTimeNow.Second < 10 ? "0" + dateTimeNow.Second.ToString() : dateTimeNow.Second.ToString()));
-                };
-
                 using (var db = new RssAggregatorModelContainer(true))
                 {
                     var user = db.GetEntity<User>(el => el.Id == inputParams.UserId && el.IsActive);
                     var userName = user.Name.ToLower();
 
                     var translatePost = TranslateService.Translate(inputParams.PostName);
-                    var postId = preparePostid(translatePost.InfoResult.ResultCode == Models.Enums.ResultCodeEnum.Success 
-                                                    ? translatePost.DataResult 
-                                                    : Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}{1}", userName, DateTime.UtcNow.Ticks))), 
-                                                userName);
+                    var postId = db.GetPostTransliteratedName(translatePost.InfoResult.ResultCode == Models.Enums.ResultCodeEnum.Success 
+                                                                    ? translatePost.DataResult 
+                                                                    : Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}{1}", userName, DateTime.UtcNow.Ticks))), 
+                                                                userName);
 
                     var systemDataSource = db.GetEntity<DataSources>(el => el.Type == DataSourceEnum.System);
 
@@ -138,7 +123,7 @@ namespace RssAgregator.BAL.Services
                             AuthorName = userName,
                             AuthorLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), userName),
                             PostName = inputParams.PostName,
-                            PostLink = string.Format("{0}/{1}", systemDataSource.Uri.TrimEnd(new[] { '/' }), postId),
+                            PostLink = postId,
                             PostContent = inputParams.PostContent,
                             PostTags = inputParams.PostTags,
                             IsActive = true,
