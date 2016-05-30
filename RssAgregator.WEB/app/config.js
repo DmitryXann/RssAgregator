@@ -30,7 +30,10 @@
             imgContainer: '/app/directives/containers/imageGalleryContainer/imgContainer.html',
             postContainer: '/app/directives/containers/postContainer/postContainer.html',
             videoContainer: '/app/directives/containers/videoGalleryContainer/videoContainer.html',
-            videoGalleryContainer: '/app/directives/containers/videoGalleryContainer/videoGalleryContainer.html'
+            videoGalleryContainer: '/app/directives/containers/videoGalleryContainer/videoGalleryContainer.html',
+
+            //modals
+            genericModalFactory: '/app/modals/genericModal/genericModal.html'
         }).constant('ActivityEnum', {
             Open: 0,
             Close: 1,

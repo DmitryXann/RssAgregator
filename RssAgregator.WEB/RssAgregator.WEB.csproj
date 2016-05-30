@@ -192,6 +192,8 @@
     <Content Include="app\directives\ngBindHtmlCompile.js" />
     <Content Include="app\directives\ngDisabledChildren.js" />
     <Content Include="app\directives\ngWatchersToggle.js" />
+    <Content Include="app\modals\genericModal\genericModal.html" />
+    <Content Include="app\modals\genericModal\genericModal.js" />
     <Content Include="app\typeDecorators\loggingServiceDecorator.js" />
     <Content Include="app\typeDecorators\userServiceDecorator.js" />
     <Content Include="app\directives\audioPlayer\audioPlayerProgressBar.html" />
@@ -292,7 +294,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\modals\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

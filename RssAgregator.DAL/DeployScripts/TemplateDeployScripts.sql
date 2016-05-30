@@ -911,3 +911,39 @@ BEGIN
 END
 GO
 --========================================================
+--========================================================
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
+
+SELECT @Name			= N'genericModalFactory'
+	   ,@Description	= N'genericModalFactory'
+	   ,@View			= N'<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()"><i class="fa fa-close"></i></button>
+    <h3 class="modal-title" ng-bind="modalTitle"></h3>
+</div>
+<div class="modal-body">
+    <bind-html-compile source-html="::modalHtmlContent"></bind-html-compile>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning pull-right" ng-click="cancel()" ng-bind="cancelButtonName" ng-show="cancelButtonName" ng-disabled="cancelButtonDisabled"></button>
+    <button class="btn btn-success pull-right" ng-click="ok()" ng-bind="okButtonName" ng-show="okButtonName" ng-disabled="okButtonDisabled"></button>
+</div>'
+	   ,@Version		= 0
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name], [Description], [View], [Version], [Type], [User_Id])
+	VALUES
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
+END
+GO
+--========================================================
