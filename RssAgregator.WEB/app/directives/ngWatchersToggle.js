@@ -110,14 +110,14 @@
 
 		                    if (attrs.ngHide) {
 		                        scope.$watch(attrs.ngHide, function (newVal) {
-		                            isShown = !newVal;
+		                            isShown = !!!newVal;
 		                            handleVisibilityChange();
 		                        });
 		                    }
 
 		                    if (attrs.ngShow) {
 		                        scope.$watch(attrs.ngShow, function (newVal) {
-		                            isShown = newVal;
+		                            isShown = !!newVal;
 		                            handleVisibilityChange();
 		                        });
 		                    }
