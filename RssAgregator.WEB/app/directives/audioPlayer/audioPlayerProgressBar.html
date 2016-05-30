@@ -1,8 +1,7 @@
-﻿<span class="song-name" ng-bind="currentSongName"></span>
-<uib-progressbar max="maxSongDuration" value="currentSongProgress()"
+﻿<uib-progressbar max="maxSongDuration" value="currentSongProgress()"
                  ng-mousemove="mouseMove($event)" 
                  ng-mousedown="mouseClickToggle($event, true)" ng-mouseup="mouseClickToggle($event, false)"
                  ng-mouseleave="mouseEnterToggle(false)" ng-mouseenter="mouseEnterToggle(true)"
                  uib-tooltip="{{approximateSongProgress()}}" tooltip-enable="currentPlayingSong">
-    <span class="song-duraion" ng-bind="currentSongUserFriendlyProgress()"></span>
+    <span class="song-name" ng-bind="currentSongName"></span> <span class="song-duraion" ng-bind="currentSongUserFriendlyProgress()"></span>
 </uib-progressbar>
