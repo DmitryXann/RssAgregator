@@ -189,6 +189,8 @@
     <Content Include="app\controllers\addEditPostController\addEditPostController.js" />
     <Content Include="app\controllers\dashboardController\dashboard.html" />
     <Content Include="app\controllers\dashboardController\dashboardController.js" />
+    <Content Include="app\controllers\viewPostController\viewPostController.html" />
+    <Content Include="app\controllers\viewPostController\viewPostController.js" />
     <Content Include="app\directives\ngBindHtmlCompile.js" />
     <Content Include="app\directives\ngDisabledChildren.js" />
     <Content Include="app\directives\ngWatchersToggle.js" />

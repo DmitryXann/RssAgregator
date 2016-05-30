@@ -15,18 +15,24 @@
                 //    return templateFactory.get('aboutController');
                 //},
                 controller: 'aboutController'
-            }).when('/addPost', {
+            }).when('/add', {
                 templateUrl: '/app/controllers/addEditPostController/addEditPostController.html',
                 //templateUrl: function () {
                 //    return templateFactory.get('addEditPostController');
                 //},
                 controller: 'addEditPostController'
-            }).when('/editPost/:postId', {
+            }).when('/edit/:postId', {
                 templateUrl: '/app/controllers/addEditPostController/addEditPostController.html',
                 //templateUrl: function () {
                 //    return templateFactory.get('addEditPostController');
                 //},
                 controller: 'addEditPostController'
+            }).when('/view/:postId', {
+                templateUrl: '/app/controllers/viewPostController/viewPostController.html',
+                //templateUrl: function () {
+                //    return templateFactory.get('viewPostController');
+                //},
+                controller: 'viewPostController'
             }).otherwise({
                 redirectTo: '/'
             });
