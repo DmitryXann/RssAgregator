@@ -10,7 +10,11 @@
 		        scope: false,
 		        link: function (scope, element, attrs) {
 					scope.$watch(attrs.ngDisabledChildren, function (newVal) {
-						attr.$set('disabled', !!newVal);
+						if (!!newVal) {
+							element.find('input').attr('disabled', 'disabled');	
+						} else {
+							element.find('input').removeAttr('disabled');	
+						}
 					})
 		        }
 		    };
