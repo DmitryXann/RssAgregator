@@ -8,7 +8,7 @@ END
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'ImgContainer'
+SELECT @Name			= N'Img-Container'
 	   ,@Description	= N'Image Container'
 	   ,@View			= N'<img-container link="{ContainerValue}"></img-container>'
 	   ,@Version		= NULL
@@ -34,7 +34,7 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'ImageGalleryContainer'
+SELECT @Name			= N'Image-Gallery-Container'
 	   ,@Description	= N'Image Gallery Container'
 	   ,@View			= N'<image-gallery-container>{ContainerValue}</image-gallery-container>'
 	   ,@Version		= NULL
@@ -60,7 +60,7 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'AudioContainer'
+SELECT @Name			= N'Audio-Container'
 	   ,@Description	= N'Audio Container'
 	   ,@View			= N'<audio-container link="{ContainerValue}" artist="{MediaAuthor}" name="{MediaName}"></audio-container>'
 	   ,@Version		= NULL
@@ -86,10 +86,10 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'VideoContainer'
+SELECT @Name			= N'Video-Container'
 	   ,@Description	= N'Video Container'
 	   ,@View			= N'<video-container link="{ContainerValue}" preview="{MediaPreview}" name="{MediaName}"></video-container>'
-	   ,@Version		= NULl
+	   ,@Version		= NULL
 	   ,@Type			= 0
 	   ,@User_Id		= 1
 
@@ -112,7 +112,7 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'VideoGalleryContainer'
+SELECT @Name			= N'Video-Gallery-Container'
 	   ,@Description	= N'Video Gallery Container'
 	   ,@View			= N'<video-gallery-container>{ContainerValue}</video-gallery-container>'
 	   ,@Version		= NULL
@@ -138,10 +138,10 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'TextContainer'
+SELECT @Name			= N'Text-Container'
 	   ,@Description	= N'Text Container'
 	   ,@View			= N'<div>{ContainerValue}</div>'
-	   ,@Version		= NULl
+	   ,@Version		= NULL
 	   ,@Type			= 0
 	   ,@User_Id		= 1
 
@@ -164,7 +164,7 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'TempHeader'
+SELECT @Name			= N'Temp-Header'
 	   ,@Description	= N'Temp header'
 	   ,@View			= N'<post-container ng-repeat="post in postList" post-id="{{::post.Id}}" post-object="::post" class="{{::post.DataSource}}"></post-container>'
 	   ,@Version		= NULL

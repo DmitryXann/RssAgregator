@@ -16,14 +16,14 @@ namespace RssAgregator.CORE
         private const string CONTENT_MEDIA_NAME_PLACEHOLDER = "{MediaName}";
         private const string CONTENT_MEDIA_PREVIEW_PLACEHOLDER = "{MediaPreview}";
 
-        private const string IMG_GALLERY_TEMPLATE_NAME = "ImageGalleryContainer";
-        private const string IMG_TEMPLATE_NAME = "ImgContainer";
+        private const string IMG_GALLERY_TEMPLATE_NAME = "Image-Gallery-Container";
+        private const string IMG_TEMPLATE_NAME = "Img-Container";
 
-        private const string VIDEO_GALLERY_TEMPLATE_NAME = "VideoGalleryContainer";
-        private const string VIDEO_TEMPLATE_NAME = "VideoContainer";
+        private const string VIDEO_GALLERY_TEMPLATE_NAME = "Video-Gallery-Container";
+        private const string VIDEO_TEMPLATE_NAME = "Video-Container";
 
-        private const string AUDIO_TEMPLATE_NAME = "AudioContainer";
-        private const string TEXT_TEMPLATE_NAME = "TextContainer";
+        private const string AUDIO_TEMPLATE_NAME = "Audio-Container";
+        private const string TEXT_TEMPLATE_NAME = "Text-Container";
        
 
         private IEnumerable<Template> _systemTemplates;
