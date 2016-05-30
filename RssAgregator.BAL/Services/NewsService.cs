@@ -33,7 +33,6 @@ namespace RssAgregator.BAL.Services
                                                 .Skip(pageSize * (pageNumber - 1))
                                                 .Take(pageSize)
                                                 .ToList()
-                                                .AsParallel()
                                                 .Select(el => el.GetModel())
                                                 .ToList());
 
