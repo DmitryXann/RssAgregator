@@ -6,14 +6,12 @@
 		function ($compile) {
 		    return {
 		        restrict: 'E',
-		        scope: {
-		            sourceHtml: '='
-		        },
+		        scope: false,
 		        link: function (scope, element, attrs) {
-		            scope.$watch('sourceHtml', function (html) {
+		            scope.$watch(attrs.sourceHtml, function (html) {
 		                if (html) {
 		                    element.html(html);
-		                    $compile(element.contents())(scope.$parent);
+		                    $compile(element.contents())(scope);
 		                }
 		            });
 		        }
