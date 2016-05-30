@@ -190,6 +190,7 @@
     <Content Include="app\controllers\dashboardController\dashboard.html" />
     <Content Include="app\controllers\dashboardController\dashboardController.js" />
     <Content Include="app\directives\ngBindHtmlCompile.js" />
+    <Content Include="app\directives\ngDisabledChildren.js" />
     <Content Include="app\directives\ngWatchersToggle.js" />
     <Content Include="app\typeDecorators\loggingServiceDecorator.js" />
     <Content Include="app\typeDecorators\userServiceDecorator.js" />
