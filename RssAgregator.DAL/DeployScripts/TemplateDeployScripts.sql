@@ -952,7 +952,7 @@ DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @V
 
 SELECT @Name			= N'viewPostController'
 	   ,@Description	= N'viewPostController'
-	   ,@View			= N'<ng-bind-html-compile source-html="::postContent"></ng-bind-html-compile>'
+	   ,@View			= N'<post-container post-id="{{::postContent.Id}}" post-object="::postContent" class="{{::postContent.DataSource}}"></post-container>'
 	   ,@Version		= 0
 	   ,@Type			= 0
 	   ,@User_Id		= 1

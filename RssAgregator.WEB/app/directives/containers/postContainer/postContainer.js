@@ -26,11 +26,11 @@
 		            scope.postLikes;
 
 		            scope.getAuthorLink = function () {
-		                return scope.postObject.AuthorLink;
+		                return scope.postObject ? scope.postObject.AuthorLink : undefined;
 		            };
 
 		            scope.getPostLink = function () {
-		                return scope.postObject.PostLink;
+		                return scope.postObject ? scope.postObject.PostLink : undefined;
 		            };
                 
 		            scope.likeToggle = function (like) {
@@ -45,20 +45,29 @@
 		            };
 
 		            scope.likeToggleActive = function (like) {
-		                if (like) {
-		                    return scope.postLikes > scope.postObject.PostLikes;
+		                var result = false;
 
-		                } else {
-		                    return scope.postLikes < scope.postObject.PostLikes;
+		                if (scope.postObject) {
+		                    if (like) {
+		                        result = scope.postLikes > scope.postObject.PostLikes;
+		                    } else {
+		                        result = scope.postLikes < scope.postObject.PostLikes;
+		                    }
 		                }
+
+		                return result;
 		            };
 
 		            function init() {
-		                scope.postView = scope.postObject.PostContent;
-		                scope.authorName = scope.postObject.AuthorName;
-		                scope.authorLink = scope.postObject.AuthorLink;
-		                scope.postName = scope.postObject.PostName;
-		                scope.postLikes = scope.postObject.PostLikes;
+		                scope.$watch('postObject', function(newVal) {
+		                    if (newVal) {
+		                        scope.postView = scope.postObject.PostContent;
+		                        scope.authorName = scope.postObject.AuthorName;
+		                        scope.authorLink = scope.postObject.AuthorLink;
+		                        scope.postName = scope.postObject.PostName;
+		                        scope.postLikes = scope.postObject.PostLikes;
+		                    }
+		                });
 		            }
 
 		            init();
