@@ -45,8 +45,10 @@
 		            }
 
 		            function init() {
-		                scope.$on('videoData', function (event, data) {
-		                    event.preventDefault();
+		                scope.$on('videoData', function ($event, data) {
+		                    $event.preventDefault();
+		                    $event.stopPropagation();
+
 		                    scope.videos.push(data);
 		                });
 

@@ -21,24 +21,6 @@
                 //    return templateFactory.get('dashboardController');
                 //},
                 controller: 'dashboardController'
-            }).when('/about', {
-                templateUrl: '/app/controllers/aboutController/aboutController.html',
-                //templateUrl: function () {
-                //    return templateFactory.get('aboutController');
-                //},
-                controller: 'aboutController'
-            }).when('/add', {
-                templateUrl: '/app/controllers/addEditPostController/addEditPostController.html',
-                //templateUrl: function () {
-                //    return templateFactory.get('addEditPostController');
-                //},
-                controller: 'addEditPostController'
-            }).when('/edit/:postId', {
-                templateUrl: '/app/controllers/addEditPostController/addEditPostController.html',
-                //templateUrl: function () {
-                //    return templateFactory.get('addEditPostController');
-                //},
-                controller: 'addEditPostController'
             }).otherwise({
                 redirectTo: '/'
             });

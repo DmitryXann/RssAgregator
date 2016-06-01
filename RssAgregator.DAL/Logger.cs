@@ -13,7 +13,7 @@ namespace RssAgregator.DAL
                     Message = ex.Message,
                     StackTrace = ex.StackTrace,
                     Source = ex.Source,
-                    DateTime = DateTime.Now,
+                    DateTime = DateTime.UtcNow,
                     Type = type
                 };
 

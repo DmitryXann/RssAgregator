@@ -183,12 +183,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="app\app.js" />
     <Content Include="app\constants.js" />
-    <Content Include="app\controllers\aboutController\aboutController.html" />
-    <Content Include="app\controllers\aboutController\aboutController.js" />
-    <Content Include="app\controllers\addEditPostController\addEditPostController.html" />
-    <Content Include="app\controllers\addEditPostController\addEditPostController.js" />
     <Content Include="app\controllers\dashboardController\dashboard.html" />
     <Content Include="app\controllers\dashboardController\dashboardController.js" />
+    <Content Include="app\directives\addEditPost\addEditPost.html" />
+    <Content Include="app\directives\addEditPost\addEditPost.js" />
     <Content Include="app\directives\ngBindHtmlCompile.js" />
     <Content Include="app\directives\ngDisabledChildren.js" />
     <Content Include="app\directives\ngWatchersToggle.js" />

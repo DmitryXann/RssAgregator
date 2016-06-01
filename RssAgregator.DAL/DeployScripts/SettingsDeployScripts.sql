@@ -389,3 +389,51 @@ BEGIN
 END
 GO
 --========================================================
+--========================================================
+DECLARE @Key nvarchar(255), @Value nvarchar(max), @ForUI bit, @Location int
+
+SELECT @Key			= N'AddModalHeader'
+	   ,@Value		= N'Add post'
+	   ,@ForUI		= 1
+	   ,@Location	= 0
+
+IF EXISTS(SELECT * FROM [dbo].[SettingsSet] WHERE [Key] like @Key)
+BEGIN
+	UPDATE [dbo].[SettingsSet]
+	SET
+		 [Key] = @Key, [Value] = @Value, [ForUI] = @ForUI, [Location] = @Location
+	WHERE [Key]	= @Key
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[SettingsSet]
+		([Key], [Value], [ForUI], [Location])
+	VALUES
+		(@Key, @Value, @ForUI, @Location)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Key nvarchar(255), @Value nvarchar(max), @ForUI bit, @Location int
+
+SELECT @Key			= N'EditModalHeader'
+	   ,@Value		= N'Edit post'
+	   ,@ForUI		= 1
+	   ,@Location	= 0
+
+IF EXISTS(SELECT * FROM [dbo].[SettingsSet] WHERE [Key] like @Key)
+BEGIN
+	UPDATE [dbo].[SettingsSet]
+	SET
+		 [Key] = @Key, [Value] = @Value, [ForUI] = @ForUI, [Location] = @Location
+	WHERE [Key]	= @Key
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[SettingsSet]
+		([Key], [Value], [ForUI], [Location])
+	VALUES
+		(@Key, @Value, @ForUI, @Location)
+END
+GO
+--========================================================

@@ -816,8 +816,8 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'addEditPostController'
-	   ,@Description	= N'addEditPostController'
+SELECT @Name			= N'addEditPost'
+	   ,@Description	= N'addEditPost'
 	   ,@View			= N'<span>
     Start by pressing the "Pencil icon" and make changes in glowind area below:
 </span>
@@ -953,6 +953,32 @@ SELECT @Name			= N'genericModalFactory'
     <button class="btn btn-warning pull-right" ng-click="cancel()" ng-bind="cancelButtonName" ng-show="cancelButtonName" ng-disabled="cancelButtonDisabled"></button>
     <button class="btn btn-success pull-right" ng-click="ok()" ng-bind="okButtonName" ng-show="okButtonName" ng-disabled="okButtonDisabled"></button>
 </div>'
+	   ,@Version		= 0
+	   ,@Type			= 0
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name], [Description], [View], [Version], [Type], [User_Id])
+	VALUES
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
+
+SELECT @Name			= N'addEditPostModal'
+	   ,@Description	= N'addEditPostModal'
+	   ,@View			= N'<add-edit-post></add-edit-post>'
 	   ,@Version		= 0
 	   ,@Type			= 0
 	   ,@User_Id		= 1

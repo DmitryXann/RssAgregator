@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-        .controller('dashboardController', ['$scope', 'templateFactory', 'viewTemplates', 'newsService', '$location', 'genericModalFactory', 'viewFilters', '$routeParams', 'userService', 'uiSettings',
-            function ($scope, templateFactory, viewTemplates, newsService, $location, genericModalFactory, viewFilters, $routeParams, userService, uiSettings) {
+        .controller('dashboardController', ['$scope', 'templateFactory', 'onDemandViewTemplates', 'newsService', '$location', 'genericModalFactory', 'viewFilters', '$routeParams', 'userService', 'uiSettings',
+            function ($scope, templateFactory, onDemandViewTemplates, newsService, $location, genericModalFactory, viewFilters, $routeParams, userService, uiSettings) {
                 $scope.headerView;
                 $scope.addNewPostButtonVisible = false;
                 $scope.postList = [];
@@ -43,7 +43,7 @@
                         HideAdult: $scope.hideAdultContent 
                     };
 
-                    templateFactory.getAsync(viewTemplates.header).then(function (serverResult) {
+                    templateFactory.getAsync(onDemandViewTemplates.header).then(function (serverResult) {
                         if (serverResult) {
                             $scope.headerView = serverResult;
                         }
@@ -55,7 +55,7 @@
                                 if ($routeParams.postId) {
                                     newsService.get('NewsItemSearch', $routeParams.postId).then(function(serverResult) {
                                         if (serverResult.sucessResult) {
-                                            templateFactory.getAsync(viewTemplates.postModal).then(function (templateServerResult) {
+                                            templateFactory.getAsync(onDemandViewTemplates.postModal).then(function (templateServerResult) {
                                                 if (serverResult) {
                                                     genericModalFactory.show(serverResult.DataResult.PostName, 'Ok', null, templateServerResult, { post: serverResult.DataResult }, 'lg').then(function (modalOkResult) {
                                                         //No actions required
@@ -68,8 +68,28 @@
                                     });
                                 }
                             break;
+                            case viewFilters.add:
+                                templateFactory.getAsync(onDemandViewTemplates.addEditPostModal).then(function (templateServerResult) {
+                                    if (templateServerResult) {
+                                        genericModalFactory.show(uiSettings.AddModalHeader, null, null, templateServerResult, null, 'lg').then(function (modalOkResult) {
+                                            //No actions required
+                                        });
+                                    }
+                                });
+                            break;
+                            case viewFilters.edit:
+                                if ($routeParams.postId) {
+                                    templateFactory.getAsync(onDemandViewTemplates.addEditPostModal).then(function (templateServerResult) {
+                                        if (serverResult) {
+                                            genericModalFactory.show(uiSettings.EditModalHeader, null, null, templateServerResult, { post: serverResult.DataResult }, 'lg').then(function (modalOkResult) {
+                                                //No actions required
+                                            });
+                                        }
+                                    });
+                                }
+                            break;
                             case viewFilters.about:
-                                templateFactory.getAsync(viewTemplates.aboutModal).then(function (templateServerResult) {
+                                templateFactory.getAsync(onDemandViewTemplates.aboutModal).then(function (templateServerResult) {
                                     if (templateServerResult) {
                                         genericModalFactory.show(uiSettings.AboutModalHeader, 'Ok', null, templateServerResult, null, 'lg').then(function (modalOkResult) {
                                             //No actions required

@@ -7,7 +7,7 @@ SELECT @Name		= N'SYSTEM'
 	   ,@Email		= N''
 	   ,@Password	= N''
 	   ,@Type		= 0
-	   ,@IsActive	= 0
+	   ,@IsActive	= 1
 	   ,@UserKey	= N''
 
 IF EXISTS(SELECT * FROM [dbo].[UserSet] WHERE [Name] like @Name)

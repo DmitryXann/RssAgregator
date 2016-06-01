@@ -258,8 +258,9 @@
 		            }
 
 		            function init() {
-		                $rootScope.$on('playSong', function (event, args) {
-		                    event.preventDefault();
+		                $rootScope.$on('playSong', function ($event, args) {
+		                    $event.preventDefault();
+		                    $event.stopPropagation();
 
 		                    if (args && args.link) {
 		                        scope.addToPlayList({

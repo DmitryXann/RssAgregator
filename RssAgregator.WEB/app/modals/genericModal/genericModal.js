@@ -68,5 +68,16 @@
                         $uibModalInstance.close($scope.modalData);
                     }
                 };
+
+                $scope.$on('closeModalWindow', function ($event, sucessResult) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
+                    if (sucessResult) {
+                        $scope.ok();
+                    } else {
+                        $scope.cancel();
+                    }
+                });
             }]);
 })(angular);

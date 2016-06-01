@@ -67,12 +67,15 @@
                     preferFlash: false
                 });
 
-                //get all templates from DB
+                //get all templates from DB JUST FOR DEBUG
                 for (var el in viewTemplates) {
                     //templateFactory.put(el);
                 }
 
-                $rootScope.$on('invalidDataOnPage', function (event, data) {
+                $rootScope.$on('invalidDataOnPage', function ($event, data) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+
                     $rootScope.invalidDataOnPage = data;
                 });
 
@@ -83,13 +86,6 @@
                         $exceptionHandler("Can`t log user data");
                     }
                 });
-
-                //Logging of app closed
-                $window.onbeforeunload = function () {
-                    while ($http.pendingRequests.length != 0) {
-                        //wait for data save
-                    }
-                };
             }
 
             init();

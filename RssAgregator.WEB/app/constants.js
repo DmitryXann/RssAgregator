@@ -10,7 +10,6 @@
         }).constant('viewTemplates', {
             //controllers
             dashboardController: '/app/controllers/dashboardController/dashboard.html',
-            addEditPostController: '/app/controllers/addEditPostController/addEditPostController.html',
 
             //general directives
             audioPlayer: '/app/directives/audioPlayer/audioPlayer.html',
@@ -19,6 +18,7 @@
             wordCloud: '/app/directives/wordCloud/wordCloud.html',
             navigation: '/app/directives/navigation/navigation.html',
             login: '/app/directives/login/login.html',
+            addEditPost: '/app/directives/addEditPost/addEditPost.html',
 
             //container directives
             audioContainer: '/app/directives/containers/audioContainer/audioContainer.html',
@@ -30,12 +30,12 @@
 
             //modals
             genericModalFactory: '/app/modals/genericModal/genericModal.html',
-
-            //other templates
+        }).constant('onDemandViewTemplates', {
             post: 'post', // not needed?
             header: 'header',
             postModal: 'postModal',
-            aboutModal: 'aboutModal'
+            aboutModal: 'aboutModal',
+            addEditPostModal: 'addEditPostModal'
         }).constant('ActivityEnum', {
             Open: 0,
             Close: 1,
@@ -45,6 +45,8 @@
             view: 'view',
             top: 'top',
             best: 'best',
-            about: 'about'
+            about: 'about',
+            add: 'add',
+            edit: 'edit'
         });
 })(angular);

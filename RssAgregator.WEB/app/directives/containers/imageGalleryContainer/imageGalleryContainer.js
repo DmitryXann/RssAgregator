@@ -43,19 +43,22 @@
 		            }
 
 		            function init() {
-		                scope.$on('imageData', function (event, data) {
-		                    event.preventDefault();
+		                scope.$on('imageData', function ($event, data) {
+		                    $event.preventDefault();
+		                    $event.stopPropagation();
+
 		                    scope.images.push(data);
 		                });
 
-		                scope.$on('badImage', function (event, data) {
-		                    event.preventDefault();
+		                scope.$on('badImage', function ($event, data) {
+		                    $event.preventDefault();
+		                    $event.stopPropagation();
 
 		                    var indexOfBadEl = scope.images.indexOf($filter('filter')(scope.images, { id: data.id }, true)[0]);
 		                    scope.images.splice(indexOfBadEl, 1);
 		                });
 
-		                scope.$on('imgActivated', function (event, data) {
+		                scope.$on('imgActivated', function ($event, data) {
 		                    scope.activeImage = $filter('filter')(scope.images, { id: data.id }, true)[0];
 		                });
 

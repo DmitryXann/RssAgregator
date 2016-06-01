@@ -24,9 +24,7 @@
 
                 function get(templateName) {
                     var template = $templateCache.get(templateName);
-
-                    return viewTemplates[templateName]; //FOR DEBUG
-                    //return template ? templateName : viewTemplates[templateName];
+                    return template ? templateName : viewTemplates[templateName];
                 }
 
                 function getAsync(templateName) {

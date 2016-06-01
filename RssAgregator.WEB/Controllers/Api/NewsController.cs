@@ -47,7 +47,7 @@ namespace RssAgregator.WEB.Controllers.Api
         [ValidateInput(false)]
         public JsonResult AddEditNewsItem([FromBody] NewsItemModel inputParams)
         {
-            inputParams.ModificationDate = DateTime.Now;
+            inputParams.ModificationDate = DateTime.UtcNow;
             inputParams.UserId = 1; //TODO: remove when user login implemented
             return new JsonResult
             {
