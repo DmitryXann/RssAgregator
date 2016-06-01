@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('postContainer', ['newsService', 'templateFactory',
-		function (newsService, templateFactory) {
+		.directive('postContainer', ['newsService', 'templateFactory', 'viewTemplates', 'genericModalFactory',
+		function (newsService, templateFactory, viewTemplates, genericModalFactory) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: function () {
@@ -15,6 +15,7 @@
 		            authorName: '@',
 		            authorLink: '@',
 		            postName: '@',
+		            canViewPost: '@',
 
 		            postObject: '='
 		        },
@@ -56,6 +57,16 @@
 		                }
 
 		                return result;
+		            };
+
+		            scope.viewPost = function () {
+		                templateFactory.getAsync(viewTemplates.modalWindowPost).then(function (serverResult) {
+		                    if (serverResult) {
+		                        genericModalFactory.show(scope.postObject.PostName, 'Ok', null, serverResult, { post: scope.postObject }, 'lg').then(function (modalOkResult) {
+		                            //No actions required
+		                        });
+		                    }
+		                });
 		            };
 
 		            function init() {

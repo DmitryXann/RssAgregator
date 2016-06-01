@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-        .controller('dashboardController', ['$scope', 'templateService', 'templateType', 'newsService',
-            function ($scope, templateService, templateType, newsService) {
+        .controller('dashboardController', ['$scope', 'templateFactory', 'viewTemplates', 'newsService', '$location', 'genericModalFactory',
+            function ($scope, templateFactory, viewTemplates, newsService, $location, genericModalFactory) {
                 $scope.headerView;
                 $scope.addNewPostButtonVisible = false;
                 $scope.postList = [];
@@ -13,11 +13,15 @@
                 $scope.hideAdultContent = true;
 
                 $scope.addNewPost = function () {
+                    $location.path('/add');
+                };
 
+                $scope.editPost = function (postId) {
+                    $location.path('/edit/{0}'.format(postid));
                 };
 
                 $scope.newPosts = function () {
-
+                    
                 };
 
                 $scope.bestPosts = function () {
@@ -25,7 +29,7 @@
                 };
 
                 $scope.about = function () {
-
+                    $location.path('/about');
                 };
 
                 $scope.search = function () {
@@ -33,11 +37,9 @@
                 };
 
                 function init() {
-                    templateService.get('GetTemplate', { id: templateType.Header }).then(function (serverResult) {
-                        if (serverResult.sucessResult) {
-                            $scope.headerView = serverResult.DataResult.View;
-                        } else {
-                            serverResult.showInfoMessage();
+                    templateFactory.getAsync(viewTemplates.header).then(function (serverResult) {
+                        if (serverResult) {
+                            $scope.headerView = serverResult;
                         }
                     });
 

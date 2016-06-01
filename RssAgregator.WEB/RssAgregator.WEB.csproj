@@ -182,7 +182,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="app\app.js" />
-    <Content Include="app\config.js" />
+    <Content Include="app\constants.js" />
     <Content Include="app\controllers\aboutController\aboutController.html" />
     <Content Include="app\controllers\aboutController\aboutController.js" />
     <Content Include="app\controllers\addEditPostController\addEditPostController.html" />

@@ -1,4 +1,6 @@
-﻿<div ng-bind="::authorName"></div>
+﻿<button role="button" class="btn btn-default" ng-click="viewPost()" ng-if="canViewPost">View Full Post</button>
+
+<div ng-bind="::authorName"></div>
 <div ng-bind="::authorLink"></div>
 <div ng-bind="::postName"></div>
 <div ng-bind="::getAuthorLink()"></div>

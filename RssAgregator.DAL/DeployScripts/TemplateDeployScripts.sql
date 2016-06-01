@@ -164,9 +164,35 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'Temp-Header'
-	   ,@Description	= N'Temp header'
-	   ,@View			= N'<post-container ng-repeat="post in postList" post-id="{{::post.Id}}" post-object="::post" class="{{::post.DataSource}}"></post-container>'
+SELECT @Name			= N'header'
+	   ,@Description	= N'header'
+	   ,@View			= N'<post-container ng-repeat="post in postList" post-id="{{::post.Id}}" post-object="::post" class="{{::post.DataSource}}" can-view-post="true"></post-container>'
+	   ,@Version		= NULL
+	   ,@Type			= 2
+	   ,@User_Id		= 1
+
+IF EXISTS(SELECT * FROM [dbo].[TemplateSet] WHERE [Name] like @Name)
+BEGIN
+	UPDATE [dbo].[TemplateSet]
+	SET
+		 [Name] = @Name, [Description] = @Description, [View] = @View, [Version] = @Version, [Type] = @Type, [User_Id] = @User_Id
+	WHERE [Name] = @Name
+END
+ELSE
+BEGIN
+	INSERT INTO [dbo].[TemplateSet]
+		([Name], [Description], [View], [Version], [Type], [User_Id])
+	VALUES
+		(@Name, @Description, @View, @Version, @Type, @User_Id)
+END
+GO
+--========================================================
+--========================================================
+DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
+
+SELECT @Name			= N'modalWindowPost'
+	   ,@Description	= N'modalWindowPost'
+	   ,@View			= N'<post-container post-id="{{::modalViewData.post.Id}}" post-object="::modalViewData.post" class="{{::modalViewData.post.DataSource}}"></post-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 2
 	   ,@User_Id		= 1

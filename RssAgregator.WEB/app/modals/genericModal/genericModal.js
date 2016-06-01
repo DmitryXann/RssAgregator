@@ -5,7 +5,7 @@
         .factory('genericModalFactory', ['$uibModal', 'templateFactory',
 		    function ($uibModal, templateFactory) {
 		        return {
-		            show: function (modalTitle, okButtonName, cancelButtonName, modalHtmlContent, modalAdditionalData, size, windowClass) {
+		            show: function (modalTitle, okButtonName, cancelButtonName, modalHtmlContent, modalViewData, size, windowClass) {
 		                var modalInstance = $uibModal.open({
 		                    controller: 'genericModalController',
 		                    templateUrl: function () {
@@ -22,7 +22,7 @@
 		                                okButtonName: okButtonName,
 		                                cancelButtonName: cancelButtonName,
 		                                modalHtmlContent: modalHtmlContent,
-		                                modalAdditionalData: modalAdditionalData
+		                                modalViewData: modalViewData
 		                            };
 		                        }
 		                    }
@@ -46,7 +46,7 @@
                 $scope.cancelButtonDisabled = false;
 
 
-                $scope.modalAdditionalData = modalOptions.modalAdditionalData;
+                $scope.modalViewData = modalOptions.modalViewData;
                 $scope.modalData = {};
 
                 $scope.changeOkButtonState = function (buttonDisabled) {

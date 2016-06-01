@@ -2,10 +2,7 @@
     'use strict';
 
     angular.module('app')
-        .constant('templateType', {
-            Post: 1,
-            Header: 2
-        }).constant('ResultCodeEnum', {
+        .constant('ResultCodeEnum', {
             Unknown: 0,
             Success: 1,
             Error: 2,
@@ -34,7 +31,12 @@
             videoGalleryContainer: '/app/directives/containers/videoGalleryContainer/videoGalleryContainer.html',
 
             //modals
-            genericModalFactory: '/app/modals/genericModal/genericModal.html'
+            genericModalFactory: '/app/modals/genericModal/genericModal.html',
+
+            //other templates
+            post: 'post', // not needed?
+            header: 'header',
+            modalWindowPost: 'modalWindowPost'
         }).constant('ActivityEnum', {
             Open: 0,
             Close: 1,

@@ -2,12 +2,17 @@
     'use strict';
 
     angular.module('app')
-        .service('templateFactory', ['$templateCache', 'templateService', 'viewTemplates',
-            function ($templateCache, templateService, viewTemplates) {
+        .service('templateFactory', ['$templateCache', 'templateService', 'viewTemplates', '$q',
+            function ($templateCache, templateService, viewTemplates, $q) {
+
+                function getTemplateFroService(templateName) {
+                    return templateService.get('GetTemplate', templateName);
+                }
+
 
                 function put(templateName) {
                     if (!$templateCache.get(templateName)) {
-                        templateService.get('GetTemplate', templateName).then(function (serverResult) {
+                        getTemplateFroService(templateName).then(function (serverResult) {
                             if (serverResult.sucessResult) {
                                 $templateCache.put(templateName, serverResult.DataResult.View);
                             } else {
@@ -24,9 +29,31 @@
                     //return template ? templateName : viewTemplates[templateName];
                 }
 
+                function getAsync(templateName) {
+                    var deferred = $q.defer();
+                    var template = $templateCache.get(templateName);
+
+                    if (template) {
+                        deferred.resolve(template);
+                    } else {
+                        getTemplateFroService(templateName).then(function (serverResult) {
+                            if (serverResult.sucessResult) {
+                                $templateCache.put(templateName, serverResult.DataResult.View);
+                                deferred.resolve(serverResult.DataResult.View);
+                            } else {
+                                serverResult.showInfoMessage();
+                                deferred.resolve(null);
+                            }
+                        });
+                    }
+
+                    return deferred.promise;
+                }
+
                 return {
                     put: put,
-                    get: get
+                    get: get,
+                    getAsync: getAsync
                 };
             }]);
 })(angular);
