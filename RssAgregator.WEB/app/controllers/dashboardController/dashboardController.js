@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-        .controller('dashboardController', ['$scope', 'templateFactory', 'viewTemplates', 'newsService', '$location', 'genericModalFactory',
-            function ($scope, templateFactory, viewTemplates, newsService, $location, genericModalFactory) {
+        .controller('dashboardController', ['$scope', 'templateFactory', 'viewTemplates', 'newsService', '$location', 'genericModalFactory', 'viewFilters', '$routeParams', 'userService',
+            function ($scope, templateFactory, viewTemplates, newsService, $location, genericModalFactory, viewFilters, $routeParams, userService) {
                 $scope.headerView;
                 $scope.addNewPostButtonVisible = false;
                 $scope.postList = [];
@@ -37,13 +37,47 @@
                 };
 
                 function init() {
+                    var searchParams = { 
+                        PageSize: $scope.pageSize, 
+                        PageNumber: $scope.currentPage, 
+                        HideAdult: $scope.hideAdultContent 
+                    };
+
                     templateFactory.getAsync(viewTemplates.header).then(function (serverResult) {
                         if (serverResult) {
                             $scope.headerView = serverResult;
                         }
                     });
 
-                    newsService.get('NewsSearch', { PageSize: $scope.pageSize, PageNumber: $scope.currentPage, HideAdult: $scope.hideAdultContent }).then(function (serverResult) {
+                    if ($routeParams.filter) {
+                        switch ($routeParams.filter.toLowerCase()) {
+                            case viewFilters.view:
+                                if ($routeParams.postId) {
+                                    newsService.get('NewsItemSearch', $routeParams.postId).then(function(serverResult) {
+                                        if (serverResult.sucessResult) {
+                                            templateFactory.getAsync(viewTemplates.modalWindowPost).then(function (templateServerResult) {
+                                                if (serverResult) {
+                                                    genericModalFactory.show(serverResult.DataResult.PostName, 'Ok', null, templateServerResult, { post: serverResult.DataResult }, 'lg').then(function (modalOkResult) {
+                                                        //No actions required
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            serverResult.showInfoMessage();
+                                        }
+                                    });
+                                }
+                            break;
+                            case viewFilters.top:
+                                //add some filters to the searchParams
+                            break;
+                            case viewFilters.best:
+                                //add some filters to the searchParams
+                            break;
+                        }
+                    }
+
+                    newsService.get('NewsSearch', searchParams).then(function (serverResult) {
                         if (serverResult.sucessResult) {
                             angular.forEach(serverResult.DataResult, function (value) {
                                 $scope.postList.push(value);

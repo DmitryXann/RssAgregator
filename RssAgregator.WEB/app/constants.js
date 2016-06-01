@@ -12,7 +12,6 @@
             dashboardController: '/app/controllers/dashboardController/dashboard.html',
             aboutController: '/app/controllers/aboutController/aboutController.html',
             addEditPostController: '/app/controllers/addEditPostController/addEditPostController.html',
-            viewPostController: '/app/controllers/viewPostController/viewPostController.html',
 
             //general directives
             audioPlayer: '/app/directives/audioPlayer/audioPlayer.html',
@@ -42,5 +41,9 @@
             Close: 1,
             LogIn: 2,
             LogOut: 3
+        }).constant('viewFilters', {
+            view: 'view',
+            top: 'top',
+            best: 'best'
         });
 })(angular);
