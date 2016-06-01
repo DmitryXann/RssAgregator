@@ -10,7 +10,6 @@
         }).constant('viewTemplates', {
             //controllers
             dashboardController: '/app/controllers/dashboardController/dashboard.html',
-            aboutController: '/app/controllers/aboutController/aboutController.html',
             addEditPostController: '/app/controllers/addEditPostController/addEditPostController.html',
 
             //general directives
@@ -35,7 +34,8 @@
             //other templates
             post: 'post', // not needed?
             header: 'header',
-            modalWindowPost: 'modalWindowPost'
+            postModal: 'postModal',
+            aboutModal: 'aboutModal'
         }).constant('ActivityEnum', {
             Open: 0,
             Close: 1,
@@ -44,6 +44,7 @@
         }).constant('viewFilters', {
             view: 'view',
             top: 'top',
-            best: 'best'
+            best: 'best',
+            about: 'about'
         });
 })(angular);

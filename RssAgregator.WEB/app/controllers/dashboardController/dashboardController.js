@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-        .controller('dashboardController', ['$scope', 'templateFactory', 'viewTemplates', 'newsService', '$location', 'genericModalFactory', 'viewFilters', '$routeParams', 'userService',
-            function ($scope, templateFactory, viewTemplates, newsService, $location, genericModalFactory, viewFilters, $routeParams, userService) {
+        .controller('dashboardController', ['$scope', 'templateFactory', 'viewTemplates', 'newsService', '$location', 'genericModalFactory', 'viewFilters', '$routeParams', 'userService', 'uiSettings',
+            function ($scope, templateFactory, viewTemplates, newsService, $location, genericModalFactory, viewFilters, $routeParams, userService, uiSettings) {
                 $scope.headerView;
                 $scope.addNewPostButtonVisible = false;
                 $scope.postList = [];
@@ -55,7 +55,7 @@
                                 if ($routeParams.postId) {
                                     newsService.get('NewsItemSearch', $routeParams.postId).then(function(serverResult) {
                                         if (serverResult.sucessResult) {
-                                            templateFactory.getAsync(viewTemplates.modalWindowPost).then(function (templateServerResult) {
+                                            templateFactory.getAsync(viewTemplates.postModal).then(function (templateServerResult) {
                                                 if (serverResult) {
                                                     genericModalFactory.show(serverResult.DataResult.PostName, 'Ok', null, templateServerResult, { post: serverResult.DataResult }, 'lg').then(function (modalOkResult) {
                                                         //No actions required
@@ -68,11 +68,22 @@
                                     });
                                 }
                             break;
+                            case viewFilters.about:
+                                templateFactory.getAsync(viewTemplates.aboutModal).then(function (templateServerResult) {
+                                    if (templateServerResult) {
+                                        genericModalFactory.show(uiSettings.AboutModalHeader, 'Ok', null, templateServerResult, null, 'lg').then(function (modalOkResult) {
+                                            //No actions required
+                                        });
+                                    }
+                                });
+                            break;
                             case viewFilters.top:
                                 //add some filters to the searchParams
                             break;
                             case viewFilters.best:
                                 //add some filters to the searchParams
+                            break;
+                            case viewFilters.about:
                             break;
                         }
                     }

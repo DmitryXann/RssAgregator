@@ -190,8 +190,8 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'modalWindowPost'
-	   ,@Description	= N'modalWindowPost'
+SELECT @Name			= N'postModal'
+	   ,@Description	= N'postModal'
 	   ,@View			= N'<post-container post-id="{{::modalViewData.post.Id}}" post-object="::modalViewData.post" class="{{::modalViewData.post.DataSource}}"></post-container>'
 	   ,@Version		= NULL
 	   ,@Type			= 2
@@ -557,8 +557,8 @@ GO
 --========================================================
 DECLARE @Name nvarchar(255), @Description nvarchar(255), @View nvarchar(max), @Version int, @Type tinyint, @User_Id int
 
-SELECT @Name			= N'aboutController'
-	   ,@Description	= N'aboutController'
+SELECT @Name			= N'aboutModal'
+	   ,@Description	= N'aboutModal'
 	   ,@View			= N'<span>
     This is an information about this really cool resoutce :)
 </span>
