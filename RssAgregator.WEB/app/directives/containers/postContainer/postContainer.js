@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-		.directive('postContainer', ['newsService', 'templateFactory', 'viewTemplates', 'genericModalFactory',
-		function (newsService, templateFactory, viewTemplates, genericModalFactory) {
+		.directive('postContainer', ['newsService', 'templateFactory', 'onDemandViewTemplates', 'genericModalFactory',
+		function (newsService, templateFactory, onDemandViewTemplates, genericModalFactory) {
 		    return {
 		        restrict: 'E',
 		        templateUrl: function () {
@@ -60,7 +60,7 @@
 		            };
 
 		            scope.viewPost = function () {
-		                templateFactory.getAsync(viewTemplates.modalWindowPost).then(function (serverResult) {
+		                templateFactory.getAsync(onDemandViewTemplates.postModal).then(function (serverResult) {
 		                    if (serverResult) {
 		                        genericModalFactory.show(scope.postObject.PostName, 'Ok', null, serverResult, { post: scope.postObject }, 'lg').then(function (modalOkResult) {
 		                            //No actions required

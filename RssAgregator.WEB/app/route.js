@@ -8,7 +8,8 @@
                 //templateUrl: function () {
                 //    return templateFactory.get('dashboardController');
                 //},
-                controller: 'dashboardController'
+                controller: 'dashboardController',
+                reloadOnSearch: false
             }).otherwise({
                 redirectTo: '/'
             });
