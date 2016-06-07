@@ -4,6 +4,8 @@
     angular.module('app')
         .factory('apiFactory', ['$resource', 'ResultCodeEnum', 'notificationService', 'uiSettings',
             function ($resource, ResultCodeEnum, notificationService, uiSettings) {
+                var useCache;
+
                 function transformResponseProcessing(data, headers, status) {
                     if (status == 200) {
                         var serverResult = angular.fromJson(data);
@@ -33,15 +35,26 @@
                     }
                 }
 
-                function create(controllerName) {
+                function create(controllerName, useGetCache) {
+                    useCache = useGetCache;
+
                     return {
                         get: function (actionName, params) {
+                            var useGetCache = false;
+
+                            if (useCache === false) {
+                                useCache = true;
+                            } else if (useCache === true) {
+                                useGetCache = true;
+                            }
+
                             return $resource('/api/' + controllerName + '/' + actionName + '/:id',
                                 { id: '@id' }, {
                                     get: {
                                         method: "GET",
                                         transformResponse: transformResponseProcessing,
-                                }
+                                        cache: useGetCache
+                                    }
                             }).get(angular.isObject(params) ? params : { id: params }).$promise;
                         },
                         post: function (actionName, params) {
@@ -56,8 +69,13 @@
                     }
                 }
 
+                function resetCacheControl() {
+                    useCache = false;
+                }
+
                 return {
-                    create: create
+                    create: create,
+                    resetCacheControl: resetCacheControl
                 };
             }]);
 })(angular);
