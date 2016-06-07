@@ -189,9 +189,11 @@
     <Content Include="app\directives\addEditPost\addEditPost.js" />
     <Content Include="app\directives\ngBindHtmlCompile.js" />
     <Content Include="app\directives\ngDisabledChildren.js" />
+    <Content Include="app\directives\viewAction.js" />
     <Content Include="app\directives\ngWatchersToggle.js" />
     <Content Include="app\modals\genericModal\genericModal.html" />
     <Content Include="app\modals\genericModal\genericModal.js" />
+    <Content Include="app\services\routeRedirectService.js" />
     <Content Include="app\typeDecorators\loggingServiceDecorator.js" />
     <Content Include="app\typeDecorators\userServiceDecorator.js" />
     <Content Include="app\directives\audioPlayer\audioPlayerProgressBar.html" />

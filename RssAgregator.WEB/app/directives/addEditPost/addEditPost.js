@@ -56,7 +56,7 @@
 		                        }
 		                    }
 
-		                    if ($routeParams.postId &&
+		                    if ($routeParams.id &&
                                 (scope.postName !== scope.originalData.PostName || scope.postTags !== scope.originalData.PostTags || scope.isAdult !== scope.originalData.AdultContent) ||
                                 postContent) {
 		                        newsService.post('AddEditNewsItem', {
@@ -64,7 +64,7 @@
 		                            PostTags: scope.postTags,
 		                            AdultContent: scope.isAdult,
 		                            PostContent: postContent || scope.originalData.PostContent,
-		                            IsNewOne: angular.isUndefined($routeParams.postId)
+		                            IsNewOne: angular.isUndefined($routeParams.id)
 		                        }).then(function (serverResult) {
 		                            that.busy(false);
 
@@ -101,8 +101,8 @@
 		                };
 
 
-		                if ($routeParams.postId) {
-		                    newsService.get('NewsItemSearch', $routeParams.postId).then(function (serverResult) {
+		                if ($routeParams.id) {
+		                    newsService.get('NewsItemSearch', $routeParams.id).then(function (serverResult) {
 		                        if (serverResult.sucessResult) {
 		                            scope.originalData = serverResult.DataResult;
 
