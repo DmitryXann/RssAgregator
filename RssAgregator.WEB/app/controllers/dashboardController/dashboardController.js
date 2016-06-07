@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('app')
-        .controller('dashboardController', ['$scope', 'templateFactory', 'onDemandViewTemplates', 'newsService', '$location', 'genericModalFactory', 'viewFilters', '$routeParams', 'userService', 'uiSettings',
-    function ($scope, templateFactory, onDemandViewTemplates, newsService, $location, genericModalFactory, viewFilters, $routeParams, userService, uiSettings) {
+        .controller('dashboardController', ['$scope', 'templateFactory', 'onDemandViewTemplates', 'newsService', 'routeRedirectService', 'userService', 'uiSettings',
+    function ($scope, templateFactory, onDemandViewTemplates, newsService, routeRedirectService, userService, uiSettings) {
                 $scope.headerView;
                 $scope.addNewPostButtonVisible = false;
                 $scope.postList = [];
@@ -13,11 +13,11 @@
                 $scope.hideAdultContent = true;
 
                 $scope.addNewPost = function () {
-                    $location.path({ filter: 'add' });
+                    routeRedirectService.redirect('add');
                 };
 
                 $scope.editPost = function (postId) {
-                    $location.path('/edit/{0}'.format(postid));
+                    routeRedirectService.redirect('edit', postid);
                 };
 
                 $scope.newPosts = function () {
@@ -29,7 +29,7 @@
                 };
 
                 $scope.about = function () {
-                    $location.search({ 'filter': 'about' });
+                    routeRedirectService.redirect('about');
                 };
 
                 $scope.search = function () {
