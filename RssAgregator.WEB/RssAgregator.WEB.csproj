@@ -237,6 +237,7 @@
     </Content>
     <Content Include="Content\app\players\audioPlayer.less" />
     <Content Include="Content\app\players\videoPlayer.less" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\libs\angular-1.5.6\angular-csp.css" />
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap-theme.css" />
     <Content Include="Content\libs\bootstrap-3.3.6\bootstrap-theme.min.css" />
@@ -247,6 +248,7 @@
     <Content Include="Content\libs\content-tools\images\drop-vert-above.svg" />
     <Content Include="Content\libs\content-tools\images\drop-vert-below.svg" />
     <Content Include="Content\libs\content-tools\images\video.svg" />
+    <Content Include="Content\libs\fontAwesome\font-awesome.css" />
     <Content Include="Content\libs\toastr\toastr.css" />
     <Content Include="Content\libs\toastr\toastr.min.css" />
     <Content Include="Content\libs\video-js-5.9.2\video-js.css" />
@@ -366,6 +368,21 @@
     <Content Include="Scripts\angular-1.5.6\angular.min.js.map" />
     <Content Include="Scripts\angular-1.5.6\errors.json" />
     <Content Include="Scripts\angular-1.5.6\version.json" />
+    <Content Include="Content\_components.less" />
+    <Content Include="Content\_fonts.less" />
+    <Content Include="Content\_general.less" />
+    <Content Include="Content\_mixins.less" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\OpenSans-Bold.ttf" />
+    <Content Include="Content\fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="Content\fonts\OpenSans-Italic.ttf" />
+    <Content Include="Content\fonts\OpenSans-Regular.ttf" />
+    <Content Include="Content\fonts\OpenSans-Semibold.ttf" />
+    <Content Include="Content\fonts\OpenSans-SemiboldItalic.ttf" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
