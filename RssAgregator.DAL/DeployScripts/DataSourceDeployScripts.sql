@@ -100,7 +100,7 @@ SELECT @Name		= N'MDK'
       <onclick>return showPhoto(''-{AuthorId}</onclick>
     </SubSearchCriterea>
     <GetCriterea>
-      <onclick><![CDATA[((http|https):([\w]*.*)\/&quot;)|(&quot;x_&quot;:\[&quot;([\w]*\/*[\w]*)&quot;)]]></onclick>
+      <onclick><![CDATA[((http|https):([\w]*.*)\/&quot;)|(&quot;x_&quot;:\[&quot;([a-zA-Z0-9_-]*\/*[a-zA-Z0-9_-]*)&quot;)]]></onclick>
     </GetCriterea>
     <TrimCriterea stringTrim="true">
       <![CDATA[&quot;x_&quot;:[&quot; &quot;]]>

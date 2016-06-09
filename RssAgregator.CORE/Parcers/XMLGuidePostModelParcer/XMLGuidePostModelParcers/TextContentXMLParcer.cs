@@ -13,9 +13,9 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
         { 
         }
 
-        public override object ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel)
+        public override dynamic ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel)
         {
-            var textContent = (string)base.ProcessDOMNode(xmlParceRule, expectedDOMElement, postModel);
+            dynamic textContent = base.ProcessDOMNode(xmlParceRule, expectedDOMElement, postModel);
             return string.IsNullOrEmpty(textContent) ? null : PostContentModelfactory.GetInitializedFactory(PostContentTypeEnum.Text, postModel.PostContent.Count, textContent);
         }
     }

@@ -83,34 +83,34 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                                     switch (expectedparcerType)
                                     {
                                         case XMLGuidePostModelParcersEnum.AuthorId:
-                                            post.AuthorId = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                            post.AuthorId = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
                                             break;
                                         case XMLGuidePostModelParcersEnum.PostId:
-                                            post.PostId = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                            post.PostId = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
                                             break;
                                         case XMLGuidePostModelParcersEnum.PostLikes:
                                             int postLikes;
-                                            if (int.TryParse((string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post), out postLikes))
+                                            if (int.TryParse(expectedFactory.ProcessDOMNode(ruleNode, domElement, post), out postLikes))
                                             {
                                                 post.PostLikes = postLikes;
                                             }
                                             break;
                                         case XMLGuidePostModelParcersEnum.AuthorName:
-                                            post.AuthorName = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                            post.AuthorName = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
                                             break;
                                         case XMLGuidePostModelParcersEnum.AuthorLink:
-                                            post.AuthorLink = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                            post.AuthorLink = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
                                             break;
                                         case XMLGuidePostModelParcersEnum.PostName:
-                                            post.PostName = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                            post.PostName = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
                                             break;
                                         case XMLGuidePostModelParcersEnum.PostLink:
-                                            post.PostLink = (string)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                            post.PostLink = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
                                             break;
                                         case XMLGuidePostModelParcersEnum.TextContent:
                                         case XMLGuidePostModelParcersEnum.ImgContent:
                                         case XMLGuidePostModelParcersEnum.AudioContent:
-                                            var content = (IPostContentModel)expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                            var content = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
                                             if (content != null)
                                             {
                                                 post.PostContent.Add(content);

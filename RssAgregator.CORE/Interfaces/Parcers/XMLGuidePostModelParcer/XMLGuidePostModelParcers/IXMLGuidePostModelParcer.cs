@@ -6,6 +6,6 @@ namespace RssAgregator.CORE.Interfaces.Parcers.XMLGuidePostModelParcer.XMLGuideP
 {
     public interface IXMLGuidePostModelParcer
     {
-        object ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel);
+        dynamic ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel);
     }
 }

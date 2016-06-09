@@ -1,4 +1,5 @@
 ﻿using RssAgregator.CORE.Interfaces.DOMObjectModel;
+using RssAgregator.CORE.Interfaces.Models.PostModel.PostContentModel;
 using RssAgregator.CORE.Interfaces.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers;
 using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
@@ -21,9 +22,9 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
         { 
         }
 
-        public override object ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel)
+        public override dynamic ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel)
         {
-            object result = null;
+            IPostContentModel result = null;
 
             var searchCritereaNode = xmlParceRule.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == SEARCH_CRITEREA_NODE_NAME.ToLower());
 

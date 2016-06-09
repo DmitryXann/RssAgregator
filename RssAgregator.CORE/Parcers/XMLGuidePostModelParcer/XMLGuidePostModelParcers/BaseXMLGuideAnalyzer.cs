@@ -32,9 +32,9 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                                                                                 elem.Attributes().Any(attr => attr.Name.ToString().ToLower() == USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))));
         }
 
-        public virtual object ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel)
+        public virtual dynamic ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel)
         {
-            object result = null;
+            string result = null;
 
             var searchCritereaNode = xmlParceRule.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == SEARCH_CRITEREA_NODE_NAME.ToLower());
 
@@ -48,7 +48,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             return result;
         }
 
-        protected virtual object ProcessGetCriterea(XElement xmlParceRule, IDOMElement expectedNode, PostModel postModel, string postfix = null)
+        protected virtual string ProcessGetCriterea(XElement xmlParceRule, IDOMElement expectedNode, PostModel postModel, string postfix = null)
         {
             string result = null;
 
