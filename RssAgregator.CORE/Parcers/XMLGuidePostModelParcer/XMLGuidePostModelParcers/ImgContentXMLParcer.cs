@@ -7,7 +7,6 @@ using RssAgregator.CORE.Models.PostModel.PostContentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -33,7 +32,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             {
                 var imgUrls = new List<string>();
 
-                foreach (var child in expectedNode.Childs)
+                Parallel.ForEach(expectedNode.Childs, child =>
                 {
                     if (!child.BadTag)
                     {
@@ -48,7 +47,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                             var getCriterea = getCritereaNode.Elements().First();
 
                             var getResult = Regex.Matches(expectedSubNode.GetContent(getCriterea.Name.ToString()), getCriterea.Value, RegexOptions.IgnoreCase);
-                   
+
                             var trimCritereaNode = xmlParceRule.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == TRIM_CRITEREA_NODE_NAME.ToLower());
 
                             foreach (Match resultPart in getResult)
@@ -63,7 +62,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                                 {
                                     imgUrl += resultPart.Value.Trim();
                                 }
-                                
+
                             }
 
                             var extNode = xmlParceRule.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == IMG_EXT_NAME.ToLower());
@@ -78,7 +77,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                             }
                         }
                     }
-                }
+                });
 
                 if (imgUrls.Any())
                 {

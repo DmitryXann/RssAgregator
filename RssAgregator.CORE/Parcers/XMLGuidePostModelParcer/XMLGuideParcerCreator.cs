@@ -42,7 +42,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                                                                                                                                                 attr.Name.ToString().ToLower() == USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))));
                 if (searchedNodes.Any())
                 {
-                    foreach (var domElement in searchedNodes)
+                    Parallel.ForEach(searchedNodes, domElement => 
                     {
                         if (!domElement.BadTag && domElement.ElementType == DOMEleementTypeEnum.Tag)
                         {
@@ -122,7 +122,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
 
                             result.Add(post);
                         }
-                    }
+                    });
                 }
             }
 
@@ -133,14 +133,14 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
         {
             var result = new List<IDOMElement>();
 
-            foreach (var el in serializedDomModel)
+            Parallel.ForEach(serializedDomModel, el =>
             {
                 var firstChildInSubThree = el.GetFirstChildInSubThree(searchCriterea);
                 if (firstChildInSubThree != null)
                 {
                     result.Add(firstChildInSubThree);
                 }
-            }
+            });
 
             return result;
         }

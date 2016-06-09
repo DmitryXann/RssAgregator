@@ -7,6 +7,7 @@ using RssAgregator.CORE.Models.PostModel.PostContentModel;
 using RssAgregator.CORE.Models.PostModel.PostContentModel.PostContentContainerModel;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers
@@ -32,8 +33,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             {
                 var songsData = new List<AudioPostContentContainerModel>();
 
-                foreach (var child in expectedNode.Childs)
-                {
+                Parallel.ForEach(expectedNode.Childs, child => {
                     var songAuthor = string.Empty;
                     var songName = string.Empty;
 
@@ -41,14 +41,14 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                     var songLinkNode = SearchForNode(searchCritereaSongLinkNode.Elements(), child, postModel);
                     if (songLinkNode != null)
                     {
-                        var songLink = (string)ProcessGetCriterea(xmlParceRule, songLinkNode, postModel, SONG_LINK_POSTFIX_NAME);
+                        var songLink = ProcessGetCriterea(xmlParceRule, songLinkNode, postModel, SONG_LINK_POSTFIX_NAME);
                         if (!string.IsNullOrEmpty(songLink))
                         {
                             var searchCritereaSongAuthorNode = xmlParceRule.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == (SUB_SEARCH_CRITEREA_NODE_NAME + SONG_AUTHOR_POSTFIX_NAME).ToLower());
                             if (searchCritereaSongAuthorNode != null)
                             {
                                 var songAuthorNode = SearchForNode(searchCritereaSongAuthorNode.Elements(), child, postModel);
-                                songAuthor = (string)ProcessGetCriterea(xmlParceRule, songAuthorNode, postModel, SONG_AUTHOR_POSTFIX_NAME);
+                                songAuthor = ProcessGetCriterea(xmlParceRule, songAuthorNode, postModel, SONG_AUTHOR_POSTFIX_NAME);
                             }
 
 
@@ -56,15 +56,13 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                             if (searchCritereaSongNameNode != null)
                             {
                                 var songNameNode = SearchForNode(searchCritereaSongNameNode.Elements(), child, postModel);
-                                songName = (string)ProcessGetCriterea(xmlParceRule, songNameNode, postModel, SONG_NAME_POSTFIX_NAME);
+                                songName = ProcessGetCriterea(xmlParceRule, songNameNode, postModel, SONG_NAME_POSTFIX_NAME);
                             }
 
                             songsData.Add(new AudioPostContentContainerModel(songAuthor, songName, songLink));
                         }
                     }
-                    
-                }
-
+                });
 
                 result = songsData.Any() ? PostContentModelfactory.GetInitializedFactory(PostContentTypeEnum.Audio, postModel.PostContent.Count, songsData.ToArray()) : null;
             }
