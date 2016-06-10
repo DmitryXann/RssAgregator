@@ -7,6 +7,7 @@ using RssAgregator.DAL;
 using RssAgregator.Models.Results;
 using RssAgregator.Models.Services.OnlineRadio;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -55,7 +56,7 @@ namespace RssAgregator.BAL.Services
 
                 if (serverFactoryResult != null && serverFactoryResult.Any())
                 {
-                    var allSongTasks = new List<Task<OnlineRadioServiceSongModel>>();
+                    var allSongTasks = new ConcurrentBag<Task<OnlineRadioServiceSongModel>>();
                     IEnumerable<SongsBlackList> songsBlackList;
 
                     using (var db = new RssAggregatorModelContainer())
