@@ -24,19 +24,6 @@ namespace RssAgregator.DAL
         private const string NAVIGATION                             = "Navigation";
         private const string USER_ACTIVITY_LOG                      = "UserActivityLog";
 
-        private User _systemUser;
-        public User GetSystemUser
-        {
-            get
-            {
-                if (_systemUser == null)
-                {
-                    _systemUser = GetDBSet<User>().First(el => el.Type == UserTypeEnum.System);
-                }
-                return _systemUser;
-            }
-        }
-
         public void AddEntity<T>(T entity) where T : class
         {
             GetDBSet<T>().Add(entity);
