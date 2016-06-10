@@ -69,7 +69,7 @@ namespace RssAgregator.BAL.Services
                         {
                             if (content.PostContentType == CORE.Models.Enums.PostContentTypeEnum.Audio)
                             {
-                                foreach (var audioContent in ((BasePostContentModel<AudioPostContentContainerModel>)content).PostSpecificContent)
+                                Parallel.ForEach(((BasePostContentModel<AudioPostContentContainerModel>)content).PostSpecificContent, audioContent =>
                                 {
                                     if (!string.IsNullOrEmpty(audioContent.Link))
                                     {
@@ -95,7 +95,7 @@ namespace RssAgregator.BAL.Services
                                             }
                                         }));
                                     }
-                                }
+                                });
                             }
                         }
                     }
