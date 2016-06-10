@@ -41,7 +41,8 @@ namespace RssAgregator.WEB
                         "~/Content/libs/toastr/toastr.css",
                         "~/Content/libs/angular-1.5.6/angular-csp.css",
                         "~/Content/libs/video-js-5.9.2/video-js.css",
-                        "~/Content/libs/content-tools/content-tools.min.css"));
+                        "~/Content/libs/content-tools/content-tools.min.css",
+                        "~/Content/libs/fontAwesome/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/app/main.css"));
         }
