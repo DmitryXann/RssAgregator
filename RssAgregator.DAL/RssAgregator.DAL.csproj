@@ -69,14 +69,15 @@
     <Compile Include="Comments.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DALProcessing\EntityProcessing\GenericEntityProcessing.cs" />
+    <Compile Include="DALProcessing\GenericEntityProcessing.cs" />
     <Compile Include="DALProcessing\Entity\Comments.cs" />
     <Compile Include="DALProcessing\Entity\Navigation.cs" />
     <Compile Include="DALProcessing\Entity\News.cs" />
     <Compile Include="DALProcessing\Entity\Template.cs" />
     <Compile Include="DALProcessing\Entity\User.cs" />
-    <Compile Include="DALProcessing\Helpers\Post.cs" />
-    <Compile Include="DALProcessing\Helpers\Transliteration.cs" />
+    <Compile Include="DALProcessing\ContainerHelpers\Post.cs" />
+    <Compile Include="DALProcessing\ContainerHelpers\Transliteration.cs" />
+    <Compile Include="DALProcessing\ContainerHelpers\User.cs" />
     <Compile Include="DALProcessing\RssAggregatorModelContainer.cs" />
     <Compile Include="DataSourceEnum.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
