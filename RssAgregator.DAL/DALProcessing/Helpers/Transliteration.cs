@@ -7,14 +7,27 @@ namespace RssAgregator.DAL
 {
     public partial class RssAggregatorModelContainer : DbContext
     {
+        private IEnumerable<Transliteration> _transliterationCache;
+        public IEnumerable<Transliteration> TransliterationData
+        {
+            get
+            {
+                if (_transliterationCache == null)
+                {
+                    _transliterationCache = GetDBSet<Transliteration>().ToList();
+                }
+
+                return _transliterationCache;
+            }
+        }
+
         public string GetTransliteration(string text)
         {
-            var transliterationData = GetDBSet<Transliteration>().ToList();
             var transliterationResult = new List<string>();
 
             foreach (var charEl in text.ToLower().Where(el => char.IsLetterOrDigit(el) || el == ' ' || el == '\t' || el == '_'))
             {
-                var expectedEl = transliterationData.FirstOrDefault(el => el.FromLetter.Contains(charEl));
+                var expectedEl = TransliterationData.FirstOrDefault(el => el.FromLetter.Contains(charEl));
                 if (expectedEl != null)
                 {
                     transliterationResult.Add(expectedEl.ToLetter);
