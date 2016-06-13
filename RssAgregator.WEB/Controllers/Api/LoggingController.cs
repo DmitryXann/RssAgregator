@@ -21,7 +21,7 @@ namespace RssAgregator.WEB.Controllers.Api
         {
             return new JsonResult
             {
-                Data = LoggingService.LogFEException(string.Format("Exception: {0}, Browser: {1}, Version: {2}", inputParams.ErrorMsg, HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.MajorVersion)),
+                Data = LoggingService.LogFEException(inputParams.ErrorMsg, string.Format("Browser: {0}, Version: {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.MajorVersion)),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

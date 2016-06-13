@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/26/2016 05:27:07
+-- Date Created: 06/13/2016 02:52:35
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -202,8 +202,8 @@ GO
 CREATE TABLE [dbo].[LogSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Message] nvarchar(max)  NOT NULL,
-    [StackTrace] nvarchar(max)  NOT NULL,
-    [Source] nvarchar(max)  NOT NULL,
+    [StackTrace] nvarchar(max)  NULL,
+    [Source] nvarchar(max)  NULL,
     [DateTime] datetime  NOT NULL,
     [Type] tinyint  NOT NULL
 );

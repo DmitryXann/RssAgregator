@@ -1,6 +1,7 @@
 ﻿using RssAgregator.CORE.Interfaces.DOMObjectModel;
 using RssAgregator.CORE.Interfaces.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers;
 using RssAgregator.CORE.Models.PostModel;
+using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,11 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             {
                 result = ProcessGetCriterea(xmlParceRule, expectedNode, postModel);
             }
-            
+
+            if (string.IsNullOrEmpty(result))
+            {
+                Logger.LogException(string.Format("BaseXMLGuideParcer returned no result for {0} factory", GetType().Name), LogTypeEnum.CORE);
+            }
 
             return result;
         }

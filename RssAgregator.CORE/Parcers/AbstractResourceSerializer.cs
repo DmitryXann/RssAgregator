@@ -3,6 +3,7 @@ using RssAgregator.CORE.Interfaces.DOMObjectModel;
 using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Parcers.DOMObjectModel;
 using RssAgregator.CORE.Parcers.XMLGuidePostModelParcer;
+using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,38 +44,52 @@ namespace RssAgregator.CORE.Parcers
         {
             StringBuilder result = null;
 
-            Task<HttpResponseMessage> serverResponceTask = null;
-
-            switch (requestType)
+            try
             {
-                case HttpMethodEnum.GET:
-                    var getParams = string.Empty;
+                Task<HttpResponseMessage> serverResponceTask = null;
 
-                    if (requestContent != null && requestContent.Any())
-                    {
-                        var firstElement = requestContent.First();
-                        getParams += string.Format("?{0}={1}", firstElement.Key, firstElement.Value);
+                switch (requestType)
+                {
+                    case HttpMethodEnum.GET:
+                        var getParams = string.Empty;
 
-                        foreach (var el in requestContent.Skip(1))
+                        if (requestContent != null && requestContent.Any())
                         {
-                            getParams += string.Format("&{0}={1}", el.Key, el.Value);
+                            var firstElement = requestContent.First();
+                            getParams += string.Format("?{0}={1}", firstElement.Key, firstElement.Value);
+
+                            foreach (var el in requestContent.Skip(1))
+                            {
+                                getParams += string.Format("&{0}={1}", el.Key, el.Value);
+                            }
                         }
-                    }
 
-                    serverResponceTask = WebClient.GetAsync(resourceUrl + getParams);
-                    break;
-                case HttpMethodEnum.PUT:
-                    serverResponceTask = WebClient.PutAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
-                    break;
-                case HttpMethodEnum.POST:
-                    serverResponceTask = WebClient.PostAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
-                    break;
+                        serverResponceTask = WebClient.GetAsync(resourceUrl + getParams);
+                        break;
+                    case HttpMethodEnum.PUT:
+                        serverResponceTask = WebClient.PutAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
+                        break;
+                    case HttpMethodEnum.POST:
+                        serverResponceTask = WebClient.PostAsync(resourceUrl, new FormUrlEncodedContent(requestContent));
+                        break;
+                }
+
+                if (serverResponceTask != null)
+                {
+                    var serverDataResult = await (await serverResponceTask).Content.ReadAsStringAsync();
+                    result = new StringBuilder(serverDataResult);
+                }
             }
-
-            if (serverResponceTask != null)
+            catch(Exception ex)
             {
-                var serverDataResult = await (await serverResponceTask).Content.ReadAsStringAsync();
-                result = new StringBuilder(serverDataResult);
+                Logger.LogException(ex, LogTypeEnum.CORE,
+                                    string.Format("GetResourceData for {0} parser failed, URL: {1}, RequestType: {2}, RequestContent: {3}",
+                                                    GetType().Name,
+                                                    resourceUrl.AbsoluteUri,
+                                                    requestType,
+                                                    requestContent == null
+                                                        ? string.Empty
+                                                        : requestContent.Aggregate(string.Empty, (agg, el) => agg + string.Format("Key: {0}, Value: {1}", el.Key, el.Value))));
             }
 
             return result;
@@ -82,66 +97,74 @@ namespace RssAgregator.CORE.Parcers
 
         protected virtual IEnumerable<IDOMElement> Serialize(StringBuilder denormalizedDom)
         {
-            var splitCharacters = new[] { '>', '<' };
-            var normalizedDom = denormalizedDom.Split(el => splitCharacters.Any(elem => elem == el), el => el == '>');
-
             var serializedList = new List<IDOMElement>();
-            IDOMElement parentNode = null;
 
-            foreach (var el in normalizedDom)
+            try
             {
-                if (el.Length > 0)
+                var splitCharacters = new[] { '>', '<' };
+                var normalizedDom = denormalizedDom.Split(el => splitCharacters.Any(elem => elem == el), el => el == '>');
+
+                IDOMElement parentNode = null;
+
+                foreach (var el in normalizedDom)
                 {
-                    var tagName = string.Empty;
-                    var tagNameIndexEnd = el.FirstIndexOfAny(false, " ", "\t", "\n");
-
-                    if (el.Length >= 2 && el[0] == '<' && el[1] == '/')
+                    if (el.Length > 0)
                     {
-                        tagName = el.GetRange(2, tagNameIndexEnd > 0 ? tagNameIndexEnd - 1 : el.Length - 3).ToString().ToLower();
+                        var tagName = string.Empty;
+                        var tagNameIndexEnd = el.FirstIndexOfAny(false, " ", "\t", "\n");
 
-                        var curretnNode = parentNode;
-
-                        while (curretnNode != null && (curretnNode.TagName != tagName || curretnNode.IsDomElementComplete))
+                        if (el.Length >= 2 && el[0] == '<' && el[1] == '/')
                         {
-                            curretnNode = curretnNode.Parent;
-                        }
+                            tagName = el.GetRange(2, tagNameIndexEnd > 0 ? tagNameIndexEnd - 1 : el.Length - 3).ToString().ToLower();
 
-                        if (curretnNode != null && curretnNode.TagName == tagName && !curretnNode.IsDomElementComplete)
-                        {
-                            curretnNode.IsDomElementComplete = true;
+                            var curretnNode = parentNode;
 
-                            while (curretnNode != null && curretnNode.IsDomElementComplete)
+                            while (curretnNode != null && (curretnNode.TagName != tagName || curretnNode.IsDomElementComplete))
                             {
                                 curretnNode = curretnNode.Parent;
                             }
 
-                            parentNode = curretnNode == null ? null : curretnNode;
-                        }
-                    }
-                    else
-                    {
-                        //if (tagNameIndexEnd > 0)
-                        //{
-                        //    tagName = el.GetRange(1, tagNameIndexEnd - 1).ToString().ToLower();
-                        //}
+                            if (curretnNode != null && curretnNode.TagName == tagName && !curretnNode.IsDomElementComplete)
+                            {
+                                curretnNode.IsDomElementComplete = true;
 
-                        var newElement = new DOMElement(parentNode, el);
+                                while (curretnNode != null && curretnNode.IsDomElementComplete)
+                                {
+                                    curretnNode = curretnNode.Parent;
+                                }
 
-                        if (parentNode == null)
-                        {
-                            serializedList.Add(newElement);
+                                parentNode = curretnNode == null ? null : curretnNode;
+                            }
                         }
                         else
                         {
-                            parentNode.AddChild(newElement);
-                        }
+                            //if (tagNameIndexEnd > 0)
+                            //{
+                            //    tagName = el.GetRange(1, tagNameIndexEnd - 1).ToString().ToLower();
+                            //}
 
-                        if (!newElement.IsDomElementComplete && !newElement.BadTag)
-                        {
-                            parentNode = newElement;
+                            var newElement = new DOMElement(parentNode, el);
+
+                            if (parentNode == null)
+                            {
+                                serializedList.Add(newElement);
+                            }
+                            else
+                            {
+                                parentNode.AddChild(newElement);
+                            }
+
+                            if (!newElement.IsDomElementComplete && !newElement.BadTag)
+                            {
+                                parentNode = newElement;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogTypeEnum.CORE, string.Format("Serialize for {0} parser failed", GetType().Name));
             }
 
             return serializedList;

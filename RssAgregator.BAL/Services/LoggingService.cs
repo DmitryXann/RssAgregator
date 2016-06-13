@@ -22,14 +22,19 @@ namespace RssAgregator.BAL.Services
         [Dependency]
         public IUserService UserService { get; set; }
 
-        public GenericResult<bool> LogFEException(string errorMessage)
+        public GenericResult<bool> LogFEException(string errorMessage, string browserData)
         {
-            return LogException(errorMessage, LogTypeEnum.FE);
+            return LogException(errorMessage, LogTypeEnum.FE, browserData);
         }
 
-        public GenericResult<bool> LogWEBException(string errorMessage)
+        public GenericResult<bool> LogWEBException(string errorMessage, string browserData)
         {
-            return LogException(errorMessage, LogTypeEnum.WEB);
+            return LogException(errorMessage, LogTypeEnum.WEB, browserData);
+        }
+
+        public GenericResult<bool> LogWEBException(Exception ex)
+        {
+            return LogException(ex, LogTypeEnum.WEB);
         }
 
         public GenericResult<bool> LogUserActivity(LogUserActivityModel userActivityModel, HttpResponseMessage responce, HttpRequestMessage request)
@@ -106,13 +111,31 @@ namespace RssAgregator.BAL.Services
             return result;
         }
 
-        private GenericResult<bool> LogException(string errorMessage, LogTypeEnum type)
+        private GenericResult<bool> LogException(string errorMessage, LogTypeEnum type, string source = null)
         {
             var result = new GenericResult<bool>();
 
             try
             {
-                Logger.LogException(errorMessage, type);
+                Logger.LogException(errorMessage, type, source: source);
+                result.SetDataResult(true);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogTypeEnum.BAL);
+                result.SetErrorResultCode(SettingService.GetUserFriendlyExceptionMessage());
+            }
+
+            return result;
+        }
+
+        private GenericResult<bool> LogException(Exception occuredException, LogTypeEnum type)
+        {
+            var result = new GenericResult<bool>();
+
+            try
+            {
+                Logger.LogException(occuredException, type);
                 result.SetDataResult(true);
             }
             catch (Exception ex)

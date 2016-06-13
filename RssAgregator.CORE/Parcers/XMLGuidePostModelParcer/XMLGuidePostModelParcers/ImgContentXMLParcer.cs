@@ -4,8 +4,10 @@ using RssAgregator.CORE.Interfaces.Parcers.XMLGuidePostModelParcer.XMLGuidePostM
 using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
 using RssAgregator.CORE.Models.PostModel.PostContentModel;
+using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -71,9 +73,29 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                                 imgUrl += string.Format(".{0}", extNode.Value.Trim());
                             }
 
-                            if (!string.IsNullOrEmpty(imgUrl))
+                            if (string.IsNullOrEmpty(imgUrl))
                             {
-                                imgUrls.Add(imgUrl);
+                                Logger.LogException("ImgContentXMLParcer factory returned an empty link", LogTypeEnum.CORE);
+                            }
+                            else
+                            {
+                                var filename = Path.GetFileNameWithoutExtension(imgUrl);
+                                if (string.IsNullOrEmpty(filename))
+                                {
+                                    Logger.LogException(string.Format("ImgContentXMLParcer factory returned a link without name: {0}", imgUrl), LogTypeEnum.CORE);
+                                }
+                                else
+                                {
+                                    var extension = Path.GetExtension(imgUrl);
+                                    if (string.IsNullOrEmpty(extension))
+                                    {
+                                        Logger.LogException(string.Format("ImgContentXMLParcer factory returned a link without extension: {0}", imgUrl), LogTypeEnum.CORE);
+                                    }
+                                    else
+                                    {
+                                        imgUrls.Add(imgUrl);
+                                    }
+                                }
                             }
                         }
                     }
@@ -82,6 +104,10 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                 if (imgUrls.Any())
                 {
                     result = PostContentModelfactory.GetInitializedFactory(PostContentTypeEnum.Img, postModel.PostContent.Count, imgUrls.ToArray());
+                }
+                else
+                {
+                    Logger.LogException("ImgContentXMLParcer factory returned no records", LogTypeEnum.CORE);
                 }
             }
 

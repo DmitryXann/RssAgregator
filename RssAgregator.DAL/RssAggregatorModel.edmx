@@ -164,8 +164,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="StackTrace" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Source" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StackTrace" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Source" Type="nvarchar(max)" Nullable="true" />
     <Property Name="DateTime" Type="datetime" Nullable="false" />
     <Property Name="Type" Type="tinyint" Nullable="false" />
   </EntityType>
@@ -617,8 +617,8 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Message" Nullable="false" MaxLength="Max" />
-          <Property Type="String" Name="StackTrace" Nullable="false" MaxLength="Max" />
-          <Property Type="String" Name="Source" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="StackTrace" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Source" Nullable="true" MaxLength="Max" />
           <Property Type="DateTime" Name="DateTime" Nullable="false" />
           <Property Type="RssAggregatorModel.LogTypeEnum" Name="Type" Nullable="false" />
         </EntityType>

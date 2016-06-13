@@ -5,7 +5,10 @@ using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
 using RssAgregator.CORE.Models.PostModel.PostContentModel;
 using RssAgregator.CORE.Models.PostModel.PostContentModel.PostContentContainerModel;
+using RssAgregator.DAL;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -59,12 +62,39 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                                 songName = ProcessGetCriterea(xmlParceRule, songNameNode, postModel, SONG_NAME_POSTFIX_NAME);
                             }
 
-                            songsData.Add(new AudioPostContentContainerModel(songAuthor, songName, songLink));
+                            var filename = Path.GetFileName(songLink);
+                            if (string.IsNullOrEmpty(filename))
+                            {
+                                Logger.LogException(string.Format("AudioContentXMLParcer factory returned a link without name: {0}", songLink), LogTypeEnum.CORE);
+                            }
+                            else
+                            {
+                                var extension = Path.GetExtension(songLink);
+                                if (string.IsNullOrEmpty(extension))
+                                {
+                                    Logger.LogException(string.Format("AudioContentXMLParcer factory returned a link without extension: {0}", songLink), LogTypeEnum.CORE);
+                                }
+                                else
+                                {
+                                    songsData.Add(new AudioPostContentContainerModel(songAuthor, songName, songLink));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Logger.LogException("AudioContentXMLParcer factory returned an empty link", LogTypeEnum.CORE);
                         }
                     }
                 });
 
-                result = songsData.Any() ? PostContentModelfactory.GetInitializedFactory(PostContentTypeEnum.Audio, postModel.PostContent.Count, songsData.ToArray()) : null;
+                if (songsData.Any())
+                {
+                    result = PostContentModelfactory.GetInitializedFactory(PostContentTypeEnum.Audio, postModel.PostContent.Count, songsData.ToArray());
+                }
+                else
+                {
+                    Logger.LogException("AudioContentXMLParcer factory returned no records", LogTypeEnum.CORE);
+                }
             }
 
             return result;

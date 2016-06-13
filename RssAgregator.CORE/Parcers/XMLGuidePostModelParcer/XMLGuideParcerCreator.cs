@@ -5,7 +5,9 @@ using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
 using RssAgregator.CORE.Models.PostModel.PostContentModel;
 using RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers;
+using RssAgregator.DAL;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +31,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
 
         public IEnumerable<PostModel> CreatePostModel(IEnumerable<IDOMElement> serializedDomModel)
         {
-            var result = new List<PostModel>();
+            var result = new ConcurrentBag<PostModel>();
 
             var parcerRuleRootNode = _xmlParceRules.Root;
 
@@ -80,42 +82,50 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                                 if (Enum.TryParse(ruleNode.Name.ToString(), true, out expectedparcerType))
                                 {
                                     var expectedFactory = XMLPostModelParcerFactory.GetFactory(expectedparcerType);
-                                    switch (expectedparcerType)
+
+                                    try
                                     {
-                                        case XMLGuidePostModelParcersEnum.AuthorId:
-                                            post.AuthorId = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                            break;
-                                        case XMLGuidePostModelParcersEnum.PostId:
-                                            post.PostId = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                            break;
-                                        case XMLGuidePostModelParcersEnum.PostLikes:
-                                            int postLikes;
-                                            if (int.TryParse(expectedFactory.ProcessDOMNode(ruleNode, domElement, post), out postLikes))
-                                            {
-                                                post.PostLikes = postLikes;
-                                            }
-                                            break;
-                                        case XMLGuidePostModelParcersEnum.AuthorName:
-                                            post.AuthorName = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                            break;
-                                        case XMLGuidePostModelParcersEnum.AuthorLink:
-                                            post.AuthorLink = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                            break;
-                                        case XMLGuidePostModelParcersEnum.PostName:
-                                            post.PostName = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                            break;
-                                        case XMLGuidePostModelParcersEnum.PostLink:
-                                            post.PostLink = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                            break;
-                                        case XMLGuidePostModelParcersEnum.TextContent:
-                                        case XMLGuidePostModelParcersEnum.ImgContent:
-                                        case XMLGuidePostModelParcersEnum.AudioContent:
-                                            var content = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
-                                            if (content != null)
-                                            {
-                                                post.PostContent.Add(content);
-                                            }
-                                            break;
+                                        switch (expectedparcerType)
+                                        {
+                                            case XMLGuidePostModelParcersEnum.AuthorId:
+                                                post.AuthorId = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                                break;
+                                            case XMLGuidePostModelParcersEnum.PostId:
+                                                post.PostId = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                                break;
+                                            case XMLGuidePostModelParcersEnum.PostLikes:
+                                                int postLikes;
+                                                if (int.TryParse(expectedFactory.ProcessDOMNode(ruleNode, domElement, post), out postLikes))
+                                                {
+                                                    post.PostLikes = postLikes;
+                                                }
+                                                break;
+                                            case XMLGuidePostModelParcersEnum.AuthorName:
+                                                post.AuthorName = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                                break;
+                                            case XMLGuidePostModelParcersEnum.AuthorLink:
+                                                post.AuthorLink = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                                break;
+                                            case XMLGuidePostModelParcersEnum.PostName:
+                                                post.PostName = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                                break;
+                                            case XMLGuidePostModelParcersEnum.PostLink:
+                                                post.PostLink = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                                break;
+                                            case XMLGuidePostModelParcersEnum.TextContent:
+                                            case XMLGuidePostModelParcersEnum.ImgContent:
+                                            case XMLGuidePostModelParcersEnum.AudioContent:
+                                                var content = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
+                                                if (content != null)
+                                                {
+                                                    post.PostContent.Add(content);
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logger.LogException(ex, LogTypeEnum.CORE, string.Format("ProcessDOMNode {0} factory failed", expectedparcerType));
                                     }
                                 }
                             }
