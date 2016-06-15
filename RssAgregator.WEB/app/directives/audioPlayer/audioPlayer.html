@@ -1,60 +1,80 @@
 ﻿<div>
-    <div>
-        <div class="audio-player">
-            <div ng-click="playPrevious()"><i class="fa fa-backward" title="Previous"></i></div>
-            <div ng-click="payPause()"><i class="fa fa-play" title="Play\Pause"></i></div>
-            <div ng-click="playNext()"><i class="fa fa-forward" title="Next"></i></div>
+    <div class="row audio-player-controls">
+        <div class="col-xs-3 audio-player">
+            <button type="button" class="btn btn-invisible audio-player-control" title="Mute" ng-click="mute()"><i class="fa fa-volume-off"></i></button>
+            <button type="button" class="btn btn-invisible audio-player-control" title="Previous" ng-click="playPrevious()"><i class="fa fa-backward"></i></button>
+            <button type="button" class="btn btn-invisible audio-player-control" title="Play\Pause" ng-click="playPause()"><i class="fa fa-play"></i></button><!--todo: switch play / pause icons-->
+            <button type="button" class="btn btn-invisible audio-player-control" title="Next" ng-click="playNext()"><i class="fa fa-forward"></i></button>
+            <button type="button" class="btn btn-invisible audio-player-control" title="Repeat" ng-click="repeatAll()"><i class="fa fa-retweet"></i></button>
+            <button type="button" class="btn btn-invisible audio-player-control" title="Shuffle" ng-click="shuffle()"><i class="fa fa-random"></i></button>
         </div>
-        <audio-player-progress-bar current-playing-song="currentPlayingSong" seek="seek"></audio-player-progress-bar>
-        <div>
-            <div ng-click="repeatAll()">Repeat</div>
-            <div ng-click="shuffle()">Shuffle</div>
-        </div>
-        <div>
-            <input type="text" ng-model="searchQuestion" placeholder="Enter song or artist" uib-typeahead="songs for songs in typeAheadSearchResult($viewValue)" typeahead-loading="typeAheadLoading" typeahead-no-results="typeAheadNoResults" class="form-control" ng-enter="search()">
-            <i ng-show="typeAheadLoading" class="glyphicon glyphicon-refresh"></i>
-            <div ng-show="typeAheadNoResults">
-                <i class="glyphicon glyphicon-remove"></i> No Results Found
-            </div>
-            <button type="button" class="btn btn-default" ng-click="search()" ng-disabled="!searchQuestion">Search</button>
+        <audio-player-progress-bar class="col-xs-8" current-playing-song="currentPlayingSong" seek="seek"></audio-player-progress-bar>
+        <div class="col-xs-1">
+            <!--hidden menu-->
+            <button type="button" class="btn btn-invisible audio-player-menu-btn" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-lg fa-bars"></i></button>
         </div>
     </div>
-    <div class="audio-pay-list">
-        <div>
-            <uib-tabset active="activceTabIndex">
-                <uib-tab heading="Play List">
-                    <table>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr ng-repeat="el in playList">
-                            <td><button type="button" class="btn btn-default" ng-click="play(el)">Play</button></td>
-                            <td ng-bind="::el.artist"></td>
-                            <td ng-bind="::el.name"></td>
-                            <td ng-bind="el.userFriendlyEstimateDuration"></td>
-                            <td><button type="button" class="btn btn-default" ng-click="deleteFromPlayList(el)">Delete</button></td>
-                        </tr>
-                    </table>
-                </uib-tab>
-                <uib-tab heading="Search Result">
-                    <table>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr ng-repeat="el in searchResult">
-                            <td ng-bind="::el.artist"></td>
-                            <td ng-bind="::el.name"></td>
-                            <td><button type="button" class="btn btn-default" ng-click="addToPlayList(el)">Add to playlist</button></td>
-                        </tr>
-                    </table>
-                </uib-tab>
-            </uib-tabset>
+    <div class="row audio-player-menu-container" uib-collapse="!isCollapsed">
+        <div class="input-group audio-player-search">
+            <input type="text" class="form-control" ng-model="searchQuestion" placeholder="Enter song or artist" uib-typeahead="songs for songs in typeAheadSearchResult($viewValue)" typeahead-loading="typeAheadLoading" typeahead-no-results="typeAheadNoResults" class="form-control" ng-enter="search()">
+            <i ng-show="typeAheadLoading" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="typeAheadNoResults">
+                <i class="fa fa-times"></i> No Results Found
+            </div>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="search()" ng-disabled="!searchQuestion">Search</button><!--todo: switch to search results tab if there are results-->
+            </span>
+        </div>
+
+        <div class="audio-pay-list">
+            <div>
+                <uib-tabset active="activceTabIndex">
+                    <uib-tab heading="Play List">
+                        <table>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr ng-repeat="el in playList">
+                                <td>
+                                    <button type="button" class="btn btn-invisible" ng-click="play(el)" title="Play">
+                                        <i class="fa fa-play"></i>
+                                    </button>
+                                </td>
+                                <td ng-bind="::el.artist"></td>
+                                <td ng-bind="::el.name"></td>
+                                <td ng-bind="el.userFriendlyEstimateDuration"></td>
+                                <td>
+                                    <button type="button" class="btn btn-invisible" ng-click="deleteFromPlayList(el)" title="Delete">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                    <uib-tab heading="Search Result">
+                        <table>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr ng-repeat="el in searchResult">
+                                <td ng-bind="::el.artist"></td>
+                                <td ng-bind="::el.name"></td>
+                                <td>
+                                    <button type="button" class="btn btn-invisible" ng-click="addToPlayList(el)" title="Add to playlist">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
         </div>
     </div>
 </div>

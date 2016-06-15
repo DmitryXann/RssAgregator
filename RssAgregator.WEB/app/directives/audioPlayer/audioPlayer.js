@@ -54,7 +54,7 @@
 		                listEl.audioObject.play();
 		            };
 
-		            scope.payPause = function () {
+		            scope.playPause = function () {
 		                if (!scope.currentPlayingSong && scope.playList && scope.playList.length) {
 		                    scope.currentPlayingSong = scope.playList[0];
 		                }
