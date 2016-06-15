@@ -368,10 +368,10 @@
     <Content Include="Scripts\angular-1.5.6\angular.min.js.map" />
     <Content Include="Scripts\angular-1.5.6\errors.json" />
     <Content Include="Scripts\angular-1.5.6\version.json" />
-    <Content Include="Content\_components.less" />
-    <Content Include="Content\_fonts.less" />
-    <Content Include="Content\_general.less" />
-    <Content Include="Content\_mixins.less" />
+    <Content Include="Content\app\_components.less" />
+    <Content Include="Content\app\_fonts.less" />
+    <Content Include="Content\app\_general.less" />
+    <Content Include="Content\app\_mixins.less" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
