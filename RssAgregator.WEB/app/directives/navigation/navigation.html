@@ -1,5 +1,7 @@
-﻿<div>
-    <div ng-repeat="item in ::navigationData | orderBy : 'OrderNo'">
-        <span ng-bind="::item.Title" ng-click="redirect(item.RedirectTo)"></span>
-    </div>
+﻿<div class="row top-menu">
+    <ul class="nav nav-pills">
+        <li class="menu-item" role="presentation" ng-repeat="item in ::navigationData | orderBy : 'OrderNo'"><!--todo: add active class-->
+            <a href="" ng-click="redirect(item.RedirectTo)"><span ng-bind="::item.Title"></span></a>
+        </li>
+    </ul>
 </div>

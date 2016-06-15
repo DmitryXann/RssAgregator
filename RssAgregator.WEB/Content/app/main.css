@@ -86,6 +86,8 @@ body {
 }
 a {
   color: #4e79c7;
+}
+a.text-link {
   text-decoration: underline;
 }
 .audio-player-controls .audio-player-control {
@@ -113,6 +115,20 @@ a {
   width: 300px;
   height: 200px;
   pointer-events: none;
+}
+.top-menu .menu-item {
+  font-size: 20px;
+  font-weight: 600;
+  width: 8.33333%;
+  text-align: center;
+}
+.top-menu .menu-item.active a {
+  background-color: #1c2b47;
+  color: #fff;
+}
+.top-menu .menu-item a {
+  color: #1c2b47;
+  border-radius: 0;
 }
 .content-menu .menu-item {
   text-transform: uppercase;

@@ -1,8 +1,31 @@
-.content-menu {
-  .menu-item {
-    text-transform: uppercase;
-    a {
-      text-decoration: none;
+@import "_mixins.less";
+
+.top-menu {
+    .menu-item {
+        font-size: 20px;
+        font-weight: 600;
+        width: 8.33333%;
+        text-align: center;
+
+        &.active {
+            a {
+                .inverted(@background);
+            }
+        }
+
+        a {
+            .background();
+            border-radius: 0;
+        }
     }
-  }
+}
+
+.content-menu {
+    .menu-item {
+        text-transform: uppercase;
+
+        a {
+            text-decoration: none;
+        }
+    }
 }
