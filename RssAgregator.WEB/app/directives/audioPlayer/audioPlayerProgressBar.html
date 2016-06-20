@@ -2,6 +2,6 @@
                  ng-mousemove="mouseMove($event)" 
                  ng-mousedown="mouseClickToggle($event, true)" ng-mouseup="mouseClickToggle($event, false)"
                  ng-mouseleave="mouseEnterToggle(false)" ng-mouseenter="mouseEnterToggle(true)"
-                 uib-tooltip="{{approximateSongProgress()}}" tooltip-enable="currentPlayingSong">
+                 uib-tooltip="{{approximateSongProgress()}}" tooltip-enable="currentPlayingSong" animate="false" tooltip-placement="bottom">
     <span class="song-name" ng-bind="currentSongName"></span> <span class="song-duraion" ng-bind="currentSongUserFriendlyProgress()"></span>
 </uib-progressbar>

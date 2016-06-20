@@ -10,6 +10,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -56,7 +57,7 @@ namespace RssAgregator.BAL.Services
 
                 if (serverFactoryResult != null && serverFactoryResult.Any())
                 {
-                    var allSongTasks = new ConcurrentBag<Task<OnlineRadioServiceSongModel>>();
+                    var allSong = new ConcurrentBag<OnlineRadioServiceSongModel>();
                     IEnumerable<SongsBlackList> songsBlackList;
 
                     using (var db = new RssAggregatorModelContainer())
@@ -74,39 +75,28 @@ namespace RssAgregator.BAL.Services
                                 {
                                     if (!string.IsNullOrEmpty(audioContent.Link))
                                     {
-                                        allSongTasks.Add(Task.Run<OnlineRadioServiceSongModel>(async () =>
+                                        using (var webClient = new WebClient())
                                         {
-                                            using (var webClient = new HttpClient())
+                                            var serverResult = webClient.DownloadString(string.Format("{0}/{1}", _onlineRadionBaseURL.TrimEnd(new[] { '/' }), audioContent.Link.TrimStart(new[] { '/' })));
+
+                                            var serializedServerResult = JsonConvert.DeserializeObject<OnlineRadioServiceSongUrlJsonModel>(serverResult);
+                                            if (serializedServerResult != null && !string.IsNullOrEmpty(serializedServerResult.url) && !songsBlackList.Any(el => el.SongURL == serializedServerResult.url))
                                             {
-                                                var serverResponceTask = webClient.GetAsync(string.Format("{0}/{1}", _onlineRadionBaseURL.TrimEnd(new[] { '/' }), audioContent.Link.TrimStart(new[] { '/' })));
-
-                                                var serverResult = await (await serverResponceTask).Content.ReadAsStringAsync();
-                                                var serializedServerResult = JsonConvert.DeserializeObject<OnlineRadioServiceSongUrlJsonModel>(serverResult);
-                                                if (serializedServerResult != null && !string.IsNullOrEmpty(serializedServerResult.url) && !songsBlackList.Any(el => el.SongURL == serializedServerResult.url))
+                                                allSong.Add(new OnlineRadioServiceSongModel
                                                 {
-                                                    return new OnlineRadioServiceSongModel
-                                                    {
-                                                        Artist = audioContent.Artist,
-                                                        Name = audioContent.Name,
-                                                        Link = serializedServerResult.url
-                                                    };
-                                                }
-
-                                                return null;
+                                                    Artist = audioContent.Artist,
+                                                    Name = audioContent.Name,
+                                                    Link = serializedServerResult.url
+                                                });
                                             }
-                                        }));
+                                        }
                                     }
                                 });
                             }
                         }
                     }
 
-                    result.SetDataResult(await Task.Run<IEnumerable<OnlineRadioServiceSongModel>>(() =>
-                    {
-                        Task.WaitAll(allSongTasks.ToArray());
-
-                        return allSongTasks.AsParallel().Select(el => el.Result).Where(el => el != null);
-                    }));
+                    result.SetDataResult(allSong);
                 }
                 else
                 {
