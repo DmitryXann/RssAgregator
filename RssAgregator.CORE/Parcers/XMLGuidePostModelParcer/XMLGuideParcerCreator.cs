@@ -1,16 +1,12 @@
 ﻿using RssAgregator.CORE.Interfaces.DOMObjectModel;
-using RssAgregator.CORE.Interfaces.Models.PostModel.PostContentModel;
-using RssAgregator.CORE.Interfaces.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers;
 using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
-using RssAgregator.CORE.Models.PostModel.PostContentModel;
 using RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers;
 using RssAgregator.DAL;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -45,7 +41,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                 if (searchedNodes.Any())
                 {
                     //Parallel.ForEach(searchedNodes, domElement => 
-                    foreach(var domElement in searchedNodes)
+                    foreach(var domElement in searchedNodes)//TODO: just for debug, remove
                     {
                         if (!domElement.BadTag && domElement.ElementType == DOMEleementTypeEnum.Tag)
                         {
@@ -151,7 +147,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
 
         private IEnumerable<IDOMElement> SearchForNodes(IEnumerable<IDOMElement> serializedDomModel, Func<IDOMElement, bool> searchCriterea)
         {
-            var result = new List<IDOMElement>();
+            var result = new ConcurrentBag<IDOMElement>();
 
             Parallel.ForEach(serializedDomModel, el =>
             {
