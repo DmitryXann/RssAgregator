@@ -23,6 +23,7 @@ namespace RssAgregator.DAL
         private const string TRANSLITERATION                        = "Transliteration";
         private const string NAVIGATION                             = "Navigation";
         private const string USER_ACTIVITY_LOG                      = "UserActivityLog";
+        private const string TAGS                                   = "Tags";
 
         public void AddEntity<T>(T entity) where T : class
         {
@@ -75,6 +76,8 @@ namespace RssAgregator.DAL
                     return NavigationSet as DbSet<T>;
                 case USER_ACTIVITY_LOG:
                     return UserActivityLogSet as DbSet<T>;
+                case TAGS:
+                    return TagsSet as DbSet<T>;
                 default:
                     throw new NotSupportedException(string.Format("Handling for {0} type not support", typeof(T).Name));
 

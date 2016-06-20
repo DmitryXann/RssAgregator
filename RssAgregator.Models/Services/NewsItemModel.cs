@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RssAgregator.Models.Enums;
+using System;
 
 namespace RssAgregator.Models.Services
 {
@@ -19,5 +20,7 @@ namespace RssAgregator.Models.Services
         public bool IsNewOne { get; set; }
 
         public string PostId { get; set; }
+
+        public Locaion? Locaion { get; set; }
     }
 }

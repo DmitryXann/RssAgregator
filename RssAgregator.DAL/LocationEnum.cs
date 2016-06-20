@@ -14,6 +14,7 @@ namespace RssAgregator.DAL
     public enum LocationEnum : int
     {
         en = 0,
-        ru = 1
+        ru = 1,
+        invariant = 2
     }
 }

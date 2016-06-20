@@ -67,14 +67,15 @@ namespace RssAgregator.CORE
                                         PostLikes = post.PostLikes,
                                         PostName = post.PostName,
                                         PostLink = null,//postId,
-                                        PostTags = post.PostTags.Aggregate(string.Empty, (agg, el) => agg + el + ", "),
+                                        PostTags = post.PostTags.Aggregate(string.Empty, (agg, el) => agg + ", " + el).TrimStart(new[] { ',', ' ' }),
                                         External = true,
                                         IsActive = true,
                                         AdultContent = false,
                                         DataSource = dataSource,
                                         CreationDateTime = DateTime.UtcNow,
                                         ModificationDateTime = DateTime.UtcNow,
-                                        User = user
+                                        User = user,
+                                        Location = dataSource.Location
                                     };
 
                                     foreach (var postContent in post.PostContent.OrderBy(el => el.PostOrder))
@@ -87,7 +88,7 @@ namespace RssAgregator.CORE
                                                 {
                                                     postStringContetnt.Add(textPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el));
                                                 }
-                                                break;
+                                            break;
                                             case PostContentTypeEnum.Img:
                                                 if (postContent.PostContent.Any())
                                                 {
@@ -102,7 +103,7 @@ namespace RssAgregator.CORE
 
                                                     postStringContetnt.Add(imgGalleryContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, imgPostContainers));
                                                 }
-                                                break;
+                                            break;
                                             case PostContentTypeEnum.Audio:
                                                 var audioPostContainer = _systemTemplates.First(el => el.Name.ToLower() == AUDIO_TEMPLATE_NAME.ToLower());
                                                 foreach (var el in ((BasePostContentModel<AudioPostContentContainerModel>)postContent).PostSpecificContent)
@@ -111,7 +112,7 @@ namespace RssAgregator.CORE
                                                                                                    .Replace(CONTENT_MEDIA_AUTHOR_PLACEHOLDER, el.Artist)
                                                                                                    .Replace(CONTENT_MEDIA_NAME_PLACEHOLDER, el.Name));
                                                 }
-                                                break;
+                                            break;
                                             case PostContentTypeEnum.Video:
                                                 if (postContent.PostContent.Any())
                                                 {
@@ -128,8 +129,10 @@ namespace RssAgregator.CORE
 
                                                     postStringContetnt.Add(videoGalleryContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, videoPostContainers));
                                                 }
-                                                break;
+                                            break;
                                         }
+
+                                        newPost.PostTags += string.Format(", {0}", db.GetTagName((TagTypeEnum)postContent.PostContentType, newPost.Location));
                                     }
 
                                     newPost.PostContent = postStringContetnt.Aggregate(string.Empty, (agg, el) => agg + '\n' + el);
@@ -144,6 +147,14 @@ namespace RssAgregator.CORE
                             else
                             {
                                 Logger.LogException(string.Format("DataSourceProcessing for {0} factory has empty content for the post: {1}", dataSource.Type, post.PostId), LogTypeEnum.CORE);
+                            }
+                        }
+
+                        if (dataSource.PostAmountPerIteration.HasValue)
+                        {
+                            if (contetn.Result.Count() != dataSource.PostAmountPerIteration.Value)
+                            {
+                                Logger.LogException(string.Format("DataSourceProcessing for {0} factory returned incorrect expected amount of post, expected {1}, got {2}", dataSource.Type, dataSource.PostAmountPerIteration.Value, contetn.Result.Count()), LogTypeEnum.CORE);
                             }
                         }
                     }

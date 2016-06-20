@@ -22,6 +22,7 @@
     <EntitySet Name="TransliterationSet" EntityType="RssAggregatorModel.Store.TransliterationSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="NavigationSet" EntityType="RssAggregatorModel.Store.NavigationSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserActivityLogSet" EntityType="RssAggregatorModel.Store.UserActivityLogSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TagsSet" EntityType="RssAggregatorModel.Store.TagsSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="NewsDataSources" Association="RssAggregatorModel.Store.NewsDataSources">
       <End Role="News" EntitySet="NewsSet" />
       <End Role="DataSources" EntitySet="DataSourcesSet" />
@@ -83,6 +84,8 @@
     <Property Name="XMLGuide" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BaseUri" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsNewsSource" Type="bit" Nullable="false" />
+    <Property Name="PostAmountPerIteration" Type="int" Nullable="true" />
+    <Property Name="Location" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="NewsSet">
     <Key>
@@ -103,6 +106,7 @@
     <Property Name="AdultContent" Type="bit" Nullable="false" />
     <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
     <Property Name="ModificationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Location" Type="int" Nullable="false" />
     <Property Name="DataSource_Id" Type="int" Nullable="true" />
     <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -117,6 +121,7 @@
     <Property Name="Type" Type="tinyint" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
     <Property Name="UserKey" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Location" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="TemplateSet">
     <Key>
@@ -237,6 +242,7 @@
     <Property Name="RedirectTo" Type="nvarchar" Nullable="false" MaxLength="25" />
     <Property Name="OrderNo" Type="int" Nullable="false" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Location" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="UserActivityLogSet">
     <Key>
@@ -254,6 +260,15 @@
     <Property Name="Region" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Organization" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="User_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TagsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Location" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="NewsDataSources">
     <End Role="News" Type="RssAggregatorModel.Store.NewsSet" Multiplicity="*" />
@@ -468,6 +483,7 @@
             <End Role="User" EntitySet="UserSet" />
             <End Role="UserActivityLog" EntitySet="UserActivityLogSet" />
           </AssociationSet>
+          <EntitySet Name="TagsSet" EntityType="RssAggregatorModel.Tags" />
         </EntityContainer>
         <EntityType Name="DataSources">
           <Key>
@@ -482,6 +498,8 @@
           <Property Type="String" Name="XMLGuide" Nullable="false" MaxLength="Max" />
           <Property Type="String" Name="BaseUri" Nullable="false" MaxLength="Max" />
           <Property Name="IsNewsSource" Type="Boolean" Nullable="false" />
+          <Property Name="PostAmountPerIteration" Type="Int32" Nullable="true" />
+          <Property Name="Location" Type="RssAggregatorModel.LocationEnum" Nullable="false" />
         </EntityType>
         <EnumType Name="DataSourceEnum">
           <Member Name="VK" Value="2" />
@@ -514,6 +532,7 @@
           <NavigationProperty Name="UsersImage" Relationship="RssAggregatorModel.NewsUsersImage" FromRole="News" ToRole="UsersImage" />
           <Property Name="CreationDateTime" Type="DateTime" Nullable="false" />
           <Property Name="ModificationDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="Location" Type="RssAggregatorModel.LocationEnum" Nullable="false" />
         </EntityType>
         <Association Name="NewsDataSources">
           <End Type="RssAggregatorModel.News" Role="News" Multiplicity="*" />
@@ -539,13 +558,14 @@
           <NavigationProperty Name="UserMessagesRecived" Relationship="RssAggregatorModel.UserMessagesUser1" FromRole="User" ToRole="UserMessages" />
           <Property Name="UserKey" Type="String" Nullable="false" MaxLength="Max" />
           <NavigationProperty Name="UserActivityLog" Relationship="RssAggregatorModel.UserUserActivityLog" FromRole="User" ToRole="UserActivityLog" />
+          <Property Name="Location" Type="RssAggregatorModel.LocationEnum" Nullable="false" />
         </EntityType>
         <EnumType Name="UserTypeEnum" UnderlyingType="Byte">
-          <Member Name="System" />
-          <Member Name="Admin" />
-          <Member Name="Moderator" />
-          <Member Name="User" />
-          <Member Name="Anonymous" />
+          <Member Name="System" Value="0" />
+          <Member Name="Admin" Value="1" />
+          <Member Name="Moderator" Value="2" />
+          <Member Name="User" Value="3" />
+          <Member Name="Anonymous" Value="4" />
         </EnumType>
         <Association Name="NewsUsers">
           <End Type="RssAggregatorModel.News" Role="News" Multiplicity="*" />
@@ -671,16 +691,16 @@
           <End Type="RssAggregatorModel.User" Role="User" Multiplicity="1" />
         </Association>
         <EnumType Name="TemplateTypeEnum" UnderlyingType="Byte">
-          <Member Name="System" />
-          <Member Name="Post" />
-          <Member Name="Header" />
+          <Member Name="System" Value="0" />
+          <Member Name="Post" Value="1" />
+          <Member Name="Header" Value="2" />
         </EnumType>
         <EnumType Name="LogTypeEnum" UnderlyingType="Byte">
-          <Member Name="BAL" />
-          <Member Name="DAL" />
-          <Member Name="WEB" />
-          <Member Name="CORE" />
-          <Member Name="FE" />
+          <Member Name="BAL" Value="0" />
+          <Member Name="DAL" Value="1" />
+          <Member Name="WEB" Value="2" />
+          <Member Name="CORE" Value="3" />
+          <Member Name="FE" Value="4" />
         </EnumType>
         <EntityType Name="Settings">
           <Key>
@@ -718,10 +738,12 @@
           <Property Name="RedirectTo" Type="String" Nullable="false" MaxLength="25" />
           <Property Name="OrderNo" Type="Int32" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Location" Type="RssAggregatorModel.LocationEnum" Nullable="false" />
         </EntityType>
         <EnumType Name="LocationEnum" UnderlyingType="Int32">
-          <Member Name="en" />
-          <Member Name="ru" />
+          <Member Name="en" Value="0" />
+          <Member Name="ru" Value="1" />
+          <Member Name="invariant" Value="2" />
         </EnumType>
         <EntityType Name="UserActivityLog">
           <Key>
@@ -741,15 +763,31 @@
           <Property Name="Organization" Type="String" Nullable="false" MaxLength="50" />
         </EntityType>
         <EnumType Name="ActivityEnum" >
-          <Member Name="Open" />
-          <Member Name="Close" />
-          <Member Name="LogIn" />
-          <Member Name="LogOut" />
+          <Member Name="Open" Value="0" />
+          <Member Name="Close" Value="1" />
+          <Member Name="LogIn" Value="2" />
+          <Member Name="LogOut" Value="3" />
         </EnumType>
         <Association Name="UserUserActivityLog">
           <End Type="RssAggregatorModel.User" Role="User" Multiplicity="0..1" />
           <End Type="RssAggregatorModel.UserActivityLog" Role="UserActivityLog" Multiplicity="*" />
         </Association>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="25" />
+          <Property Name="Type" Type="RssAggregatorModel.TagTypeEnum" Nullable="false" />
+          <Property Name="Location" Type="RssAggregatorModel.LocationEnum" Nullable="false" />
+        </EntityType>
+        <EnumType Name="TagTypeEnum" >
+          <Member Name="Text" Value="0" />
+          <Member Name="Img" Value="1" />
+          <Member Name="Link" Value="2" />
+          <Member Name="Audio" Value="3" />
+          <Member Name="Video" Value="4" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -767,6 +805,8 @@
           <ScalarProperty Name="XMLGuide" ColumnName="XMLGuide" />
           <ScalarProperty Name="BaseUri" ColumnName="BaseUri" />
           <ScalarProperty Name="IsNewsSource" ColumnName="IsNewsSource" />
+          <ScalarProperty Name="PostAmountPerIteration" ColumnName="PostAmountPerIteration" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -788,6 +828,7 @@
           <ScalarProperty Name="AdultContent" ColumnName="AdultContent" />
           <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
           <ScalarProperty Name="ModificationDateTime" ColumnName="ModificationDateTime" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -801,6 +842,7 @@
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="UserKey" ColumnName="UserKey" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -924,6 +966,7 @@
           <ScalarProperty Name="RedirectTo" ColumnName="RedirectTo" />
           <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -941,6 +984,16 @@
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="Region" ColumnName="Region" />
           <ScalarProperty Name="Organization" ColumnName="Organization" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RssAggregatorModel.Tags)">
+        <MappingFragment StoreEntitySet="TagsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

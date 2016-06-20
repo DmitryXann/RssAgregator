@@ -131,7 +131,8 @@ namespace RssAgregator.BAL.Services
                             ModificationDateTime = DateTime.UtcNow,
 
                             DataSource = systemDataSource,
-                            User = user
+                            User = user,
+                            Location = inputParams.Locaion.HasValue ? (LocationEnum)inputParams.Locaion.Value : user.Location
                         });
                     }
                     

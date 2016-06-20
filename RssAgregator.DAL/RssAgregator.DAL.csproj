@@ -69,6 +69,7 @@
     <Compile Include="Comments.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DALProcessing\ContainerHelpers\Tags.cs" />
     <Compile Include="DALProcessing\GenericEntityProcessing.cs" />
     <Compile Include="DALProcessing\Entity\Comments.cs" />
     <Compile Include="DALProcessing\Entity\Navigation.cs" />
@@ -129,6 +130,12 @@
     <Compile Include="SongsBlackList.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Tags.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TagTypeEnum.cs">
+      <DependentUpon>RssAggregatorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Template.cs">
       <DependentUpon>RssAggregatorModel.tt</DependentUpon>
     </Compile>
@@ -160,6 +167,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <Content Include="DBScriptTemplates\NavigationSetInsertUpdate.sql" />
+    <Content Include="DBScriptTemplates\TagsSetInsertUpdate.sql" />
     <Content Include="DBScriptTemplates\TransliterationSetinsertUpdate.sql" />
     <Content Include="DeployScripts\DataSourceDeployScripts.sql" />
     <None Include="packages.config" />
@@ -194,6 +202,7 @@
     <Content Include="DBScriptTemplates\UserSetInsertUpdate.sql" />
     <Content Include="DeployScripts\NavigationSetDeploySctipt.sql" />
     <Content Include="DeployScripts\SettingsDeployScripts.sql" />
+    <Content Include="DeployScripts\TagsDeployScripts.sql" />
     <Content Include="DeployScripts\TemplateDeployScripts.sql" />
     <Content Include="DeployScripts\GeneralDeployScripts.sql" />
     <Content Include="DeployScripts\TransliterationDeployScript.sql" />

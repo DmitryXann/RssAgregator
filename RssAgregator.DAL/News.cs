@@ -35,6 +35,7 @@ namespace RssAgregator.DAL
         public bool AdultContent { get; set; }
         public System.DateTime CreationDateTime { get; set; }
         public System.DateTime ModificationDateTime { get; set; }
+        public LocationEnum Location { get; set; }
     
         public virtual DataSources DataSource { get; set; }
         public virtual User User { get; set; }

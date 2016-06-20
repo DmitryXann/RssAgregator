@@ -44,39 +44,49 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                                                                                                                                                 attr.Name.ToString().ToLower() == USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))));
                 if (searchedNodes.Any())
                 {
-                    Parallel.ForEach(searchedNodes, domElement => 
+                    //Parallel.ForEach(searchedNodes, domElement => 
+                    foreach(var domElement in searchedNodes)
                     {
                         if (!domElement.BadTag && domElement.ElementType == DOMEleementTypeEnum.Tag)
                         {
                             var post = new PostModel();
 
-                            IEnumerable<XElement> elementsInRootSorted;
+                            IEnumerable<XElement> sortedRuleNodes;
                             var elementsInRoot = parcerRuleRootNode.Elements();
 
                             var expectedMacro = Regex.Matches(parcerRuleRootNode.Value, "{([\\w]*)}", RegexOptions.IgnoreCase);
                             if (expectedMacro.Count > 0)
                             {
                                 var sortedNodes = new List<XElement>();
+                                var nodeMacroCollection = new List<string>();
+
                                 foreach (Match macro in expectedMacro)
                                 {
-                                    var expectedNode = elementsInRoot.FirstOrDefault(el => el.Name.ToString().ToLower() == macro.Value.ToLower().Trim(new[] { '{', '}' }));
+                                    var expectedMacroValue = macro.Value.ToLower().Trim(new[] { '{', '}', ' ', '\n', '\t' });
+                                    if (!nodeMacroCollection.Contains(expectedMacroValue))
+                                    {
+                                        nodeMacroCollection.Add(expectedMacroValue);
+                                    }
+                                }
+
+                                foreach (var macro in nodeMacroCollection)
+                                {
+                                    var expectedNode = elementsInRoot.FirstOrDefault(el => el.Name.LocalName.ToLower() == macro);
                                     if (expectedNode != null)
                                     {
                                         sortedNodes.Add(expectedNode);
                                     }
-
-                                    var uniqueNodes = elementsInRoot.Except(sortedNodes);
-                                    sortedNodes.AddRange(uniqueNodes);
-
-                                    elementsInRootSorted = sortedNodes;
                                 }
+
+                                sortedNodes.AddRange(elementsInRoot.Except(sortedNodes));
+                                sortedRuleNodes = sortedNodes;
                             }
                             else
                             {
-                                elementsInRootSorted = elementsInRoot;
+                                sortedRuleNodes = elementsInRoot;
                             }
 
-                            foreach (var ruleNode in parcerRuleRootNode.Elements())
+                            foreach (var ruleNode in sortedRuleNodes)
                             {
                                 XMLGuidePostModelParcersEnum expectedparcerType;
                                 if (Enum.TryParse(ruleNode.Name.ToString(), true, out expectedparcerType))
@@ -132,7 +142,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
 
                             result.Add(post);
                         }
-                    });
+                    }//);
                 }
             }
 

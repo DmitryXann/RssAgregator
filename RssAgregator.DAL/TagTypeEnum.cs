@@ -10,15 +10,13 @@
 namespace RssAgregator.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Navigation
+    public enum TagTypeEnum : int
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string RedirectTo { get; set; }
-        public int OrderNo { get; set; }
-        public bool IsActive { get; set; }
-        public LocationEnum Location { get; set; }
+        Text = 0,
+        Img = 1,
+        Link = 2,
+        Audio = 3,
+        Video = 4
     }
 }

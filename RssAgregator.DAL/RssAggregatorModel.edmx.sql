@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/13/2016 02:52:35
+-- Date Created: 06/20/2016 04:41:45
 -- Generated from EDMX file: C:\Users\Дмитрий\Documents\RssAgregator\RssAgregator\RssAgregator.DAL\RssAggregatorModel.edmx
 -- --------------------------------------------------
 
@@ -106,6 +106,9 @@ GO
 IF OBJECT_ID(N'[dbo].[UserActivityLogSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserActivityLogSet];
 GO
+IF OBJECT_ID(N'[dbo].[TagsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TagsSet];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -120,7 +123,9 @@ CREATE TABLE [dbo].[DataSourcesSet] (
     [IsActive] bit  NOT NULL,
     [XMLGuide] nvarchar(max)  NOT NULL,
     [BaseUri] nvarchar(max)  NOT NULL,
-    [IsNewsSource] bit  NOT NULL
+    [IsNewsSource] bit  NOT NULL,
+    [PostAmountPerIteration] int  NULL,
+    [Location] int  NOT NULL
 );
 GO
 
@@ -141,6 +146,7 @@ CREATE TABLE [dbo].[NewsSet] (
     [AdultContent] bit  NOT NULL,
     [CreationDateTime] datetime  NOT NULL,
     [ModificationDateTime] datetime  NOT NULL,
+    [Location] int  NOT NULL,
     [DataSource_Id] int  NULL,
     [User_Id] int  NOT NULL
 );
@@ -154,7 +160,8 @@ CREATE TABLE [dbo].[UserSet] (
     [Password] nvarchar(50)  NOT NULL,
     [Type] tinyint  NOT NULL,
     [IsActive] bit  NOT NULL,
-    [UserKey] nvarchar(max)  NOT NULL
+    [UserKey] nvarchar(max)  NOT NULL,
+    [Location] int  NOT NULL
 );
 GO
 
@@ -274,7 +281,8 @@ CREATE TABLE [dbo].[NavigationSet] (
     [Title] nvarchar(25)  NOT NULL,
     [RedirectTo] nvarchar(25)  NOT NULL,
     [OrderNo] int  NOT NULL,
-    [IsActive] bit  NOT NULL
+    [IsActive] bit  NOT NULL,
+    [Location] int  NOT NULL
 );
 GO
 
@@ -292,6 +300,15 @@ CREATE TABLE [dbo].[UserActivityLogSet] (
     [Region] nvarchar(50)  NOT NULL,
     [Organization] nvarchar(50)  NOT NULL,
     [User_Id] int  NULL
+);
+GO
+
+-- Creating table 'TagsSet'
+CREATE TABLE [dbo].[TagsSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(25)  NOT NULL,
+    [Type] int  NOT NULL,
+    [Location] int  NOT NULL
 );
 GO
 
@@ -392,6 +409,12 @@ GO
 -- Creating primary key on [Id] in table 'UserActivityLogSet'
 ALTER TABLE [dbo].[UserActivityLogSet]
 ADD CONSTRAINT [PK_UserActivityLogSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'TagsSet'
+ALTER TABLE [dbo].[TagsSet]
+ADD CONSTRAINT [PK_TagsSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

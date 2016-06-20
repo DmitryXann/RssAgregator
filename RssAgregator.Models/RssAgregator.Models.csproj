@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Locaion.cs" />
     <Compile Include="Enums\ResultCodeEnum.cs" />
     <Compile Include="Enums\ActivityEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

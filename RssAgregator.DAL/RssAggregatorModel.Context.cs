@@ -41,5 +41,6 @@ namespace RssAgregator.DAL
         public DbSet<Transliteration> TransliterationSet { get; set; }
         public DbSet<Navigation> NavigationSet { get; set; }
         public DbSet<UserActivityLog> UserActivityLogSet { get; set; }
+        public DbSet<Tags> TagsSet { get; set; }
     }
 }

@@ -12,24 +12,11 @@ namespace RssAgregator.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class DataSources
+    public partial class Tags
     {
-        public DataSources()
-        {
-            this.News = new HashSet<News>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Uri { get; set; }
-        public DataSourceEnum Type { get; set; }
-        public bool IsActive { get; set; }
-        public string XMLGuide { get; set; }
-        public string BaseUri { get; set; }
-        public bool IsNewsSource { get; set; }
-        public Nullable<int> PostAmountPerIteration { get; set; }
+        public TagTypeEnum Type { get; set; }
         public LocationEnum Location { get; set; }
-    
-        public virtual ICollection<News> News { get; set; }
     }
 }
