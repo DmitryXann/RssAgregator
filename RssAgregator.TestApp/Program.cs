@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using RssAgregator.CORE.Parcers.DOMObjectModel;
 using RssAgregator.CORE.Models.Enums;
 using RssAgregator.DAL;
 using RssAgregator.BAL.Services;

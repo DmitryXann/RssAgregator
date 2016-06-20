@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace RssAgregator.CORE.Parcers.DOMObjectModel
+namespace RssAgregator.CORE.Models.DOMObjectModel
 {
     public class DOMElement : IDOMElement
     {

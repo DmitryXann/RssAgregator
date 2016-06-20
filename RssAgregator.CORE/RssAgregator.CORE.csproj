@@ -83,7 +83,7 @@
     <Compile Include="Models\PostModel\PostContentModel\VideoPostContentModel.cs" />
     <Compile Include="Models\PostModel\PostModel.cs" />
     <Compile Include="Parcers\AbstractPostModelCreator.cs" />
-    <Compile Include="Parcers\DOMObjectModel\DOMElement.cs" />
+    <Compile Include="Models\DOMObjectModel\DOMElement.cs" />
     <Compile Include="Helpers\StringBuilderExtension.cs" />
     <Compile Include="Interfaces\Parcers\DOMObjectModel\IDOMElement.cs" />
     <Compile Include="Interfaces\Parcers\IParcerFactoryProvider.cs" />
@@ -129,17 +129,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Parcers\XMLGuides\mainfun.xml">
+    <Content Include="XMLGuides\mainfun.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Parcers\XMLGuides\pikabu.xml">
+    <Content Include="XMLGuides\pikabu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Parcers\XMLGuides\VK.xml">
+    <Content Include="XMLGuides\VK.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Parcers\XMLGuides\Zaycev.xml">
+    <Content Include="XMLGuides\Zaycev.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

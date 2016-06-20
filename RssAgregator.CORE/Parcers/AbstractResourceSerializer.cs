@@ -1,7 +1,7 @@
 ﻿using RssAgregator.CORE.Helpers;
 using RssAgregator.CORE.Interfaces.DOMObjectModel;
+using RssAgregator.CORE.Models.DOMObjectModel;
 using RssAgregator.CORE.Models.Enums;
-using RssAgregator.CORE.Parcers.DOMObjectModel;
 using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
