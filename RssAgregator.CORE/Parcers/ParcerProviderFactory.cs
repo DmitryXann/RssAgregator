@@ -1,5 +1,4 @@
 ﻿using RssAgregator.CORE.Interfaces.Parcers;
-using RssAgregator.CORE.Models.Enums;
 using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
@@ -43,7 +42,7 @@ namespace RssAgregator.CORE.Parcers
                         }
                         catch (Exception ex)
                         {
-                            Logger.LogException(ex, LogTypeEnum.CORE);
+                            Logger.LogException(ex, LogTypeEnum.CORE, "ParcerProviderFactory initialization failed");
                         }
                     }
                 }

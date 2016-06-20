@@ -1,11 +1,13 @@
 ﻿using RssAgregator.CORE.Helpers;
 using RssAgregator.CORE.Interfaces.DOMObjectModel;
 using RssAgregator.CORE.Models.Enums;
+using RssAgregator.CORE.Models.PostModel;
 using RssAgregator.CORE.Parcers.DOMObjectModel;
 using RssAgregator.CORE.Parcers.XMLGuidePostModelParcer;
 using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -38,6 +40,10 @@ namespace RssAgregator.CORE.Parcers
 
             WebClient = new HttpClient(HttpClientHandler);
             XMLGuidePostModeCreator = new XMLGuidePostModelCreator(xmlParceRules);
+        }
+        protected virtual async Task<IEnumerable<PostModel>> GetPostModelFromResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
+        {
+            return CreatePostModel(Serialize(await GetResourceData(resourceUrl, requestType, requestContent)));
         }
 
         protected virtual async Task<StringBuilder> GetResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
@@ -78,6 +84,9 @@ namespace RssAgregator.CORE.Parcers
                 {
                     var serverDataResult = await (await serverResponceTask).Content.ReadAsStringAsync();
                     result = new StringBuilder(serverDataResult);
+#if DEBUG
+                    File.WriteAllText("C:\\webResource.html", serverDataResult);
+#endif
                 }
             }
             catch(Exception ex)
@@ -168,6 +177,18 @@ namespace RssAgregator.CORE.Parcers
             }
 
             return serializedList;
+        }
+
+        protected virtual IEnumerable<PostModel> CreatePostModel(IEnumerable<IDOMElement> serializedData)
+        {
+            IEnumerable<PostModel> result = null;
+
+            if (serializedData.Any())
+            {
+                result = XMLGuidePostModeCreator.CreatePostModel(serializedData);
+            }
+
+            return result;
         }
 
         public void Dispose()

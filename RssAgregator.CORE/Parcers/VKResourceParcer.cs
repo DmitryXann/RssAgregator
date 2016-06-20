@@ -3,9 +3,6 @@ using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -48,25 +45,12 @@ namespace RssAgregator.CORE.Parcers
                 _vkPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
             }
 
-            IEnumerable<PostModel> result = null;
-
-            var denormalizedData = await GetResourceData(expectedUri, HttpMethodEnum.POST, _vkPostData);
-
-            var serializedData = Serialize(denormalizedData);
-            if (serializedData.Any())
-            {
-                result = XMLGuidePostModeCreator.CreatePostModel(serializedData);
-            }
-            
-#if DEBUG
-            //File.WriteAllText("C:\\vk.html", denormalizedData.ToString());
-#endif
-
-            return result;
+            return await GetPostModelFromResourceData(expectedUri, HttpMethodEnum.POST, _vkPostData);
         }
 
         public void AddSearchCriteria(string queston)
         {
+            throw new NotImplementedException();
         }
 
         public void SetPageNumber(int currentPage)
