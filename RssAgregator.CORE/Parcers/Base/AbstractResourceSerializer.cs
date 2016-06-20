@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RssAgregator.CORE.Parcers
+namespace RssAgregator.CORE.Parcers.Base
 {
     public abstract class AbstractResourceSerializer : IDisposable
     {

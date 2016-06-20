@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace RssAgregator.CORE.Parcers
+namespace RssAgregator.CORE.Parcers.Base
 {
     public abstract class AbstractPostModelCreator : AbstractResourceSerializer
     {

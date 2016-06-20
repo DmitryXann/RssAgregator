@@ -1,6 +1,7 @@
 ﻿using RssAgregator.CORE.Interfaces.Parcers;
 using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
+using RssAgregator.CORE.Parcers.Base;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

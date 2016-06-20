@@ -2,14 +2,13 @@
 using RssAgregator.CORE.Interfaces.Parcers;
 using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
+using RssAgregator.CORE.Parcers.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq;
-using RssAgregator.CORE.Models.PostModel.PostContentModel;
 using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
