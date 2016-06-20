@@ -3,16 +3,12 @@ using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
-    public class ZaycevResourceParcer : AbstractResourceSerializer, IResourceParcer
+    public class ZaycevResourceParcer : AbstractPostModelCreator, IResourceParcer
     {
         private const int DEFAULT_PAGE_COUNT = 0;
         private const string PAGE_COUNT_KEY = "page";
@@ -45,21 +41,7 @@ namespace RssAgregator.CORE.Parcers
                 _vzaycevPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
             }
             
-            IEnumerable<PostModel> result = null;
-
-            var denormalizedData = await GetResourceData(expectedUri, HttpMethodEnum.GET, _vzaycevPostData);
-
-            var serializedData = Serialize(denormalizedData);
-            if (serializedData.Any())
-            {
-                result = XMLGuidePostModeCreator.CreatePostModel(serializedData);
-            }
-
-#if DEBUG
-            //File.WriteAllText("C:\\zaicev.html", denormalizedData.ToString());
-#endif
-
-            return result;
+            return await GetPostModelFromResourceData(expectedUri, HttpMethodEnum.GET, _vzaycevPostData);
         }
 
         public void AddSearchCriteria(string queston)

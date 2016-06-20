@@ -82,6 +82,7 @@
     <Compile Include="Models\PostModel\PostContentModel\TextPostContentModel.cs" />
     <Compile Include="Models\PostModel\PostContentModel\VideoPostContentModel.cs" />
     <Compile Include="Models\PostModel\PostModel.cs" />
+    <Compile Include="Parcers\AbstractPostModelCreator.cs" />
     <Compile Include="Parcers\DOMObjectModel\DOMElement.cs" />
     <Compile Include="Helpers\StringBuilderExtension.cs" />
     <Compile Include="Interfaces\Parcers\DOMObjectModel\IDOMElement.cs" />

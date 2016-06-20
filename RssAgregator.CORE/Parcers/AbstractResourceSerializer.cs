@@ -1,9 +1,7 @@
 ﻿using RssAgregator.CORE.Helpers;
 using RssAgregator.CORE.Interfaces.DOMObjectModel;
 using RssAgregator.CORE.Models.Enums;
-using RssAgregator.CORE.Models.PostModel;
 using RssAgregator.CORE.Parcers.DOMObjectModel;
-using RssAgregator.CORE.Parcers.XMLGuidePostModelParcer;
 using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
@@ -13,7 +11,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
@@ -24,9 +21,7 @@ namespace RssAgregator.CORE.Parcers
 
         protected HttpClient WebClient { get; set; }
 
-        protected XMLGuidePostModelCreator XMLGuidePostModeCreator { get; set; }
-
-        protected AbstractResourceSerializer(bool useCookie, XDocument xmlParceRules)
+        protected AbstractResourceSerializer(bool useCookie)
         {
             if (useCookie)
             {
@@ -39,13 +34,8 @@ namespace RssAgregator.CORE.Parcers
             }
 
             WebClient = new HttpClient(HttpClientHandler);
-            XMLGuidePostModeCreator = new XMLGuidePostModelCreator(xmlParceRules);
         }
-        protected virtual async Task<IEnumerable<PostModel>> GetPostModelFromResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
-        {
-            return CreatePostModel(Serialize(await GetResourceData(resourceUrl, requestType, requestContent)));
-        }
-
+        
         protected virtual async Task<StringBuilder> GetResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
         {
             StringBuilder result = null;
@@ -177,18 +167,6 @@ namespace RssAgregator.CORE.Parcers
             }
 
             return serializedList;
-        }
-
-        protected virtual IEnumerable<PostModel> CreatePostModel(IEnumerable<IDOMElement> serializedData)
-        {
-            IEnumerable<PostModel> result = null;
-
-            if (serializedData.Any())
-            {
-                result = XMLGuidePostModeCreator.CreatePostModel(serializedData);
-            }
-
-            return result;
         }
 
         public void Dispose()
