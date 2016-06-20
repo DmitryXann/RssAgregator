@@ -1,4 +1,4 @@
-﻿using RssAgregator.CORE.Interfaces.DOMObjectModel;
+﻿using RssAgregator.CORE.Interfaces.Models.DOMObjectModel;
 using RssAgregator.CORE.Interfaces.Models.PostModel.PostContentModel;
 using RssAgregator.CORE.Interfaces.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers;
 using RssAgregator.CORE.Models.Enums;
@@ -6,7 +6,6 @@ using RssAgregator.CORE.Models.PostModel;
 using RssAgregator.CORE.Models.PostModel.PostContentModel;
 using RssAgregator.CORE.Models.PostModel.PostContentModel.PostContentContainerModel;
 using RssAgregator.DAL;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

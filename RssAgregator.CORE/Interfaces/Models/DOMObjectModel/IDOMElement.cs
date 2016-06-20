@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RssAgregator.CORE.Interfaces.DOMObjectModel
+namespace RssAgregator.CORE.Interfaces.Models.DOMObjectModel
 {
     public interface IDOMElement
     {

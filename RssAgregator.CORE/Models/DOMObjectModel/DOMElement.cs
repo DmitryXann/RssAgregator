@@ -1,10 +1,10 @@
 ﻿using RssAgregator.CORE.Helpers;
-using RssAgregator.CORE.Interfaces.DOMObjectModel;
+using RssAgregator.CORE.Interfaces.Models.DOMObjectModel;
 using RssAgregator.CORE.Models.Enums;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 
 namespace RssAgregator.CORE.Models.DOMObjectModel
 {

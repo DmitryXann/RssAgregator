@@ -85,7 +85,7 @@
     <Compile Include="Parcers\Base\AbstractPostModelCreator.cs" />
     <Compile Include="Models\DOMObjectModel\DOMElement.cs" />
     <Compile Include="Helpers\StringBuilderExtension.cs" />
-    <Compile Include="Interfaces\Parcers\DOMObjectModel\IDOMElement.cs" />
+    <Compile Include="Interfaces\Models\DOMObjectModel\IDOMElement.cs" />
     <Compile Include="Interfaces\Parcers\IParcerFactoryProvider.cs" />
     <Compile Include="Models\Enums\DOMEleementTypeEnum.cs" />
     <Compile Include="Models\Enums\HttpMethodEnum.cs" />

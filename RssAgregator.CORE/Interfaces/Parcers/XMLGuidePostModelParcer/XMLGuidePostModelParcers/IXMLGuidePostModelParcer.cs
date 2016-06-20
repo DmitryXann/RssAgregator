@@ -1,4 +1,4 @@
-﻿using RssAgregator.CORE.Interfaces.DOMObjectModel;
+﻿using RssAgregator.CORE.Interfaces.Models.DOMObjectModel;
 using RssAgregator.CORE.Models.PostModel;
 using System.Xml.Linq;
 
