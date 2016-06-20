@@ -36,6 +36,11 @@ namespace RssAgregator.CORE.Parcers
             WebClient = new HttpClient(HttpClientHandler);
         }
         
+        public virtual async Task<IEnumerable<IDOMElement>> GetSerializedResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
+        {
+            return Serialize(await GetResourceData(resourceUrl, requestType, requestContent));
+        }
+
         protected virtual async Task<StringBuilder> GetResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
         {
             StringBuilder result = null;

@@ -22,7 +22,7 @@ namespace RssAgregator.CORE.Parcers
 
         protected virtual async Task<IEnumerable<PostModel>> GetPostModelFromResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
         {
-            return CreatePostModel(Serialize(await GetResourceData(resourceUrl, requestType, requestContent)));
+            return CreatePostModel(await GetSerializedResourceData(resourceUrl, requestType, requestContent)));
         }
 
         protected virtual IEnumerable<PostModel> CreatePostModel(IEnumerable<IDOMElement> serializedData)
