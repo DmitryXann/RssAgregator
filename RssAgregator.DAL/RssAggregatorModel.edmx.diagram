@@ -17,7 +17,7 @@
         <AssociationConnector Association="RssAggregatorModel.UsersComments" />
         <EntityTypeShape EntityType="RssAggregatorModel.UsersImage" Width="1.5" PointX="4.5" PointY="8.25" />
         <AssociationConnector Association="RssAggregatorModel.UserImage" />
-        <EntityTypeShape EntityType="RssAggregatorModel.Icons" Width="1.5" PointX="14.125" PointY="4.75" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Icons" Width="1.5" PointX="14.125" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="RssAggregatorModel.NewsUsersImage" />
         <EntityTypeShape EntityType="RssAggregatorModel.Log" Width="1.5" PointX="12.25" PointY="2.75" />
         <EntityTypeShape EntityType="RssAggregatorModel.NewDataSourceRequest" Width="2.125" PointX="7" PointY="1.875" />
@@ -33,7 +33,7 @@
         <EntityTypeShape EntityType="RssAggregatorModel.Navigation" Width="1.5" PointX="10.375" PointY="0.5" />
         <EntityTypeShape EntityType="RssAggregatorModel.UserActivityLog" Width="1.5" PointX="8.75" PointY="4" />
         <AssociationConnector Association="RssAggregatorModel.UserUserActivityLog" />
-        <EntityTypeShape EntityType="RssAggregatorModel.Tags" Width="1.5" PointX="10.375" PointY="2.875" />
+        <EntityTypeShape EntityType="RssAggregatorModel.Tags" Width="1.5" PointX="10.375" PointY="2.875" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
