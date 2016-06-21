@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RssAgregator.CORE.Helpers
 {
-    internal static class StringBuilderExtension
+    public static class StringBuilderExtension
     {
         public static int FirstIndexOf(this StringBuilder stringBuilder, string valueToSearch, bool ignorCase = false)
         {
