@@ -1,11 +1,14 @@
 ﻿using RssAgregator.CORE.Interfaces.Models.DOMObjectModel;
 using RssAgregator.CORE.Interfaces.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers;
+using RssAgregator.CORE.Models.Enums;
 using RssAgregator.CORE.Models.PostModel;
+using RssAgregator.CORE.Parcers.Base;
 using RssAgregator.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelParcers
@@ -109,6 +112,18 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             else
             {
                 result = getResult;
+            }
+
+            return result;
+        }
+
+        protected async virtual Task<IEnumerable<IDOMElement>> GetAdditionalResourceData(Uri resourceUrl, HttpMethodEnum requestType = HttpMethodEnum.GET, Dictionary<string, string> requestContent = null)
+        {
+            IEnumerable<IDOMElement> result = null;
+
+            using (var resourceSerializer = new ResourceSerializer())
+            {
+                result = await resourceSerializer.GetSerializedResourceData(resourceUrl, requestType, requestContent);
             }
 
             return result;

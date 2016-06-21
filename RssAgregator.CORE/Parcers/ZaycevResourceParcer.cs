@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
-    public class ZaycevResourceParcer : AbstractPostModelCreator, IResourceParcer
+    public class ZaycevResourceParcer : PostModelCreator, IResourceParcer
     {
         private const int DEFAULT_PAGE_COUNT = 0;
         private const string PAGE_COUNT_KEY = "page";

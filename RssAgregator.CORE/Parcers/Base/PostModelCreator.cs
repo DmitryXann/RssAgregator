@@ -10,22 +10,22 @@ using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers.Base
 {
-    public abstract class AbstractPostModelCreator : AbstractResourceSerializer
+    public class PostModelCreator : ResourceSerializer
     {
         protected XMLGuidePostModelCreator XMLGuidePostModeCreator { get; set; }
 
-        protected AbstractPostModelCreator(bool useCookie, XDocument xmlParceRules) 
+        public PostModelCreator(bool useCookie, XDocument xmlParceRules) 
             : base(useCookie)
         {
             XMLGuidePostModeCreator = new XMLGuidePostModelCreator(xmlParceRules);
         }
 
-        protected virtual async Task<IEnumerable<PostModel>> GetPostModelFromResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
+        public virtual async Task<IEnumerable<PostModel>> GetPostModelFromResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
         {
             return CreatePostModel(await GetSerializedResourceData(resourceUrl, requestType, requestContent));
         }
 
-        protected virtual IEnumerable<PostModel> CreatePostModel(IEnumerable<IDOMElement> serializedData)
+        public virtual IEnumerable<PostModel> CreatePostModel(IEnumerable<IDOMElement> serializedData)
         {
             IEnumerable<PostModel> result = null;
 

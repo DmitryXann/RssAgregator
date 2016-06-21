@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 
 namespace RssAgregator.CORE.Parcers.Base
 {
-    public abstract class AbstractResourceSerializer : IDisposable
+    public class ResourceSerializer : IDisposable
     {
         protected CookieContainer CookieSharedContainer { get; set; }
         protected HttpClientHandler HttpClientHandler { get; set; }
 
         protected HttpClient WebClient { get; set; }
 
-        protected AbstractResourceSerializer(bool useCookie)
+        public ResourceSerializer(bool useCookie = false)
         {
             if (useCookie)
             {
@@ -41,7 +41,7 @@ namespace RssAgregator.CORE.Parcers.Base
             return Serialize(await GetResourceData(resourceUrl, requestType, requestContent));
         }
 
-        protected virtual async Task<StringBuilder> GetResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
+        public virtual async Task<StringBuilder> GetResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)
         {
             StringBuilder result = null;
 
@@ -99,7 +99,7 @@ namespace RssAgregator.CORE.Parcers.Base
             return result;
         }
 
-        protected virtual IEnumerable<IDOMElement> Serialize(StringBuilder denormalizedDom)
+        public virtual IEnumerable<IDOMElement> Serialize(StringBuilder denormalizedDom)
         {
             var serializedList = new List<IDOMElement>();
 

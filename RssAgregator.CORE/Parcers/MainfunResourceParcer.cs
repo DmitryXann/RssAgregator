@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace RssAgregator.CORE.Parcers
 {
-    public class MainfunResourceParcer : AbstractPostModelCreator, IResourceParcer
+    public class MainfunResourceParcer : PostModelCreator, IResourceParcer
     {
         private const int DEFAULT_PAGE_COUNT = 1;
 
