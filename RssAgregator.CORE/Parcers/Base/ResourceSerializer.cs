@@ -16,10 +16,10 @@ namespace RssAgregator.CORE.Parcers.Base
 {
     public class ResourceSerializer : IDisposable
     {
-        protected CookieContainer CookieSharedContainer { get; set; }
-        protected HttpClientHandler HttpClientHandler { get; set; }
+        protected CookieContainer CookieSharedContainer { get; private set; }
+        protected HttpClientHandler HttpClientHandler { get; private set; }
 
-        protected HttpClient WebClient { get; set; }
+        protected HttpClient WebClient { get; private set; }
 
         public ResourceSerializer(bool useCookie = false)
         {

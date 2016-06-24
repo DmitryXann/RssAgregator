@@ -27,16 +27,16 @@ namespace RssAgregator.CORE.Parcers
                             switch (dataSource.Type)
                             {
                                 case DataSourceEnum.VK:
-                                    AddFactory(dataSource.Type, typeof(VKResourceParcer), new[] { xmlGuide });
+                                    AddFactory(dataSource.Type, typeof(VKResourceParcer), new object [] { xmlGuide, dataSource.BaseUri });
                                     break;
                                 case DataSourceEnum.Pikabu:
-                                    AddFactory(dataSource.Type, typeof(PikabuResourceParcer), new[] { xmlGuide });
+                                    AddFactory(dataSource.Type, typeof(PikabuResourceParcer), new object [] { xmlGuide, dataSource.BaseUri });
                                     break;
                                 case DataSourceEnum.Mainfun:
-                                    AddFactory(dataSource.Type, typeof(MainfunResourceParcer), new[] { xmlGuide });
+                                    AddFactory(dataSource.Type, typeof(MainfunResourceParcer), new object [] { xmlGuide, dataSource.BaseUri });
                                     break;
                                 case DataSourceEnum.OnlineRadio:
-                                    AddFactory(dataSource.Type, typeof(ZaycevResourceParcer), new[] { xmlGuide });
+                                    AddFactory(dataSource.Type, typeof(ZaycevResourceParcer), new object [] { xmlGuide, dataSource.BaseUri });
                                     break;
                             }
                         }
@@ -61,7 +61,7 @@ namespace RssAgregator.CORE.Parcers
         {
             if (typeOfFactoryEntity.GetInterfaces().Any(el => el == typeof(IResourceParcer)))
             {
-                var typeConstructor = typeOfFactoryEntity.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(XDocument) }, null);
+                var typeConstructor = typeOfFactoryEntity.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(XDocument), typeof(string) }, null);
                 var typeInstance = typeConstructor.Invoke(parameters) as IResourceParcer;
 
                 if (typeInstance != null && !_factoties.ContainsKey(factoryType))

@@ -139,6 +139,33 @@ SELECT @Name		= N'MDK'
       <![CDATA[\?]]>
     </TrimCritereaSongLink>
   </AudioContent>
+  <VideoContent>
+	<SearchCriterea>
+      <name>div</name>
+	  <class>media_desc post_video_desc</class>
+    </SearchCriterea>
+	<SubSearchCritereaVideoName>
+      <name>span</name>
+      <class>post_video_title_content</class>
+    </SubSearchCritereaVideoName>
+	<GetCritereaVideoName>
+		<values></values>
+	</GetCritereaVideoName>
+	<ExternalGet>
+		<Link>
+			<SubSearchCritereaLink>
+			  <name>a</name>
+			  <id>post_media_lnk-{AuthorId}_{PostId}</id>
+			  <href>/video-{AuthorId}_</href>
+			</SubSearchCritereaLink>
+			<GetCritereaLink>
+			  <href></href>
+			</GetCritereaLink>
+		</Link>
+		<ExternalGetContent>
+		</ExternalGetContent>
+	</ExternalGet>
+  </VideoContent>
 </PostModelXMLGuide>'
 	   ,@BaseUri	= N'https://vk.com/'
 	   ,@IsNewsSource = 1

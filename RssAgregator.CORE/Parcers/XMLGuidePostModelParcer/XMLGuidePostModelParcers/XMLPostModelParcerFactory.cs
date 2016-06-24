@@ -23,6 +23,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             AddFactory(XMLGuidePostModelParcersEnum.AudioContent, typeof(AudioContentXMLParcer));
             AddFactory(XMLGuidePostModelParcersEnum.PostName, typeof(PostNameXMLParcer));
             AddFactory(XMLGuidePostModelParcersEnum.PostLink, typeof(PostLinkXMLParcer));
+            AddFactory(XMLGuidePostModelParcersEnum.VideoContent, typeof(VideoContentXMLParcer));
         }
 
         public static void AddFactory(XMLGuidePostModelParcersEnum factoryType, IXMLGuidePostModelParcer factoryEntity)

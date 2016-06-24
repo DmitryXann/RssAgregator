@@ -20,9 +20,12 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
 
         private XDocument _xmlParceRules;
 
-        public XMLGuidePostModelCreator(XDocument xmlParceRules)
+        private string _baseURL;
+
+        public XMLGuidePostModelCreator(XDocument xmlParceRules, string baseUrl)
         {
             _xmlParceRules = xmlParceRules;
+            _baseURL = baseUrl;
         }
 
         public IEnumerable<PostModel> CreatePostModel(IEnumerable<IDOMElement> serializedDomModel)
@@ -45,7 +48,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                     {
                         if (!domElement.BadTag && domElement.ElementType == DOMEleementTypeEnum.Tag)
                         {
-                            var post = new PostModel();
+                            var post = new PostModel(_baseURL);
 
                             IEnumerable<XElement> sortedRuleNodes;
                             var elementsInRoot = parcerRuleRootNode.Elements();
@@ -121,6 +124,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer
                                             case XMLGuidePostModelParcersEnum.TextContent:
                                             case XMLGuidePostModelParcersEnum.ImgContent:
                                             case XMLGuidePostModelParcersEnum.AudioContent:
+                                            case XMLGuidePostModelParcersEnum.VideoContent:
                                                 var content = expectedFactory.ProcessDOMNode(ruleNode, domElement, post);
                                                 if (content != null)
                                                 {

@@ -5,6 +5,13 @@ namespace RssAgregator.CORE.Models.PostModel.PostContentModel.PostContentContain
     {
         public string Name { get; set; }
         public string ImagePreviewLink { get; set; }
-        public string VideoLink { get; set; }
+        public string Data { get; set; }
+
+        public VideoPostContentContainerModel(string name, string data, string imagepreviewLink = null)
+        {
+            Name = name;
+            Data = data;
+            ImagePreviewLink = imagepreviewLink;
+        }
     }
 }

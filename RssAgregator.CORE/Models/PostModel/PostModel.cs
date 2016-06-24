@@ -5,6 +5,8 @@ namespace RssAgregator.CORE.Models.PostModel
 {
     public class PostModel
     {
+        public string BaseURL { get; private set; }
+
         public string PostId { get; set; }
 
         private string _authorName;
@@ -32,14 +34,16 @@ namespace RssAgregator.CORE.Models.PostModel
 
         public string PostLink { get; set; }
 
-        public List<IPostContentModel> PostContent { get; set; }
+        public List<IPostContentModel> PostContent { get; private set; }
 
-        public List<string> PostTags { get; set; }
+        public List<string> PostTags { get; private set; }
 
-        public PostModel() 
+
+        public PostModel(string baseURL) 
         {
             PostContent = new List<IPostContentModel>();
             PostTags = new List<string>();
+            BaseURL = baseURL;
         }
     }
 }

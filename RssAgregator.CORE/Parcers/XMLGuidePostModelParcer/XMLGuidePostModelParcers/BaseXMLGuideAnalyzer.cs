@@ -15,12 +15,17 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
 {
     public abstract class BaseXMLGuideParcer : IXMLGuidePostModelParcer
     {
+        protected const string EXTERNAL_GET_NODE_NAME                   = "ExternalGet";
+        protected const string EXTERNAL_GET_LINK_NODE_NAME              = "Link";
+        protected const string EXTERNAL_GET_CONTENT_NODE_NAME           = "ExternalGetContent";
+
         protected const string SEARCH_CRITEREA_NODE_NAME                = "SearchCriterea";
         protected const string SUB_SEARCH_CRITEREA_NODE_NAME            = "SubSearchCriterea";
 
         protected const string GET_CRITEREA_NODE_NAME                   = "GetCriterea";
         protected const string TRIM_CRITEREA_NODE_NAME                  = "TrimCriterea";
         protected const string ADDITIONAL_PREFIX                        = "Additional";
+
         protected const string USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME    = "strictEqual";
         protected const string STRING_TRIM_NAME                         = "stringTrim";
         protected const string REG_EXP_TRIM_NAME                        = "regExpTrim";
@@ -63,7 +68,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             var getCritereaNode = xmlParceRule.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == (string.IsNullOrEmpty(postfix) ? GET_CRITEREA_NODE_NAME : GET_CRITEREA_NODE_NAME + postfix).ToLower());
             var getCriterea = getCritereaNode.Elements().First();
 
-            string getResult = string.Empty;
+            var getResult = string.Empty;
             switch (getCriterea.Name.ToString().ToLower())
             {
                 case "values":
@@ -72,7 +77,10 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                     break;
                 default:
                     var expectedNodeContent = expectedNode.GetContent(getCriterea.Name.ToString());
-                    getResult = expectedNodeContent != null ? Regex.Match(expectedNodeContent, getCriterea.Value, RegexOptions.IgnoreCase).Value : null;
+                    if (!string.IsNullOrEmpty(expectedNodeContent))
+                    {
+                        getResult = string.IsNullOrEmpty(getCriterea.Value) ? expectedNodeContent : Regex.Match(expectedNodeContent, getCriterea.Value, RegexOptions.IgnoreCase).Value;
+                    }
                     break;
             }
 
@@ -117,15 +125,48 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             return result;
         }
 
-        protected async virtual Task<IEnumerable<IDOMElement>> GetAdditionalResourceData(Uri resourceUrl, HttpMethodEnum requestType = HttpMethodEnum.GET, Dictionary<string, string> requestContent = null)
+        protected async virtual Task<IEnumerable<IDOMElement>> GetAdditionalResourceData(string resourceUrl, HttpMethodEnum requestType = HttpMethodEnum.GET, Dictionary<string, string> requestContent = null)
         {
             IEnumerable<IDOMElement> result = null;
 
             using (var resourceSerializer = new ResourceSerializer())
             {
-                result = await resourceSerializer.GetSerializedResourceData(resourceUrl, requestType, requestContent);
+                result = await resourceSerializer.GetSerializedResourceData(new Uri(resourceUrl), requestType, requestContent);
             }
 
+            return result;
+        }
+
+        protected virtual async Task<dynamic> ProcessExternlaGetCriterea(IEnumerable<XElement> xmlParceRules, IDOMElement expectedNode, PostModel postModel)
+        {
+            var result = string.Empty;
+
+            var externalLinkNode = xmlParceRules.FirstOrDefault(el => el.Name.ToString().ToLower() == EXTERNAL_GET_LINK_NODE_NAME.ToLower());
+            if (externalLinkNode != null)
+            {
+                var searchCritereaLinkNode = externalLinkNode.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == (SUB_SEARCH_CRITEREA_NODE_NAME + EXTERNAL_GET_LINK_NODE_NAME).ToLower());
+                var linkNode = SearchForNode(searchCritereaLinkNode.Elements(), expectedNode, postModel);
+                if (linkNode != null)
+                {
+                    var link = ProcessGetCriterea(externalLinkNode, linkNode, postModel, EXTERNAL_GET_LINK_NODE_NAME);
+                    if (!string.IsNullOrEmpty(link))
+                    {
+                        var serializedExternalData = await GetAdditionalResourceData(string.Format("{0}\\{1}", postModel.BaseURL.TrimEnd(new[] { '\\', ' ' }), link));
+                    }
+                    else
+                    {
+                        Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory returned an empty link", LogTypeEnum.CORE);
+                    }
+                }
+                else
+                {
+                    Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory can`t find a link node", LogTypeEnum.CORE);
+                }
+            }
+            else
+            {
+                Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory link node in XML Guide is not found", LogTypeEnum.CORE);
+            }            
             return result;
         }
     }

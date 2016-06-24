@@ -12,6 +12,7 @@ namespace RssAgregator.CORE.Models.Enums
         AuthorLink,
         TextContent,
         ImgContent,
-        AudioContent
+        AudioContent,
+        VideoContent
     }
 }

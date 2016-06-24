@@ -122,7 +122,7 @@ namespace RssAgregator.CORE
                                                     var videoPostContainers = string.Empty;
                                                     foreach (var el in ((BasePostContentModel<VideoPostContentContainerModel>)postContent).PostSpecificContent)
                                                     {
-                                                        videoPostContainers += videoPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el.VideoLink)
+                                                        videoPostContainers += videoPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el.Data)
                                                                                                    .Replace(CONTENT_MEDIA_AUTHOR_PLACEHOLDER, el.Name)
                                                                                                    .Replace(CONTENT_MEDIA_PREVIEW_PLACEHOLDER, el.ImagePreviewLink);
                                                     }

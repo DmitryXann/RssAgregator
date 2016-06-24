@@ -12,12 +12,15 @@ namespace RssAgregator.CORE.Parcers.Base
 {
     public class PostModelCreator : ResourceSerializer
     {
-        protected XMLGuidePostModelCreator XMLGuidePostModeCreator { get; set; }
+        protected XMLGuidePostModelCreator XMLGuidePostModeCreator { get; private set; }
 
-        public PostModelCreator(bool useCookie, XDocument xmlParceRules) 
+        protected string BaseUrl { get; private set; }
+
+        public PostModelCreator(bool useCookie, XDocument xmlParceRules, string baseURL) 
             : base(useCookie)
         {
-            XMLGuidePostModeCreator = new XMLGuidePostModelCreator(xmlParceRules);
+            XMLGuidePostModeCreator = new XMLGuidePostModelCreator(xmlParceRules, baseURL);
+            BaseUrl = baseURL;
         }
 
         public virtual async Task<IEnumerable<PostModel>> GetPostModelFromResourceData(Uri resourceUrl, HttpMethodEnum requestType, Dictionary<string, string> requestContent = null)

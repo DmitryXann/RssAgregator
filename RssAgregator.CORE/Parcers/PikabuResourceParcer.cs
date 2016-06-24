@@ -34,8 +34,8 @@ namespace RssAgregator.CORE.Parcers
             get { return DEFAULT_PAGE_COUNT; }
         }
 
-        private PikabuResourceParcer(XDocument xmlGuide) 
-            : base(true, xmlGuide)
+        private PikabuResourceParcer(XDocument xmlGuide, string baseURL) 
+            : base(true, xmlGuide, baseURL)
         {
             _pageOffsetCount = 10;
             _pageOffsetMultiplier = 0;

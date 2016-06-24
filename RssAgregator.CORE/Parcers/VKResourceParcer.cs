@@ -25,8 +25,8 @@ namespace RssAgregator.CORE.Parcers
             get { return DEFAULT_PAGE_COUNT; }
         }
 
-        private VKResourceParcer(XDocument xmlGuide) 
-            : base(false, xmlGuide)
+        private VKResourceParcer(XDocument xmlGuide, string baseURL) 
+            : base(false, xmlGuide, baseURL)
         {
             _pageOffsetCount = 10;
             _pageOffsetMultiplier = 0;
@@ -43,7 +43,7 @@ namespace RssAgregator.CORE.Parcers
         {
             if (!_pageAlredySetted)
             {
-                _vkPostData[PAGE_COUNT_KEY] = (DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
+                _vkPostData[PAGE_COUNT_KEY] = "40";//(DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
             }
 
             return await GetPostModelFromResourceData(expectedUri, HttpMethodEnum.POST, _vkPostData);

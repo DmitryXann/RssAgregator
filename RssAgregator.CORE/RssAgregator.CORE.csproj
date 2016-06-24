@@ -102,6 +102,7 @@
     <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\TextContentXMLParcer.cs" />
     <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\PostIdXMLParcer.cs" />
     <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\PostLikesXMLParcer.cs" />
+    <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\VideoContentXMLParcer.cs" />
     <Compile Include="Parcers\XMLGuidePostModelParcer\XMLGuidePostModelParcers\XMLPostModelParcerFactory.cs" />
     <Compile Include="Parcers\ZaycevResourceParcer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

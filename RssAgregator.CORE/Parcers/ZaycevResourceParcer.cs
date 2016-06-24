@@ -26,8 +26,8 @@ namespace RssAgregator.CORE.Parcers
             get { return DEFAULT_PAGE_COUNT; }
         }
 
-        private ZaycevResourceParcer(XDocument xmlGuide) 
-            : base(false, xmlGuide)
+        private ZaycevResourceParcer(XDocument xmlGuide, string baseURL) 
+            : base(false, xmlGuide, baseURL)
         {
             _pageOffsetCount = 1;
             _pageOffsetMultiplier = 0;
