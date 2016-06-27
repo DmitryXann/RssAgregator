@@ -41,6 +41,21 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                                                                                 elem.Attributes().Any(attr => attr.Name.ToString().ToLower() == USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))));
         }
 
+        protected virtual IDOMElement SearchForNode(IEnumerable<XElement> searchCriterea, IEnumerable<IDOMElement> domElements, PostModel postModel)
+        {
+            IDOMElement result = null;
+
+            var domElementsIndex = 0;
+            var domElementsCount = domElements.Count();
+
+            while (result == null && domElementsCount > domElementsIndex)
+            {
+                result = SearchForNode(searchCriterea, domElements.ElementAt(domElementsIndex++), postModel);
+            }
+
+            return result;
+        }
+
         public virtual dynamic ProcessDOMNode(XElement xmlParceRule, IDOMElement expectedDOMElement, PostModel postModel)
         {
             string result = null;
@@ -73,6 +88,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             {
                 case "values":
                 case "childs":
+                case "element":
                     getResult = expectedNode.GetContent(getCriterea.Name.ToString());
                     break;
                 default:
@@ -152,10 +168,30 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                     if (!string.IsNullOrEmpty(link))
                     {
                         var serializedExternalData = await GetAdditionalResourceData(string.Format("{0}\\{1}", postModel.BaseURL.TrimEnd(new[] { '\\', ' ' }), link));
+                        if (serializedExternalData != null)
+                        {
+                            var externalGetContentCriteriaNode = xmlParceRules.FirstOrDefault(el => el.Name.ToString().ToLower() == EXTERNAL_GET_CONTENT_NODE_NAME.ToLower());
+                            if (externalGetContentCriteriaNode != null)
+                            {
+                                var expectedDataNode = SearchForNode(externalGetContentCriteriaNode.Elements(), serializedExternalData, postModel);
+                                if (expectedDataNode != null)
+                                {
+                                    var dataEl = ProcessGetCriterea(externalGetContentCriteriaNode, expectedDataNode, postModel, EXTERNAL_GET_CONTENT_NODE_NAME);
+                                }
+                            }
+                            else
+                            {
+                                Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory no get criteria node", LogTypeEnum.CORE);
+                            }
+                        }
+                        else
+                        {
+                            Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory serialization result is null", LogTypeEnum.CORE);
+                        }
                     }
                     else
                     {
-                        Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory returned an empty link", LogTypeEnum.CORE);
+                        Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory has an empty link", LogTypeEnum.CORE);
                     }
                 }
                 else

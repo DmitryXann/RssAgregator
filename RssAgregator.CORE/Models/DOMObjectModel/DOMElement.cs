@@ -10,6 +10,8 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
 {
     public class DOMElement : IDOMElement
     {
+        private readonly IEnumerable<string> tagsWithoutClosingTag = new[] { "area", "base", "br", "col", "command", "embed", "hr", "img", "input", "input", "meta", "param", "source", "html", "link", "!doctype", "!" };
+
         public IDOMElement Parent { get; private set; }
         public List<IDOMElement> Childs { get; private set; }
 
@@ -57,10 +59,11 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
                 {
                     _content = Element.ToString();
                 }
-                else if (!BadTag && ElementType == DOMEleementTypeEnum.Tag && !string.IsNullOrEmpty(TagName) && TagName.ToLower() == "img" && string.IsNullOrEmpty(_content)) 
+                else if (!BadTag && ElementType == DOMEleementTypeEnum.Tag && !string.IsNullOrEmpty(TagName) && TagName == "img" && string.IsNullOrEmpty(_content)) 
                 {
                     _content = GetTagPropertyContent("src");
                 }
+
                 return _content;
             }
         }
@@ -69,7 +72,7 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
         {
             get 
             {
-                return ElementType == DOMEleementTypeEnum.Text;
+                return ElementType == DOMEleementTypeEnum.Text || ElementType == DOMEleementTypeEnum.Script;
             }        
         }
 
@@ -84,33 +87,61 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
             {
                 if (Element[0] == '<')
                 {
-                    if (Element[1] == '!')
+                    var tagNameIndexEnd = Element.FirstIndexOfAny(false, " ", "\t", "\n");
+                    if (tagNameIndexEnd > 0)
                     {
-                        ElementType = DOMEleementTypeEnum.Comment;
+                        TagName = Element.GetRange(1, tagNameIndexEnd - 1).ToString().ToLower();
+                    }
+                    else if (Element[Element.Length - 1] == '>')
+                    {
+                        TagName = Element.GetRange(1, Element.Length - 2).ToString().ToLower();
+                    }
+                    else
+                    {
+                        BadTag = true;
                         IsDomElementComplete = true;
                     }
-                    else 
+
+                    switch (TagName)
                     {
-                        ElementType = DOMEleementTypeEnum.Tag;
+                        case "script":
+                            ElementType = DOMEleementTypeEnum.Script;
+                        break;
+                        case "noscript":
+                            ElementType = DOMEleementTypeEnum.NoScript;
+                        break;
+                        default:
+                            if (Element[1] == '!')
+                            {
+                                ElementType = DOMEleementTypeEnum.Comment;
 
-                        var tagNameIndexEnd = Element.FirstIndexOfAny(false, " ", "\t", "\n");
-                        if (tagNameIndexEnd > 0)
-                        {
-                            TagName = Element.GetRange(1, tagNameIndexEnd - 1).ToString();
-                        }
-                        else if (Element[Element.Length - 1] == '>')
-                        {
-                            TagName = Element.GetRange(1, Element.Length - 2).ToString();
-                        }
-                        else
-                        {
-                            BadTag = true;
-                            IsDomElementComplete = true;
-                        }
+                                if (Element.Length >= 4 && (Element[2] == '-' && Element[3] == '-'))
+                                {
+                                    TagName = "--";
 
-                        IsDomElementComplete = Element[Element.Length - 1] == '>' && Element[Element.Length - 2] == '/' || !string.IsNullOrEmpty(TagName) && TagName.ToLower() == "br";
+                                    if (Element.Length >= 7 && (Element[Element.Length - 2] == '-' && Element[Element.Length - 3] == '-'))
+                                    {
+                                        IsDomElementComplete = true;
+                                    }
+                                }
+                            }
+                            else if (Element.Length >= 4 && (Element[Element.Length - 2] == '-' && Element[Element.Length - 2] == '-'))
+                            {
+                                ElementType = DOMEleementTypeEnum.Comment;
+                                TagName = "--";
+                            }
+                            else
+                            {
+                                ElementType = DOMEleementTypeEnum.Tag;
+                            }
+                        break;
                     }
-                    
+
+                    if (!IsDomElementComplete)
+                    {
+                        IsDomElementComplete = (Element[Element.Length - 1] == '>' && Element[Element.Length - 2] == '/') ||
+                                                (!string.IsNullOrEmpty(TagName) && tagsWithoutClosingTag.Contains(TagName));
+                    }
                 }
                 else
                 {
@@ -133,6 +164,18 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
         public void AddChildRange(IEnumerable<IDOMElement> childs)
         {
             Childs.AddRange(childs);
+        }
+
+        public void AddComplexElementContent(string content)
+        {
+            if (ElementType == DOMEleementTypeEnum.Script || ElementType == DOMEleementTypeEnum.Comment || ElementType == DOMEleementTypeEnum.NoScript)
+            {
+                _content += content;
+            }
+            else
+            {
+                throw new InvalidOperationException("AddContent is only valid for the DOMEleementTypeEnum.Script ElementType");
+            }
         }
 
         public string GetTagPropertyContent(string propertyName)
@@ -166,7 +209,7 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
             switch(key.ToLower())
             {
                 case "name":
-                    result = TagName == value;
+                    result = TagName == value.ToLower();
                 break;
                 default:
                     var tagPropertyContent = GetTagPropertyContent(key);
@@ -189,6 +232,9 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
                 break;
                 case "childs":
                     result = DeserializeChilds(this, true);
+                break;
+                case "element":
+                    result = DesirializeNode();
                 break;
                 default:
                     result = GetTagPropertyContent(contentSource);
@@ -224,6 +270,13 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
             }
 
             return currentNode;
+        }
+
+        public string DesirializeNode()
+        {
+            return Element.ToString() + (string.IsNullOrEmpty(TagName) || (!string.IsNullOrEmpty(TagName) && tagsWithoutClosingTag.Contains(TagName))
+                                            ? string.Empty
+                                            : string.Format("</{0}>", TagName));
         }
 
         public IDOMElement this[int index]
@@ -266,7 +319,7 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
                     currentElement.Childs.Select(el => DeserializeChilds(el, doNotAddRootElement)).Aggregate(string.Empty, (agg, el) => agg + el) +
                     (string.IsNullOrEmpty(currentElement.TagName) ||
                     (doNotAddRootElement && currentElement == this) || 
-                    (!string.IsNullOrEmpty(currentElement.TagName) && currentElement.TagName.ToLower()  == "br") ? string.Empty : string.Format("</{0}>", currentElement.TagName));
+                    (!string.IsNullOrEmpty(currentElement.TagName) && tagsWithoutClosingTag.Contains(currentElement.TagName)) ? string.Empty : string.Format("</{0}>", currentElement.TagName));
         }
     }
 }

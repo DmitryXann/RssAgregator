@@ -5,6 +5,8 @@ namespace RssAgregator.CORE.Models.Enums
     {
         Text,
         Tag,
-        Comment
+        Comment,
+        Script,
+        NoScript
     }
 }

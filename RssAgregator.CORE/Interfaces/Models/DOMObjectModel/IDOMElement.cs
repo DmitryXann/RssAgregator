@@ -27,10 +27,12 @@ namespace RssAgregator.CORE.Interfaces.Models.DOMObjectModel
 
         void AddChild(IDOMElement child);
         void AddChildRange(IEnumerable<IDOMElement> childs);
+        void AddComplexElementContent(string content);
 
         string GetTagPropertyContent(string propertyName);
         bool ElementMatch(string key, string value, bool useContains = false);
         string GetContent(string contentSource);
+        string DesirializeNode();
 
         IDOMElement GetFirstChild(Func<IDOMElement, bool> filter);
         IDOMElement GetLastChildFromChilds(Func<IDOMElement, string, bool> filter, params string[] childs);

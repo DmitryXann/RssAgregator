@@ -109,6 +109,7 @@ namespace RssAgregator.CORE.Parcers.Base
                 var normalizedDom = denormalizedDom.Split(el => splitCharacters.Any(elem => elem == el), el => el == '>');
 
                 IDOMElement parentNode = null;
+                var complexElementProcessing = false;
 
                 foreach (var el in normalizedDom)
                 {
@@ -117,50 +118,83 @@ namespace RssAgregator.CORE.Parcers.Base
                         var tagName = string.Empty;
                         var tagNameIndexEnd = el.FirstIndexOfAny(false, " ", "\t", "\n");
 
-                        if (el.Length >= 2 && el[0] == '<' && el[1] == '/')
+                        if (el.Length >= 2 && el[0] == '<' && (el[1] == '/' || (el[1] == '!' && complexElementProcessing)))
                         {
                             tagName = el.GetRange(2, tagNameIndexEnd > 0 ? tagNameIndexEnd - 1 : el.Length - 3).ToString().ToLower();
 
-                            var curretnNode = parentNode;
-
-                            while (curretnNode != null && (curretnNode.TagName != tagName || curretnNode.IsDomElementComplete))
+                            if (el[1] == '!' && complexElementProcessing && (tagName.Length > 2 && tagName[tagName.Length - 1] == '-' && tagName[tagName.Length - 2] == '-'))
                             {
-                                curretnNode = curretnNode.Parent;
+                                tagName = "--";
                             }
 
-                            if (curretnNode != null && curretnNode.TagName == tagName && !curretnNode.IsDomElementComplete)
-                            {
-                                curretnNode.IsDomElementComplete = true;
+                            var curretnNode = parentNode;
 
-                                while (curretnNode != null && curretnNode.IsDomElementComplete)
+                            if (complexElementProcessing)
+                            {
+                                if (curretnNode.TagName == tagName)
+                                {
+                                    complexElementProcessing = false;
+
+                                    curretnNode.IsDomElementComplete = true;
+
+                                    while (curretnNode != null && curretnNode.IsDomElementComplete)
+                                    {
+                                        curretnNode = curretnNode.Parent;
+                                    }
+
+                                    parentNode = curretnNode == null ? null : curretnNode;
+                                }
+                                else
+                                {
+                                    parentNode.AddComplexElementContent(el.ToString());
+                                }
+                            }
+                            else
+                            {
+                                while (curretnNode != null && (curretnNode.TagName != tagName || curretnNode.IsDomElementComplete))
                                 {
                                     curretnNode = curretnNode.Parent;
                                 }
 
-                                parentNode = curretnNode == null ? null : curretnNode;
+                                if (curretnNode != null && curretnNode.TagName == tagName && !curretnNode.IsDomElementComplete)
+                                {
+                                    curretnNode.IsDomElementComplete = true;
+
+                                    while (curretnNode != null && curretnNode.IsDomElementComplete)
+                                    {
+                                        curretnNode = curretnNode.Parent;
+                                    }
+
+                                    parentNode = curretnNode == null ? null : curretnNode;
+                                }
                             }
                         }
                         else
                         {
-                            //if (tagNameIndexEnd > 0)
-                            //{
-                            //    tagName = el.GetRange(1, tagNameIndexEnd - 1).ToString().ToLower();
-                            //}
-
-                            var newElement = new DOMElement(parentNode, el);
-
-                            if (parentNode == null)
+                            if (complexElementProcessing)
                             {
-                                serializedList.Add(newElement);
+                                parentNode.AddComplexElementContent(el.ToString());
                             }
                             else
                             {
-                                parentNode.AddChild(newElement);
-                            }
+                                var newElement = new DOMElement(parentNode, el);
 
-                            if (!newElement.IsDomElementComplete && !newElement.BadTag)
-                            {
-                                parentNode = newElement;
+                                if (parentNode == null)
+                                {
+                                    serializedList.Add(newElement);
+                                }
+                                else
+                                {
+                                    parentNode.AddChild(newElement);
+                                }
+
+                                if (!newElement.IsDomElementComplete && !newElement.BadTag)
+                                {
+                                    parentNode = newElement;
+                                    complexElementProcessing = parentNode.ElementType == DOMEleementTypeEnum.Script || 
+                                                               parentNode.ElementType == DOMEleementTypeEnum.Comment ||
+                                                               parentNode.ElementType == DOMEleementTypeEnum.NoScript;
+                                }
                             }
                         }
                     }
