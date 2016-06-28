@@ -236,6 +236,9 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
                 case "element":
                     result = DesirializeNode();
                 break;
+                case "content":
+                    result = Content;
+                break;
                 default:
                     result = GetTagPropertyContent(contentSource);
                 break;
@@ -256,6 +259,20 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
             GetFirstChildInSubThree(this, filter, ref firstChildInSubThree);
 
             return firstChildInSubThree;
+        }
+
+        public IDOMElement GetLastChild(Func<IDOMElement, bool> filter)
+        {
+            return Childs.LastOrDefault(filter);
+        }
+
+        public IDOMElement GetLastChildInSubThree(Func<IDOMElement, bool> filter)
+        {
+            IDOMElement lastChildInSubThree = null;
+
+            GetLastChildInSubThree(this, filter, ref lastChildInSubThree);
+
+            return lastChildInSubThree;
         }
 
         public IDOMElement GetLastChildFromChilds(Func<IDOMElement, string, bool> filter, params string[] childs)
@@ -306,9 +323,30 @@ namespace RssAgregator.CORE.Models.DOMObjectModel
             }
             else
             {
-                foreach (var el in currentElement.Childs)
+                var childs = currentElement.Childs;
+                var index = 0;
+
+                while (foundElement == null && index < childs.Count)
                 {
-                    GetFirstChildInSubThree(el, filter, ref foundElement);
+                    GetFirstChildInSubThree(childs[index++], filter, ref foundElement);
+                }
+            }
+        }
+
+        private void GetLastChildInSubThree(IDOMElement currentElement, Func<IDOMElement, bool> filter, ref IDOMElement foundElement)
+        {
+            if (filter(currentElement))
+            {
+                foundElement = currentElement;
+            }
+            else
+            {
+                var childs = currentElement.Childs;
+                var index = childs.Count - 1;
+
+                while(foundElement == null && index >= 0)
+                {
+                    GetLastChildInSubThree(childs[index--], filter, ref foundElement);
                 }
             }
         }

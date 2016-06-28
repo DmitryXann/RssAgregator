@@ -109,8 +109,8 @@ namespace RssAgregator.CORE
                                                 foreach (var el in ((BasePostContentModel<AudioPostContentContainerModel>)postContent).PostSpecificContent)
                                                 {
                                                     postStringContetnt.Add(audioPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el.Link)
-                                                                                                   .Replace(CONTENT_MEDIA_AUTHOR_PLACEHOLDER, el.Artist)
-                                                                                                   .Replace(CONTENT_MEDIA_NAME_PLACEHOLDER, el.Name));
+                                                                                                   .Replace(CONTENT_MEDIA_NAME_PLACEHOLDER, el.Name)
+                                                                                                   .Replace(CONTENT_MEDIA_AUTHOR_PLACEHOLDER, el.Artist));
                                                 }
                                             break;
                                             case PostContentTypeEnum.Video:
@@ -123,7 +123,7 @@ namespace RssAgregator.CORE
                                                     foreach (var el in ((BasePostContentModel<VideoPostContentContainerModel>)postContent).PostSpecificContent)
                                                     {
                                                         videoPostContainers += videoPostContainer.View.Replace(CONTENT_VALUE_PLACEHOLDER, el.Data)
-                                                                                                   .Replace(CONTENT_MEDIA_AUTHOR_PLACEHOLDER, el.Name)
+                                                                                                   .Replace(CONTENT_MEDIA_NAME_PLACEHOLDER, el.Name)
                                                                                                    .Replace(CONTENT_MEDIA_PREVIEW_PLACEHOLDER, el.ImagePreviewLink);
                                                     }
 

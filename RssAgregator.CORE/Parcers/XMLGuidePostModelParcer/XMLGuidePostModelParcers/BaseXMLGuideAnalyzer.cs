@@ -27,30 +27,45 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
         protected const string ADDITIONAL_PREFIX                        = "Additional";
 
         protected const string USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME    = "strictEqual";
-        protected const string STRING_TRIM_NAME                         = "stringTrim";
-        protected const string REG_EXP_TRIM_NAME                        = "regExpTrim";
+        protected const string STRING_TRIM_ATTRIBUTE_NAME               = "stringTrim";
+        protected const string REG_EXP_TRIM_ATTRIBUTE_NAME              = "regExpTrim";
+        protected const string REMOVE_TRIM_ATTRIBUTE_NAME               = "removeTrim";
+
+        protected const string USE_LAST_CHILD_SEARCH_ATTRIBUTE_NAME     = "useLastChildSearch";
 
         protected const string EXPECTED_AUTHOR_ID_MACRO_NAME            = "{AuthorId}";
         protected const string EXPECTED_POST_ID_MACRO_NAME              = "{PostId}";
 
-        protected virtual IDOMElement SearchForNode(IEnumerable<XElement> searchCriterea, IDOMElement domElement, PostModel postModel)
+        protected virtual IDOMElement SearchForNode(IEnumerable<XElement> searchCriterea, IDOMElement domElement, PostModel postModel, bool useFirstElSearch = true)
         {
-            return domElement.GetFirstChildInSubThree(el => searchCriterea.All(elem =>
-                                                                                el.ElementMatch(elem.Name.ToString(), elem.Value.Replace(EXPECTED_AUTHOR_ID_MACRO_NAME, postModel.AuthorId)
-                                                                                                                                .Replace(EXPECTED_POST_ID_MACRO_NAME, postModel.PostId), 
-                                                                                elem.Attributes().Any(attr => attr.Name.ToString().ToLower() == USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))));
+            Func<IDOMElement, bool> searchCritereaFilter = el => 
+                searchCriterea.All(elem => el.ElementMatch(elem.Name.ToString(), 
+                                                            elem.Value.Replace(EXPECTED_AUTHOR_ID_MACRO_NAME, postModel.AuthorId).Replace(EXPECTED_POST_ID_MACRO_NAME, postModel.PostId),
+                                                            elem.Attributes().Any(attr => attr.Name.ToString().ToLower() == USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value))));
+
+            return useFirstElSearch ? domElement.GetFirstChildInSubThree(searchCritereaFilter) : domElement.GetLastChildInSubThree(searchCritereaFilter);
         }
 
-        protected virtual IDOMElement SearchForNode(IEnumerable<XElement> searchCriterea, IEnumerable<IDOMElement> domElements, PostModel postModel)
+        protected virtual IDOMElement SearchForNode(IEnumerable<XElement> searchCriterea, IEnumerable<IDOMElement> domElements, PostModel postModel, bool useFirstElSearch = true)
         {
             IDOMElement result = null;
 
-            var domElementsIndex = 0;
             var domElementsCount = domElements.Count();
+            var domElementsIndex = useFirstElSearch ? 0 : domElementsCount - 1;
 
-            while (result == null && domElementsCount > domElementsIndex)
+            if (useFirstElSearch)
             {
-                result = SearchForNode(searchCriterea, domElements.ElementAt(domElementsIndex++), postModel);
+                while (result == null && domElementsCount > domElementsIndex)
+                {
+                    result = SearchForNode(searchCriterea, domElements.ElementAt(domElementsIndex++), postModel, useFirstElSearch);
+                }
+            }
+            else
+            {
+                while (result == null && domElementsIndex >= 0)
+                {
+                    result = SearchForNode(searchCriterea, domElements.ElementAt(domElementsIndex--), postModel, useFirstElSearch);
+                }
             }
 
             return result;
@@ -89,27 +104,32 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                 case "values":
                 case "childs":
                 case "element":
+                case "content":
                     getResult = expectedNode.GetContent(getCriterea.Name.ToString());
-                    break;
+                break;
                 default:
                     var expectedNodeContent = expectedNode.GetContent(getCriterea.Name.ToString());
                     if (!string.IsNullOrEmpty(expectedNodeContent))
                     {
                         getResult = string.IsNullOrEmpty(getCriterea.Value) ? expectedNodeContent : Regex.Match(expectedNodeContent, getCriterea.Value, RegexOptions.IgnoreCase).Value;
                     }
-                    break;
+                break;
             }
 
             var trimCritereaNode = xmlParceRule.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == (string.IsNullOrEmpty(postfix) ? TRIM_CRITEREA_NODE_NAME : TRIM_CRITEREA_NODE_NAME + postfix).ToLower());
             if (trimCritereaNode != null)
             {
-                if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == STRING_TRIM_NAME.ToLower() && bool.Parse(attr.Value)))
+                if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == STRING_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                 {
                     result = getResult.Split(trimCritereaNode.Value.Split(new[] { ' ' }), StringSplitOptions.RemoveEmptyEntries)[0];
                 }
-                else if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REG_EXP_TRIM_NAME.ToLower() && bool.Parse(attr.Value)))
+                else if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REG_EXP_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                 {
                     result = Regex.Match(getResult, trimCritereaNode.Value, RegexOptions.IgnoreCase).Value;
+                }
+                else if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REMOVE_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
+                {
+                    result = result.Where(el => !trimCritereaNode.Value.Any(elem => elem == el)).Aggregate(string.Empty, (agg, el) => agg + el);
                 }
                 else
                 {
@@ -119,13 +139,17 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                 var additionalTrimCritereaNode = xmlParceRule.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == (ADDITIONAL_PREFIX + (string.IsNullOrEmpty(postfix) ? TRIM_CRITEREA_NODE_NAME : TRIM_CRITEREA_NODE_NAME + postfix)).ToLower());
                 if (additionalTrimCritereaNode != null)
                 {
-                    if (additionalTrimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == STRING_TRIM_NAME.ToLower() && bool.Parse(attr.Value)))
+                    if (additionalTrimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == STRING_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                     {
                         result = result.Split(additionalTrimCritereaNode.Value.Split(new[] { ' ' }), StringSplitOptions.RemoveEmptyEntries)[0];
                     }
-                    else if (additionalTrimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REG_EXP_TRIM_NAME.ToLower() && bool.Parse(attr.Value)))
+                    else if (additionalTrimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REG_EXP_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                     {
                         result = Regex.Match(result, additionalTrimCritereaNode.Value, RegexOptions.IgnoreCase).Value;
+                    }
+                    else if (additionalTrimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REMOVE_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
+                    {
+                        result = result.Where(el => !additionalTrimCritereaNode.Value.Any(elem => elem == el)).Aggregate(string.Empty, (agg, el) => agg + el);
                     }
                     else
                     {
@@ -173,10 +197,17 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                             var externalGetContentCriteriaNode = xmlParceRules.FirstOrDefault(el => el.Name.ToString().ToLower() == EXTERNAL_GET_CONTENT_NODE_NAME.ToLower());
                             if (externalGetContentCriteriaNode != null)
                             {
-                                var expectedDataNode = SearchForNode(externalGetContentCriteriaNode.Elements(), serializedExternalData, postModel);
+                                var searchCriterea = externalGetContentCriteriaNode.Elements().FirstOrDefault(el => el.Name.ToString().ToLower() == SEARCH_CRITEREA_NODE_NAME.ToLower());
+                                var useLastElSearch = searchCriterea.Attributes().Any(attr => attr.Name.ToString().ToLower() == USE_LAST_CHILD_SEARCH_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value));
+
+                                var expectedDataNode = SearchForNode(searchCriterea.Elements(), serializedExternalData, postModel, !useLastElSearch);
                                 if (expectedDataNode != null)
                                 {
-                                    var dataEl = ProcessGetCriterea(externalGetContentCriteriaNode, expectedDataNode, postModel, EXTERNAL_GET_CONTENT_NODE_NAME);
+                                    result = ProcessGetCriterea(externalGetContentCriteriaNode, expectedDataNode, postModel);
+                                }
+                                else
+                                {
+                                    Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory no node found from external SearchForNode process", LogTypeEnum.CORE);
                                 }
                             }
                             else
@@ -202,7 +233,8 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             else
             {
                 Logger.LogException("ProcessExternlaGetCriterea from BaseXMLGuideParcer factory link node in XML Guide is not found", LogTypeEnum.CORE);
-            }            
+            }    
+                    
             return result;
         }
     }

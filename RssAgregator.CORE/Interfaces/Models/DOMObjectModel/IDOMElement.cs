@@ -35,8 +35,12 @@ namespace RssAgregator.CORE.Interfaces.Models.DOMObjectModel
         string DesirializeNode();
 
         IDOMElement GetFirstChild(Func<IDOMElement, bool> filter);
-        IDOMElement GetLastChildFromChilds(Func<IDOMElement, string, bool> filter, params string[] childs);
         IDOMElement GetFirstChildInSubThree(Func<IDOMElement, bool> filter);
+
+        IDOMElement GetLastChild(Func<IDOMElement, bool> filter);
+        IDOMElement GetLastChildInSubThree(Func<IDOMElement, bool> filter);
+
+        IDOMElement GetLastChildFromChilds(Func<IDOMElement, string, bool> filter, params string[] childs);
 
         IDOMElement this[int index] { get; set; }
     }

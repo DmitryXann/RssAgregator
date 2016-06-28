@@ -56,7 +56,7 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                             {
                                 if (trimCritereaNode != null)
                                 {
-                                    imgUrl += (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == STRING_TRIM_NAME.ToLower() && bool.Parse(attr.Value))
+                                    imgUrl += (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == STRING_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value))
                                             ? resultPart.Value.Split(trimCritereaNode.Value.Split(new[] { ' ' }), StringSplitOptions.RemoveEmptyEntries)[0]
                                             : resultPart.Value.Trim(trimCritereaNode.Value.ToArray())).Trim();
                                 }
