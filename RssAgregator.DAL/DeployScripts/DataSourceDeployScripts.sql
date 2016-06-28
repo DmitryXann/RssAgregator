@@ -163,6 +163,18 @@ SELECT @Name		= N'MDK'
 			</GetCritereaLink>
 		</Link>
 		<ExternalGetContent>
+			<SearchCriterea useLastChildSearch="true">
+				<name>script</name>
+			</SearchCriterea>
+			<GetCriterea>
+			  <content></content>
+			</GetCriterea>
+			<TrimCriterea regExpTrim="true">
+			  <![CDATA[<iframe id=\\"video_yt_player\\".+?><\\\/iframe>]]>
+			</TrimCriterea>
+			<AdditionalTrimCriterea removeTrim="true">
+			  <![CDATA[\]]>
+			</AdditionalTrimCriterea>
 		</ExternalGetContent>
 	</ExternalGet>
   </VideoContent>
