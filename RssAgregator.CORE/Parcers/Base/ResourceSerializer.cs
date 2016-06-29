@@ -118,11 +118,14 @@ namespace RssAgregator.CORE.Parcers.Base
                         var tagName = string.Empty;
                         var tagNameIndexEnd = el.FirstIndexOfAny(false, " ", "\t", "\n");
 
-                        if (el.Length >= 2 && el[0] == '<' && (el[1] == '/' || (el[1] == '!' && complexElementProcessing)))
+                        if (el.Length >= 2 && el[0] == '<' && (el[1] == '/' || 
+                            (complexElementProcessing && (el[1] == '!' || (el[el.Length - 1] == '>' && el[el.Length - 2] == '-')))))
                         {
                             tagName = el.GetRange(2, tagNameIndexEnd > 0 ? tagNameIndexEnd - 1 : el.Length - 3).ToString().ToLower();
 
-                            if (el[1] == '!' && complexElementProcessing && (tagName.Length > 2 && tagName[tagName.Length - 1] == '-' && tagName[tagName.Length - 2] == '-'))
+                            if (complexElementProcessing && 
+                                ((el[1] == '!' && (tagName.Length > 2 && tagName[tagName.Length - 1] == '-' && tagName[tagName.Length - 2] == '-')) ||
+                                tagName.Length >= 1 && tagName[tagName.Length - 1] == '-'))
                             {
                                 tagName = "--";
                             }
