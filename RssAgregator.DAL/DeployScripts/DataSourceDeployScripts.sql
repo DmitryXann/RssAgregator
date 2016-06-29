@@ -169,8 +169,8 @@ SELECT @Name		= N'MDK'
 			<GetCriterea>
 			  <content></content>
 			</GetCriterea>
-			<TrimCriterea regExpTrim="true">
-			  <![CDATA[<iframe id=\\"video_yt_player\\".+?><\\\/iframe>]]>
+			<TrimCriterea regExpTrim="true" getLastOccurence="true">
+			  <![CDATA[(<iframe id=\\"video_yt_player\\".+?><\\\/iframe>)|((http|https):\\\\\\\/\\\\\\\/([a-zA-Z0-9_\\\-\.\/])*.(360|480|720|1080).mp4)]]>
 			</TrimCriterea>
 			<AdditionalTrimCriterea removeTrim="true">
 			  <![CDATA[\]]>

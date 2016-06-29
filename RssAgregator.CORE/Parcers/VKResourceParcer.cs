@@ -43,7 +43,7 @@ namespace RssAgregator.CORE.Parcers
         {
             if (!_pageAlredySetted)
             {
-                _vkPostData[PAGE_COUNT_KEY] = "40";//(DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
+                _vkPostData[PAGE_COUNT_KEY] = "50";//(DefaultPageCount + (_pageOffsetCount * _pageOffsetMultiplier++)).ToString();
             }
 
             return await GetPostModelFromResourceData(expectedUri, HttpMethodEnum.POST, _vkPostData);

@@ -27,8 +27,11 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
         protected const string ADDITIONAL_PREFIX                        = "Additional";
 
         protected const string USE_STRICT_EQUAL_CHECK_ATTRIBUTE_NAME    = "strictEqual";
+
         protected const string STRING_TRIM_ATTRIBUTE_NAME               = "stringTrim";
         protected const string REG_EXP_TRIM_ATTRIBUTE_NAME              = "regExpTrim";
+        protected const string GET_LAST_OCCURENCE_ATTRIBUTE_NAME        = "getLastOccurence";
+
         protected const string REMOVE_TRIM_ATTRIBUTE_NAME               = "removeTrim";
 
         protected const string USE_LAST_CHILD_SEARCH_ATTRIBUTE_NAME     = "useLastChildSearch";
@@ -121,11 +124,22 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
             {
                 if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == STRING_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                 {
-                    result = getResult.Split(trimCritereaNode.Value.Split(new[] { ' ' }), StringSplitOptions.RemoveEmptyEntries)[0];
+                    var splitResult = getResult.Split(trimCritereaNode.Value.Split(new[] { ' ' }), StringSplitOptions.RemoveEmptyEntries);
+                    result = trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == GET_LAST_OCCURENCE_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value))
+                                ? splitResult[splitResult.Length - 1]
+                                : splitResult[0];
                 }
                 else if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REG_EXP_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                 {
-                    result = Regex.Match(getResult, trimCritereaNode.Value, RegexOptions.IgnoreCase).Value;
+                    if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == GET_LAST_OCCURENCE_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
+                    {
+                        var regExpMatch = Regex.Matches(getResult, trimCritereaNode.Value, RegexOptions.IgnoreCase);
+                        result = regExpMatch[regExpMatch.Count - 1].Value;
+                    }
+                    else
+                    {
+                        result = Regex.Match(getResult, trimCritereaNode.Value, RegexOptions.IgnoreCase).Value;
+                    }
                 }
                 else if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REMOVE_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                 {
@@ -141,11 +155,22 @@ namespace RssAgregator.CORE.Parcers.XMLGuidePostModelParcer.XMLGuidePostModelPar
                 {
                     if (additionalTrimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == STRING_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                     {
-                        result = result.Split(additionalTrimCritereaNode.Value.Split(new[] { ' ' }), StringSplitOptions.RemoveEmptyEntries)[0];
+                        var splitResult = getResult.Split(trimCritereaNode.Value.Split(new[] { ' ' }), StringSplitOptions.RemoveEmptyEntries);
+                        result = trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == GET_LAST_OCCURENCE_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value))
+                                    ? splitResult[splitResult.Length - 1]
+                                    : splitResult[0];
                     }
                     else if (additionalTrimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REG_EXP_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                     {
-                        result = Regex.Match(result, additionalTrimCritereaNode.Value, RegexOptions.IgnoreCase).Value;
+                        if (trimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == GET_LAST_OCCURENCE_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
+                        {
+                            var regExpMatch = Regex.Matches(getResult, trimCritereaNode.Value, RegexOptions.IgnoreCase);
+                            result = regExpMatch[regExpMatch.Count - 1].Value;
+                        }
+                        else
+                        {
+                            result = Regex.Match(getResult, trimCritereaNode.Value, RegexOptions.IgnoreCase).Value;
+                        }
                     }
                     else if (additionalTrimCritereaNode.Attributes().Any(attr => attr.Name.ToString().ToLower() == REMOVE_TRIM_ATTRIBUTE_NAME.ToLower() && bool.Parse(attr.Value)))
                     {
