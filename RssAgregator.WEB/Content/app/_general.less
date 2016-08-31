@@ -1,15 +1,26 @@
 ﻿@import "_mixins.less";
 
+html {
+    background-color: @background;
+    height: 100%;
+}
+
 body {
     font-family: OpenSans, 'OpenSans', sans-serif;
     font-size: 13px;
     font-weight: normal;
     .text();
     padding: 15px;
+    background-color: #fff;
+    max-width: 1650px;
+    margin: 0 auto;
+    height: 100%;
+
 }
 
 a {
     .link();
+
     &.text-link {
         text-decoration: underline;
     }

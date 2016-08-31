@@ -77,12 +77,20 @@
 .text {
   color: #313947;
 }
+html {
+  background-color: #1c2b47;
+  height: 100%;
+}
 body {
   font-family: OpenSans, 'OpenSans', sans-serif;
   font-size: 13px;
   font-weight: normal;
   color: #313947;
   padding: 15px;
+  background-color: #fff;
+  max-width: 1650px;
+  margin: 0 auto;
+  height: 100%;
 }
 a {
   color: #4e79c7;
@@ -130,10 +138,17 @@ a.text-link {
   color: #1c2b47;
   border-radius: 0;
 }
-.content-menu .menu-item {
+.content-menu {
+  border-bottom: 1px solid #1c2b47;
+}
+.content-menu .close-menu-btn {
+  display: block;
+  margin: 10px auto;
+}
+.content-menu .content-menu-container .menu-item {
   text-transform: uppercase;
 }
-.content-menu .menu-item a {
+.content-menu .content-menu-container .menu-item a {
   text-decoration: none;
 }
 .invalid-data-on-page .ct-app .ct-ignition__button--confirm {

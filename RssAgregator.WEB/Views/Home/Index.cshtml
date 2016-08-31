@@ -8,16 +8,16 @@
         switch(serverResult.InfoResult.ResultCode) {
             case 0:
                 toastr.error("No result from server");
-            break;
+                break;
             case 1:
                 uiSettings = serverResult.DataResult;
-            break;
+                break;
             case 2:
                 toastr.error(serverResult.InfoResult.ResultMessage);
-            break;
+                break;
             case 3:
                 toastr.warning(serverResult.InfoResult.ResultMessage);
-            break;
+                break;
         }
 
         angular.module('app').constant('uiSettings', uiSettings);
@@ -28,3 +28,22 @@
 @*<navigation></navigation>*@
 @*<login></login>*@
 <div ng-view view-action></div>
+
+
+
+<div class="content-menu">
+    
+    <div class="row content-menu-container" uib-collapse="!isCollapsed">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <ul class="nav navbar">
+                    <li class="menu-item"><a href="#">Video</a></li>
+                    <li class="menu-item"><a href="#">Pictures</a></li>
+                    <li class="menu-item"><a href="#">Audio</a></li>
+                    <li class="menu-item"><a href="#">Text</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <button type="button" class="btn btn-invisible close-menu-btn" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-lg fa-bars"></i></button>
+</div>
