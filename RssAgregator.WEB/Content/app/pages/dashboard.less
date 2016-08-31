@@ -25,15 +25,42 @@
 
     .close-menu-btn {
         display: block;
-        margin: 10px auto;
+        margin: 10px;
+        position: relative;
+        z-index: 2;
+        left: 49.15%;
+        .m-accent();
     }
 
     .content-menu-container {
+        position: absolute;
+        left: 0;
+        right: 17px;
+        background-color: @m-accent;
+
+        .navbar-custom {
+            width: @max-body-width;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
         .menu-item {
             text-transform: uppercase;
+            padding: 0 20px;
 
             a {
                 text-decoration: none;
+                background-color: @body-background;
+                font-weight: bold;
+                font-size: 24px;
+                .background();
+            }
+        }
+
+        &.in {
+            & + .close-menu-btn {
+                color: @body-background;
+                bottom: -68px;
             }
         }
     }

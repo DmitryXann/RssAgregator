@@ -3,6 +3,11 @@
     border: none;
     box-shadow: none;
     text-shadow: none;
+
+    &:focus, &:active:focus, &.active:focus, &.focus, &.focus:active, &.active.focus {
+        outline: none;
+        box-shadow: none;
+    }
 }
 
 //--Utils

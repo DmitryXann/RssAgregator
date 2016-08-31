@@ -23,20 +23,20 @@
         angular.module('app').constant('uiSettings', uiSettings);
     })(angular, toastr);
 </script>
-@*<audio-player></audio-player>*@
+<audio-player></audio-player>
 @*<word-cloud width="600" height="400"></word-cloud>*@
 @*<navigation></navigation>*@
-@*<login></login>*@
+<login></login>
 <div ng-view view-action></div>
 
 
 
 <div class="content-menu">
-    
+
     <div class="row content-menu-container" uib-collapse="!isCollapsed">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-custom">
             <div class="container-fluid">
-                <ul class="nav navbar">
+                <ul class="nav nav-justified">
                     <li class="menu-item"><a href="#">Video</a></li>
                     <li class="menu-item"><a href="#">Pictures</a></li>
                     <li class="menu-item"><a href="#">Audio</a></li>
